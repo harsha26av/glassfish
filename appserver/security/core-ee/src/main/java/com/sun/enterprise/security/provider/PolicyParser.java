@@ -703,27 +703,39 @@ public class PolicyParser {
 
 	case StreamTokenizer.TT_WORD:
 	    if (expect.equalsIgnoreCase(st.sval))
-		found = true;
+		{
+		    found = true;
+		}
 	    break;
 	case ',':
 	    if (expect.equalsIgnoreCase(","))
-		found = true;
+		{
+		    found = true;
+		}
 	    break;
 	case '{':
 	    if (expect.equalsIgnoreCase("{"))
-		found = true;
+		{
+		    found = true;
+		}
 	    break;
 	case '}':
 	    if (expect.equalsIgnoreCase("}"))
-		found = true;
+		{
+		    found = true;
+		}
 	    break;
 	case '"':
 	    if (expect.equalsIgnoreCase("\""))
-		found = true;
+		{
+		    found = true;
+		}
 	    break;
 	case '*':
 	    if (expect.equalsIgnoreCase("*"))
-		found = true;
+		{
+		    found = true;
+		}
 	    break;
 	default:
 
@@ -777,33 +789,53 @@ public class PolicyParser {
 	    break;
 	case ',':
 	    if (expect.equalsIgnoreCase(","))
-		lookahead = st.nextToken();
+		{
+		    lookahead = st.nextToken();
+		}
 	    else
-		throw new ParsingException(st.lineno(), expect, ",");
+		{
+		    throw new ParsingException(st.lineno(), expect, ",");
+		}
 	    break;
 	case '{':
 	    if (expect.equalsIgnoreCase("{"))
-		lookahead = st.nextToken();
+		{
+		    lookahead = st.nextToken();
+		}
 	    else
-		throw new ParsingException(st.lineno(), expect, "{");
+		{
+		    throw new ParsingException(st.lineno(), expect, "{");
+		}
 	    break;
 	case '}':
 	    if (expect.equalsIgnoreCase("}"))
-		lookahead = st.nextToken();
+		{
+		    lookahead = st.nextToken();
+		}
 	    else
-		throw new ParsingException(st.lineno(), expect, "}");
+		{
+		    throw new ParsingException(st.lineno(), expect, "}");
+		}
 	    break;
 	case ';':
 	    if (expect.equalsIgnoreCase(";"))
-		lookahead = st.nextToken();
+		{
+		    lookahead = st.nextToken();
+		}
 	    else
-		throw new ParsingException(st.lineno(), expect, ";");
+		{
+		    throw new ParsingException(st.lineno(), expect, ";");
+		}
 	    break;
 	case '*':
 	    if (expect.equalsIgnoreCase("*"))
-		lookahead = st.nextToken();
+		{
+		    lookahead = st.nextToken();
+		}
 	    else
-		throw new ParsingException(st.lineno(), expect, "*");
+		{
+		    throw new ParsingException(st.lineno(), expect, "*");
+		}
 	    break;
 	default:
 	    throw new ParsingException(st.lineno(), expect,
@@ -992,8 +1024,10 @@ public class PolicyParser {
 	 */
 	public PrincipalEntry(String principalClass, String principalName) {
 	    if (principalClass == null || principalName == null)
-		throw new NullPointerException(ResourcesMgr.getString(
+		{
+		    throw new NullPointerException(ResourcesMgr.getString(
 			          "null principalClass or principalName"));
+		}
 	    this.principalClass = principalClass;
 	    this.principalName = principalName;
 	}
@@ -1050,10 +1084,14 @@ public class PolicyParser {
 	 */
 	public boolean equals(Object obj) {
 	    if (this == obj)
-		return true;
+		{
+		    return true;
+		}
 
 	    if (!(obj instanceof PrincipalEntry))
-		return false;
+		{
+		    return false;
+		}
 
 	    PrincipalEntry that = (PrincipalEntry)obj;
 	    if (this.principalClass.equals(that.principalClass) &&
@@ -1133,10 +1171,14 @@ public class PolicyParser {
 
 	public boolean equals(Object obj) {
 	    if (obj == this)
-		return true;
+		{
+		    return true;
+		}
 
 	    if (! (obj instanceof PermissionEntry))
-		return false;
+		{
+		    return false;
+		}
 
 	    PermissionEntry that = (PermissionEntry) obj;
 

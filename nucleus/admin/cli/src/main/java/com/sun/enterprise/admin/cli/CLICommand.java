@@ -905,8 +905,10 @@ public abstract class CLICommand implements PostConstruct {
             if (opt.getParam().password())
                 continue;       // passwords are handled later
 	    if (opt.getParam().obsolete() && getOption(opt.getName()) != null)
-		logger.info(
+		{
+		    logger.info(
 			strings.get("ObsoleteOption", opt.getName()));
+		}
             if (opt.getParam().optional())
                 continue;
             if (opt.getParam().primary())

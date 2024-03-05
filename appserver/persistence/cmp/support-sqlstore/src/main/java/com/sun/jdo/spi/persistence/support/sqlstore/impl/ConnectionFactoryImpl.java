@@ -563,7 +563,9 @@ public class ConnectionFactoryImpl implements ConnectionFactory, java.io.Seriali
 	// Delegate to ConnectionManager
 	try {
 		if (connectionManager == null)
-			initialize();
+			{
+			    initialize();
+			}
 
                 Connection conn = connectionManager.getConnection();
 		conn.setTransactionIsolation(_txIsolation);

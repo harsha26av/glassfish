@@ -114,7 +114,9 @@ public class LogFormatter
             strBuf.append("[ ").append(obj).append("->");
             Object val=prop.getProperty((String)obj);
             if(val==null)
-	        strBuf.append("null");
+	        {
+	            strBuf.append("null");
+	        }
             else
                 strBuf.append((String)val);        
             strBuf.append(" ] ");

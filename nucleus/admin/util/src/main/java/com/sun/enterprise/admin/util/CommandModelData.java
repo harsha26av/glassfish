@@ -167,7 +167,9 @@ public class CommandModelData extends CommandModel {
             param._shortName = shortName;
             param._obsolete = obsolete;
 	    if (alias == null)
-		alias = "";
+		{
+		    alias = "";
+		}
             param._alias = alias;
             ParamModelData.this.name = name;
             ParamModelData.this.type = type;

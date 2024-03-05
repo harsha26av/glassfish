@@ -280,8 +280,10 @@ public class ClassFileSource
       ZipEntry entry =
 	zipFile.getEntry(ClassPath.zipFileNameOf(theExpectedClassName));
       if (entry == null)
-	throw new FileNotFoundException(
+	{
+	    throw new FileNotFoundException(
 	"The zip file member " + theExpectedClassName + " was not found.");
+	}
       return new DataInputStream(zipFile.getInputStream(entry));
     }
     //@olsen: added case

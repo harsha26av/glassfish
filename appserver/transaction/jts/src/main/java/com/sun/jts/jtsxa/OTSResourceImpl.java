@@ -142,7 +142,9 @@ public class OTSResourceImpl extends OTSResourcePOA implements OTSResource {
             if ((e.errorCode == XAException.XA_RETRY) || 
 		(e.errorCode == XAException.XA_RBTRANSIENT) || 
 		(e.errorCode == XAException.XA_RBCOMMFAIL)) 
-		throw new TRANSIENT();
+		{
+		    throw new TRANSIENT();
+		}
             if (e.errorCode >= XAException.XA_RBBASE &&
                 e.errorCode <= XAException.XA_RBEND) {
                 throw new HeuristicRollback(ex.getMessage());
@@ -202,7 +204,9 @@ public class OTSResourceImpl extends OTSResourcePOA implements OTSResource {
             if ((e.errorCode == XAException.XA_RETRY) || 
 					(e.errorCode == XAException.XA_RBTRANSIENT) || 
 					(e.errorCode == XAException.XA_RBCOMMFAIL)) 
-				throw new TRANSIENT();
+				{
+				    throw new TRANSIENT();
+				}
 
             // Use HeuristicHazard as a temp exception because CosTransactions.idl Resource
             // has commit_one_phase() defined to throw only HeuristicHazard 
@@ -353,7 +357,9 @@ public class OTSResourceImpl extends OTSResourcePOA implements OTSResource {
             if ((e.errorCode == XAException.XA_RETRY) || 
 		(e.errorCode == XAException.XA_RBTRANSIENT) || 
 		(e.errorCode == XAException.XA_RBCOMMFAIL)) 
-		throw new TRANSIENT();
+		{
+		    throw new TRANSIENT();
+		}
             if (e.errorCode == XAException.XAER_RMERR || 
                     e.errorCode == XAException.XA_RBROLLBACK ||
                     e.errorCode == XAException.XAER_NOTA ||

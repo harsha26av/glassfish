@@ -238,7 +238,9 @@ public class NamingContext implements Context {
         checkWritable();
         
 	while ((!name.isEmpty()) && (name.get(0).length() == 0))
-	    name = name.getSuffix(1);
+	    {
+	        name = name.getSuffix(1);
+	    }
         if (name.isEmpty())
             throw new NamingException(
                     rb.getString(LogFacade.INVALID_NAME));
@@ -447,7 +449,9 @@ public class NamingContext implements Context {
         checkWritable();
         
 	while ((!name.isEmpty()) && (name.get(0).length() == 0))
-	    name = name.getSuffix(1);
+	    {
+	        name = name.getSuffix(1);
+	    }
         if (name.isEmpty())
             throw new NamingException(
                     rb.getString(LogFacade.INVALID_NAME));
@@ -583,7 +587,9 @@ public class NamingContext implements Context {
         throws NamingException {
 
 	while ((!name.isEmpty()) && (name.get(0).length() == 0))
-	    name = name.getSuffix(1);
+	    {
+	        name = name.getSuffix(1);
+	    }
         if (name.isEmpty())
             return nameParser;
 
@@ -827,7 +833,9 @@ public class NamingContext implements Context {
         checkWritable();
         
 	while ((!name.isEmpty()) && (name.get(0).length() == 0))
-	    name = name.getSuffix(1);
+	    {
+	        name = name.getSuffix(1);
+	    }
         if (name.isEmpty())
             throw new NamingException(
                     rb.getString(LogFacade.INVALID_NAME));

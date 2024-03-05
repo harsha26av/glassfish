@@ -102,7 +102,9 @@ public class ClassPath {
     StringTokenizer parser = new StringTokenizer(className, "./", false);//NOI18N
     for (boolean first = true; parser.hasMoreElements(); first = false) {
       if (!first)
-	path.append(separator);
+	{
+	    path.append(separator);
+	}
       path.append(parser.nextToken());
     }
     path.append(".class");//NOI18N
@@ -224,9 +226,13 @@ public class ClassPath {
       ClassPathElement anElement = ClassPathElement.create(parser.nextToken());
 
       if (lastElement == null)
-	theClassPath = anElement;
+	{
+	    theClassPath = anElement;
+	}
       else
-	lastElement.append(anElement);
+	{
+	    lastElement.append(anElement);
+	}
 
       lastElement = anElement;
     }

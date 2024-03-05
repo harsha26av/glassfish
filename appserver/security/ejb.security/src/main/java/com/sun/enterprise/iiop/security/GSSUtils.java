@@ -160,7 +160,9 @@ public class GSSUtils
 	IOException e = new IOException("Invalid Name");
 
 	if (externalName[0] != 0x04)
-	    throw e;
+	    {
+	        throw e;
+	    }
 
         if (externalName[1] != 0x01)
 	    throw e;
@@ -170,7 +172,9 @@ public class GSSUtils
         if(_logger.isLoggable(Level.FINE)) 
 		_logger.log(Level.FINE,"Mech OID length = " + mechoidlen);
 	if (externalName.length < (4 + mechoidlen + 4))
-	    throw e;
+	    {
+	        throw e;
+	    }
 
         /* get the mechanism OID and verify it is the same as oid
          * passed as an argument.
@@ -192,7 +196,9 @@ public class GSSUtils
         pos += 4; // start of the mechanism specific exported name
 
         if (externalName.length != (4 + mechoidlen + 4 + namelen))
-	    throw e;
+	    {
+	        throw e;
+	    }
 
         byte[] name = new byte[externalName.length - pos];
         System.arraycopy(externalName, pos, name, 0, externalName.length - pos);
@@ -217,7 +223,9 @@ public class GSSUtils
 	IOException e = new IOException("Invalid Name");
 
 	if (externalName[0] != 0x04)
-	    throw e;
+	    {
+	        throw e;
+	    }
 
         if (externalName[1] != 0x01)
 	    throw e;
@@ -228,7 +236,9 @@ public class GSSUtils
 		_logger.log(Level.FINE,"Mech OID length = " + mechoidlen);
             }
 	if (externalName.length < (4 + mechoidlen + 4))
-	    throw e;
+	    {
+	        throw e;
+	    }
 
         /* get the mechanism OID and verify it is the same as oid
          * passed as an argument.
@@ -437,7 +447,9 @@ public class GSSUtils
         }
         // verify header
 	if (token[index++] != 0x60) 
-	    throw new IOException("Defective Token");
+	    {
+	        throw new IOException("Defective Token");
+	    }
 
         int toklen = readDERLength(token, index); // derOID length + token length
 
@@ -450,7 +462,9 @@ public class GSSUtils
         }
 
         if (token[index] != 0x06) 
-	    throw new IOException("Defective Token");
+	    {
+	        throw new IOException("Defective Token");
+	    }
 
         byte[] buf = new byte[ token.length - index ];
 
@@ -500,11 +514,17 @@ public class GSSUtils
 	} else {
 	    token[index++] = (byte)(getDERLengthSize(length)+127);
 	    if (length >= (1<<24))
-		token[index++] = (byte)(length>>24);
+		{
+		    token[index++] = (byte)(length>>24);
+		}
 	    if (length >= (1<<16))
-		token[index++] = (byte)((length>>16)&0xff);
+		{
+		    token[index++] = (byte)((length>>16)&0xff);
+		}
 	    if (length >= (1<<8))
-		token[index++] = (byte)((length>>8)&0xff);
+		{
+		    token[index++] = (byte)((length>>8)&0xff);
+		}
 	    token[index++] = (byte)(length&0xff);
 	}
 	return (index);

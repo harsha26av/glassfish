@@ -865,7 +865,9 @@ public class InterceptorImpl extends org.omg.CORBA.LocalObject
      public static boolean isEjbAdapterName( String[] adapterName ) {
          boolean result = false ;
 	 if (rfm != null)
-	     result = rfm.isRfmName( adapterName ) ;
+	     {
+	         result = rfm.isRfmName( adapterName ) ;
+	     }
          return result ;
      }
 

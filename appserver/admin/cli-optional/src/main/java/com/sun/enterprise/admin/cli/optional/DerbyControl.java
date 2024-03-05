@@ -235,7 +235,9 @@ public final class DerbyControl
         
         DerbyControl derbyControl = null;
         if (args.length == 3)
-            derbyControl = new DerbyControl(args[0], args[1], args[2]);
+            {
+                derbyControl = new DerbyControl(args[0], args[1], args[2]);
+            }
         else if (args.length == 4 )
             derbyControl = new DerbyControl(args[0], args[1], args[2], args[3]);
         else if (args.length == 5)

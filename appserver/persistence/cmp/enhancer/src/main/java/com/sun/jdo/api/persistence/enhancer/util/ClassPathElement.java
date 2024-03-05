@@ -193,7 +193,9 @@ class DirectoryClassPathElement extends ClassPathElement {
     if (exists && directory.isDirectory()) {
       StringBuffer newPath = new StringBuffer(directory.getPath());
       if (newPath.charAt(newPath.length() - 1) != File.separatorChar)
-	newPath.append(File.separatorChar);
+	{
+	    newPath.append(File.separatorChar);
+	}
       newPath.append(ClassPath.fileNameOf(className));
 
       File f = new File(newPath.toString());

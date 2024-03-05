@@ -156,7 +156,9 @@ class LogDBHelper {
             PreparedStatement prepStmt1 = null;    
             try {
                 if (useNonTxConnectionForAddRecord)
-		    conn = (Connection)(getNonTxConnectionMethod.invoke(ds, null)); 
+		    {
+		        conn = (Connection)(getNonTxConnectionMethod.invoke(ds, null));
+		    } 
                 else 
                     conn = ds.getConnection();
                 prepStmt1 = conn.prepareStatement(insertStatement);

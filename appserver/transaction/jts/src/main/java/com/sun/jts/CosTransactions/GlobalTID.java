@@ -332,8 +332,10 @@ public class GlobalTID extends Object {
 			return;
 		}
 		if(_logger.isLoggable(Level.FINEST))
-			_logger.logp(Level.FINEST,"GlobalTID","GlobalTID(String)",
+			{
+			    _logger.logp(Level.FINEST,"GlobalTID","GlobalTID(String)",
 					"Tid is: "+stid);
+			}
 
 		//main part starts here
    		char [] ctid =stid.toCharArray();

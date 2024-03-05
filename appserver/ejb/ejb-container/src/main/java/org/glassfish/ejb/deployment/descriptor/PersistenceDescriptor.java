@@ -369,7 +369,9 @@ public final class PersistenceDescriptor extends Descriptor {
 	throws Exception
     {
 	if ( !fieldInfoInitialized )
-	    initializeFieldInfo();
+	    {
+	        initializeFieldInfo();
+	    }
 
         Set relationships = getRelationships();
 	Iterator it = relationships.iterator();
@@ -624,9 +626,13 @@ public final class PersistenceDescriptor extends Descriptor {
 		        // ignore static or final fields
 		        int m = fields[i].getModifiers();
 		        if ( Modifier.isStatic(m) || Modifier.isFinal(m) )
-			    continue;
+			    {
+			        continue;
+			    }
 		        if ( !fields[i].getType().isPrimitive() )
-			    pkeyFieldsAllPrimitive = false;
+			    {
+			        pkeyFieldsAllPrimitive = false;
+			    }
 		        pkeyFields.add(new FieldDescriptor(
 						    fields[i].getName()));
 		    }

@@ -212,7 +212,9 @@ public class ArrayList
 		StateManager stateManager = this.makeDirty();
         
                 if (removed.remove(o) == false)
-			added.add(o);
+			{
+			    added.add(o);
+			}
 
         	boolean modified = super.add(o);
 

@@ -752,7 +752,9 @@ public class LogControl {
 
 		//START IASRI 4730519
 		if(logDirectory==null)
-		    return false;
+		    {
+		        return false;
+		    }
 		//END IASRI 4730519
         boolean exists = controlFile(logId,logDirectory).exists();
 

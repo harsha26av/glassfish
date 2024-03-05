@@ -759,8 +759,10 @@ class ConstraintValue {
 	if (guarantee != null) {
 	    Integer bit = connectHash.get(guarantee);
 	    if (bit == null) 
-		throw new IllegalArgumentException
+		{
+		    throw new IllegalArgumentException
 		    ("constraint translation error-illegal trx guarantee");
+		}
 	    b = bit.intValue();
 	}
 

@@ -553,7 +553,9 @@ public class VMOp implements VMConstants {
     for (int i=0; i<types.length(); i++) {
       char c = types.charAt(i);
       if (c == '?')
-	return;
+	{
+	    return;
+	}
       if (c == 'J' || c == 'X' || c == 'D')
 	n -= 2;
       else

@@ -430,7 +430,9 @@ final public class ClassFile implements VMConstants {
       int interfaceIndex = data.readUnsignedShort();
       ConstClass ci = null;
       if (interfaceIndex != 0)
-	ci = (ConstClass) constantPool.constantAt(interfaceIndex);
+	{
+	    ci = (ConstClass) constantPool.constantAt(interfaceIndex);
+	}
       classInterfaces.addElement(ci);
     }
   }
@@ -441,7 +443,9 @@ final public class ClassFile implements VMConstants {
       ConstClass ci = (ConstClass) classInterfaces.elementAt(i);
       int interfaceIndex = 0;
       if (ci != null)
-	interfaceIndex = ci.getIndex();
+	{
+	    interfaceIndex = ci.getIndex();
+	}
       data.writeShort(interfaceIndex);
     }
   }

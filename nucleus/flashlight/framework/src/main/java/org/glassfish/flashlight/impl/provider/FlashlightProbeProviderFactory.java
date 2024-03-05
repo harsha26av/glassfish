@@ -461,7 +461,9 @@ public class FlashlightProbeProviderFactory
         // having to discover it anew over and over and over again at runtime...
 
 		if(allHidden(provider))
-			return;  // no need to waste time if they are all hidden
+			{
+			    return;
+			}  // no need to waste time if they are all hidden
 
         DTraceContract dt = FlashlightUtils.getDtraceEngine();
 

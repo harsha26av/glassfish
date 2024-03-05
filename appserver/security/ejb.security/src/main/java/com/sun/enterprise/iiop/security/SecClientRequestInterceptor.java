@@ -138,7 +138,9 @@ public class SecClientRequestInterceptor extends    org.omg.CORBA.LocalObject
 	}
         if (credset.size() != 1) {
 	    if(_logger.isLoggable(Level.SEVERE)) 
-		_logger.log(Level.SEVERE,"iiop.multiple_credset",new java.lang.Object[]{Integer.valueOf(credset.size()),clsname});
+		{
+		    _logger.log(Level.SEVERE,"iiop.multiple_credset",new java.lang.Object[]{Integer.valueOf(credset.size()),clsname});
+		}
             throw new SecurityException(
 		localStrings.getLocalString("secclientreqinterceptor.inv_credlist_size",
 		                            "Credential list size is not 1."));

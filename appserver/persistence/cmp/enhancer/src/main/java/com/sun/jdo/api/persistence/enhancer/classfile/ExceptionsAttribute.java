@@ -92,7 +92,9 @@ public class ExceptionsAttribute extends ClassAttribute {
       int excIndex = data.readUnsignedShort();
       ConstClass exc_class = null;
       if (excIndex != 0)
-	exc_class = (ConstClass) pool.constantAt(excIndex);
+	{
+	    exc_class = (ConstClass) pool.constantAt(excIndex);
+	}
       excTable.addElement(exc_class);
     }
         

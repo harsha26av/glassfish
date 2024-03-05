@@ -103,7 +103,9 @@ public class TypeUtil {
 	}
 	else if (src < 0) {
 	    if (src == Integer.MIN_VALUE)
-		throw new IllegalArgumentException();
+		{
+		    throw new IllegalArgumentException();
+		}
 	    
 	    // emit the negation sign and continue as if positive
 	    buf[offset++] = '-';
@@ -156,7 +158,9 @@ public class TypeUtil {
 	}
 	else if (src < 0) {
 	    if (src == Integer.MIN_VALUE)
-		throw new IllegalArgumentException();
+		{
+		    throw new IllegalArgumentException();
+		}
 	    
 	    // emit the negation sign and continue as if positive
 	    buf[offset++] = (byte) '-';

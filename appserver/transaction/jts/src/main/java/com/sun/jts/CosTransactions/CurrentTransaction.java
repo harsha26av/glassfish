@@ -189,7 +189,9 @@ public class CurrentTransaction {
                 	result = (threadContexts.remove(thread) != null);
 		}
 		else
-			result=true;
+			{
+			    result=true;
+			}
 	        m_tid.set(null);
 
                 // The parent transaction has effectively been suspended - add it to the
@@ -465,7 +467,9 @@ public class CurrentTransaction {
     static boolean removeSuspended( ControlImpl control ) {
         boolean result = true;
 	if(statsOn)
-		result=suspended.removeElement(control);
+		{
+		    result=suspended.removeElement(control);
+		}
         return result;
     }
 

@@ -172,7 +172,9 @@ public class Descriptor implements VMConstants {
       break;
     case '[':
       while (methodSig.charAt(idx) == '[' || methodSig.charAt(idx) == ']')
-	idx++;
+	{
+	    idx++;
+	}
       if (methodSig.charAt(idx) != 'L') {
 	idx++;
 	break;
@@ -368,7 +370,9 @@ public class Descriptor implements VMConstants {
       break;
     case '[':
       while (stackSig.charAt(idx) == '[' || stackSig.charAt(idx) == ']')
-	idx++;
+	{
+	    idx++;
+	}
       if (stackSig.charAt(idx) != 'L')
 	break;
       /* fall through */
@@ -455,7 +459,9 @@ public class Descriptor implements VMConstants {
     else {
       String mapTo = (String) classTranslations.get(cls);
       if (mapTo != null)
-	return mapTo;
+	{
+	    return mapTo;
+	}
       return cls;
     }
   }
@@ -553,7 +559,9 @@ public class Descriptor implements VMConstants {
     boolean firstArg = true;
     while (methodSig.charAt(idx) != ')') {
       if (firstArg)
-	firstArg = false;
+	{
+	    firstArg = false;
+	}
       else
           buf.append(", ");//NOI18N
 	

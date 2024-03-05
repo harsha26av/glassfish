@@ -281,7 +281,9 @@ class PassphraseDialog extends JDialog
 	    cancelForKP.addActionListener (new ActionListener() {
 		public void actionPerformed(ActionEvent ae) {
 		    if (choiceCallback != null)
-			choiceCallback.setSelectedIndex (-1);
+			{
+			    choiceCallback.setSelectedIndex (-1);
+			}
 		    frame.dispose();
 		}
 	    }

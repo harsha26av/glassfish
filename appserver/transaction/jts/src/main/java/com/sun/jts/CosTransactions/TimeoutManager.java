@@ -140,7 +140,9 @@ class TimeoutManager {
 
     static synchronized void initSetTimeout() {
 	if (isSetTimeout)
-	   return;
+	   {
+	       return;
+	   }
         isSetTimeout = true;
         timeoutThread = new TimeoutThread();
         timeoutThread.start();
@@ -206,7 +208,9 @@ class TimeoutManager {
 
             default:
 		if (!isSetTimeout)
-		  break;
+		  {
+		      break;
+		  }
                    result = (pendingTimeouts.remove(localTID) != null);
 		   if (!result)
                       result = (indoubtTimeouts.remove(localTID) != null);

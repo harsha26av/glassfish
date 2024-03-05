@@ -131,8 +131,10 @@ public class WARDirContext extends BaseDirContext {
 
 	// Validate that the document base is an existing directory
 	if (!base.exists() || !base.canRead() || base.isDirectory())
-	    throw new IllegalArgumentException
+	    {
+	        throw new IllegalArgumentException
                 (rb.getString(LogFacade.NOT_WAR));
+	    }
         try {
             this.base = new ZipFile(base);
         } catch (Exception e) {

@@ -138,7 +138,9 @@ public class LruCache extends BaseCache {
     protected CacheItem trimLru(long currentTime) {
 
 	if(tail == null)
-	    return null;
+	    {
+	        return null;
+	    }
 
         LruCacheItem trimItem = tail;
 
@@ -224,7 +226,9 @@ public class LruCache extends BaseCache {
 	if(head == null)
 	    return;
 	if(item == null)
-	    return;
+	    {
+	        return;
+	    }
         if(! (item instanceof LruCacheItem))
             return;
         LruCacheItem lc = (LruCacheItem) item;

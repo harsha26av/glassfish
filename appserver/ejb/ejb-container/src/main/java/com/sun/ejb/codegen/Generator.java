@@ -236,7 +236,9 @@ public abstract class Generator {
 	// com.sun.ejb.Container.
         if ( dd instanceof EjbSessionDescriptor
 	     && ((EjbSessionDescriptor)dd).getTransactionType().equals("Bean") )
-	    return "TX_BEAN_MANAGED";
+	    {
+	        return "TX_BEAN_MANAGED";
+	    }
 
         String txAttr = null;
 	MethodDescriptor mdesc = new MethodDescriptor(method, ejbClassSymbol);

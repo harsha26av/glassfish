@@ -153,7 +153,9 @@ public final class RelationRoleDescriptor extends Descriptor {
     public String getRoleSourceDescription()
     {
 	if ( roleSourceDescription == null )
-	    roleSourceDescription = "";
+	    {
+	        roleSourceDescription = "";
+	    }
         return roleSourceDescription;
     }
 
@@ -177,7 +179,9 @@ public final class RelationRoleDescriptor extends Descriptor {
     public String getCMRFieldDescription()
     {
 	if ( cmrFieldDescription == null )
-	    cmrFieldDescription = "";
+	    {
+	        cmrFieldDescription = "";
+	    }
         return cmrFieldDescription;
     }
 

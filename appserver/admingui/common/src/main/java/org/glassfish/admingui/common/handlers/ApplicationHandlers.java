@@ -267,7 +267,8 @@ public class ApplicationHandlers {
             moduleName = "-----------";
         }
         if( resources != null )
-        for (Map.Entry<String, String> e : resources.entrySet())  {
+        {
+            for (Map.Entry<String, String> e : resources.entrySet())  {
             String resource = e.getKey();
             String value = e.getValue();
             Map oneRow = new HashMap();
@@ -281,6 +282,7 @@ public class ApplicationHandlers {
             }
             oneRow.put("link", link);
             result.add(oneRow);
+        }
         }
         handlerCtx.setOutputValue("result", result);
     }

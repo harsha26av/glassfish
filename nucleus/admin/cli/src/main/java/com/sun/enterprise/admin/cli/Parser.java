@@ -273,7 +273,9 @@ public class Parser {
      */
     private ParamModel lookupLongOption(String s) {
 	if (s == null || s.length() == 0)
-	    return null;
+	    {
+	        return null;
+	    }
         // XXX - for now, fake it if no options
         if (options == null) {
             // no valid options specified so everything is valid
@@ -281,7 +283,9 @@ public class Parser {
         }
         for (ParamModel od : options) {
             if (od.getParam().primary())
-		continue;
+		{
+		    continue;
+		}
             if (s.equalsIgnoreCase(od.getName()))
                 return od;
 	    if (s.equalsIgnoreCase(od.getParam().alias()))
