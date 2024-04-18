@@ -41,6 +41,7 @@
 package com.sun.enterprise.admin.cli;
 
 import com.sun.enterprise.universal.process.ProcessStreamDrainer;
+import io.github.pixee.security.SystemCommand;
 
 /**
  *  CLIProcessExecutor
@@ -61,7 +62,7 @@ public class CLIProcessExecutor {
      */
     public void execute(String name, String[] cmd, boolean wait)
                                 throws Exception {
-        process = Runtime.getRuntime().exec(cmd);
+        process = SystemCommand.runCommand(Runtime.getRuntime(), cmd);
         ProcessStreamDrainer.redirect(name, process);
 
         try {
