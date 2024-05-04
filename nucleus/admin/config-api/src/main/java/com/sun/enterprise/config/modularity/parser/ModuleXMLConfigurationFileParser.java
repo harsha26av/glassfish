@@ -46,6 +46,7 @@ import com.sun.enterprise.config.modularity.customization.FileTypeDetails;
 import com.sun.enterprise.config.modularity.customization.PortTypeDetails;
 import com.sun.enterprise.config.modularity.customization.TokenTypeDetails;
 import com.sun.enterprise.util.LocalStringManager;
+import static io.github.pixee.security.XMLInputFactorySecurity.hardenFactory;
 
 import javax.xml.namespace.QName;
 import javax.xml.stream.XMLEventReader;
@@ -89,7 +90,7 @@ public class ModuleXMLConfigurationFileParser {
     public List<ConfigBeanDefaultValue> parseServiceConfiguration(InputStream xmlDocumentStream) throws XMLStreamException {
 
         List<ConfigBeanDefaultValue> configBeans = new ArrayList<ConfigBeanDefaultValue>();
-        XMLInputFactory inputFactory = XMLInputFactory.newInstance();
+        XMLInputFactory inputFactory = hardenFactory(XMLInputFactory.newInstance());
         inputFactory.setProperty(XMLInputFactory.IS_COALESCING, Boolean.TRUE);
         XMLEventReader eventReader = inputFactory.createXMLEventReader(xmlDocumentStream);
         ConfigBeanDefaultValue configValue = null;

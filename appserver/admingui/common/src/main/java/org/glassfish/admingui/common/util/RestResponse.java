@@ -40,6 +40,7 @@
 
 package org.glassfish.admingui.common.util;
 
+import static io.github.pixee.security.XMLInputFactorySecurity.hardenFactory;
 import org.w3c.dom.*;
 
 import javax.ws.rs.core.Response;
@@ -162,7 +163,7 @@ class JerseyRestResponse extends RestResponse {
             if (contentType.startsWith("application/xml")) {
                 InputStream input = null;
                 try {
-                    XMLInputFactory inputFactory = XMLInputFactory.newInstance();
+                    XMLInputFactory inputFactory = hardenFactory(XMLInputFactory.newInstance());
                     inputFactory.setProperty(XMLInputFactory.IS_VALIDATING, false);
                     input = new ByteArrayInputStream(responseBody.trim().getBytes("UTF-8"));
                     XMLStreamReader parser = inputFactory.createXMLStreamReader(input);

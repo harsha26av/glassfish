@@ -45,6 +45,7 @@ package org.glassfish.flashlight.xml;
  * @author bnevins
  */
 
+import static io.github.pixee.security.XMLInputFactorySecurity.hardenFactory;
 import java.io.*;
 import java.util.*;
 import java.util.logging.Level;
@@ -178,7 +179,7 @@ public abstract class StaxParser {
      /////////////////////  private below //////////////////////////////////////
 
      private void createParser() throws XMLStreamException {
-        XMLInputFactory xif = XMLInputFactory.newInstance();
+        XMLInputFactory xif = hardenFactory(XMLInputFactory.newInstance());
         parser = xif.createXMLStreamReader(xmlStream);
     }
 

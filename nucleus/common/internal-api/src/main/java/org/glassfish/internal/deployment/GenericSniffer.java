@@ -43,6 +43,7 @@ package org.glassfish.internal.deployment;
 import com.sun.enterprise.module.ModulesRegistry;
 import com.sun.enterprise.module.ModuleDefinition;
 import com.sun.enterprise.module.Module;
+import static io.github.pixee.security.XMLInputFactorySecurity.hardenFactory;
 import java.io.ByteArrayOutputStream;
 import javax.inject.Inject;
 import javax.xml.stream.XMLEventReader;
@@ -82,7 +83,7 @@ public abstract class GenericSniffer implements Sniffer {
     final private String appStigma;
     final private String urlPattern;
     
-    final private static XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
+    final private static XMLInputFactory xmlInputFactory = hardenFactory(XMLInputFactory.newInstance());
     private Module[] modules;
 
     public GenericSniffer(String containerName, String appStigma, String urlPattern) {
