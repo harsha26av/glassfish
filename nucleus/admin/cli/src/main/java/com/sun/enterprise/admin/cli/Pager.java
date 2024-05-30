@@ -40,6 +40,7 @@
 
 package com.sun.enterprise.admin.cli;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -105,6 +106,6 @@ class Pager {
      * we can answer the hasNext() question
      */
     private void nextLine() throws IOException {
-        line = in.readLine();
+        line = BoundedLineReader.readLine(in, 5_000_000);
     }
 }

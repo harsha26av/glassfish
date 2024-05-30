@@ -40,6 +40,7 @@
 
 package org.glassfish.deployment.common;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -666,14 +667,14 @@ public class Descriptor extends DynamicAttributesDescriptor {
     public void fillDocType(InputStream in) {
         try {
             BufferedReader inr = new BufferedReader(new InputStreamReader(in));
-            String s = inr.readLine();
+            String s = BoundedLineReader.readLine(inr, 5_000_000);
             while (s != null) {
                 if (s.indexOf("DOCTYPE") > -1) {
                     docType = s;
                     in.close();
                     return;
                 }
-                s = inr.readLine();
+                s = BoundedLineReader.readLine(inr, 5_000_000);
             }
         } catch (Exception e) {
             // ignore

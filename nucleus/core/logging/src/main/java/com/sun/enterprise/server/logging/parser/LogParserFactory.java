@@ -40,6 +40,7 @@
 
 package com.sun.enterprise.server.logging.parser;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -86,7 +87,7 @@ public class LogParserFactory {
         BufferedReader reader=null;
         try {
             reader = new BufferedReader(new FileReader(logFile));
-            String line = reader.readLine();
+            String line = BoundedLineReader.readLine(reader, 5_000_000);
             LogFormat format = detectLogFormat(line);
             if (DEBUG) {
                 System.out.println("Log format=" + format.name() + " for line:" + line);

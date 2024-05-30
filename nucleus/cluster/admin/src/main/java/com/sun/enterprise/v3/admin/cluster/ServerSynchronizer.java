@@ -40,6 +40,7 @@
 
 package com.sun.enterprise.v3.admin.cluster;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.*;
 import java.util.*;
 import java.net.URI;
@@ -229,7 +230,7 @@ public final class ServerSynchronizer implements PostConstruct {
             }
             String line;
             if (in != null) {
-                while ((line = in.readLine()) != null) {
+                while ((line = BoundedLineReader.readLine(in, 5_000_000)) != null) {
                     if (line.startsWith("#"))   // ignore comment lines
                         continue;
                     line = line.trim();

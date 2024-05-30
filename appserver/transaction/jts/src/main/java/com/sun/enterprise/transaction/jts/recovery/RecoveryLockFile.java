@@ -48,6 +48,7 @@
 
 package com.sun.enterprise.transaction.jts.recovery;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.util.*;
 import java.io.*;
 import java.nio.channels.FileLock;
@@ -237,7 +238,7 @@ public class RecoveryLockFile implements TransactionRecoveryFence, DelegatedTran
             try {
                 reader = new BufferedReader(new FileReader(recoveryLockFile));
                 String line = null;
-                while( (line = reader.readLine()) != null) {
+                while( (line = BoundedLineReader.readLine(reader, 5_000_000)) != null) {
                     _logger.log(Level.INFO, "Testing line: " + line);
                     String[] parts = line.split(SEPARATOR);
                     if (parts.length != 3) {
@@ -309,7 +310,7 @@ public class RecoveryLockFile implements TransactionRecoveryFence, DelegatedTran
                 _logger.log(Level.INFO, "Updating File " + recoveryLockFile);
                 String line = null;
                 List<String> list_out = new ArrayList<String>();
-                while( (line = reader.readLine()) != null) {
+                while( (line = BoundedLineReader.readLine(reader, 5_000_000)) != null) {
                     _logger.log(Level.INFO, "Processing line: " + line);
                     String[] parts = line.split(SEPARATOR);
                     if (parts.length != 3) {

@@ -40,6 +40,7 @@
 
 package com.sun.enterprise.server.logging;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.File;
@@ -213,7 +214,7 @@ PostConstruct, PreDestroy, LogEventBroadcaster, LoggingRuntime {
         
         try {
             br = new BufferedReader(new FileReader(serverLog));            
-            while ((strLine = br.readLine()) != null) {
+            while ((strLine = BoundedLineReader.readLine(br, 5_000_000)) != null) {
                 strLine = strLine.trim();
                 if (!strLine.equals("")) {
                     if (LogFormatHelper.isUniformFormatLogHeader(strLine)) {  // for ufl formatter

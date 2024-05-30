@@ -42,6 +42,7 @@ package org.glassfish.common.util.admin;
 
 import com.sun.enterprise.util.LocalStringManager;
 import com.sun.enterprise.util.LocalStringManagerImpl;
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -192,7 +193,7 @@ public class AsadminInput {
          * The first line should be version=some-version-string so 
          * complain if it is not.
          */
-        if ( ((firstLine = reader.readLine()) == null) 
+        if ( ((firstLine = BoundedLineReader.readLine(reader, 5_000_000)) == null) 
             || ( ! firstLine.startsWith(VERSION_INTRODUCER)) 
             || ( firstLine.length() <= VERSION_INTRODUCER.length())) {
             throw new IOException(badVersionMsg());

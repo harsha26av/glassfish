@@ -41,6 +41,7 @@
 package com.sun.enterprise.admin.cli;
 
 import static com.sun.enterprise.admin.cli.CLICommand.ERROR;
+import io.github.pixee.security.BoundedLineReader;
 import java.io.*;
 import java.util.*;
 
@@ -200,7 +201,7 @@ public class MultimodeCommand extends CLICommand {
                 System.out.print(prompt);
                 System.out.flush();
             }
-            if ((line = reader.readLine()) == null) {
+            if ((line = BoundedLineReader.readLine(reader, 5_000_000)) == null) {
                 if (printPrompt)
                     System.out.println();
                 break;

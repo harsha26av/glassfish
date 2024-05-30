@@ -44,6 +44,7 @@ import com.sun.enterprise.security.store.AsadminSecurityUtil;
 import com.sun.enterprise.universal.GFBase64Decoder;
 import com.sun.enterprise.universal.GFBase64Encoder;
 import com.sun.enterprise.util.Utility;
+import io.github.pixee.security.BoundedLineReader;
 
 import java.io.*;
 import java.net.URI;
@@ -218,7 +219,7 @@ public class MemoryHashLoginInfoStore implements LoginInfoStore {
         static Map<HostPortKey, LoginInfo> readAll(final BufferedReader reader) throws IOException, URISyntaxException {
             String line;
             final Map<HostPortKey, LoginInfo> map = new HashMap<HostPortKey, LoginInfo> ();
-            while ((line = reader.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(reader, 5_000_000)) != null) {
                 if (line.startsWith("#"))
                     continue; //ignore comments
                 final int si = line.indexOf(' '); //index of space

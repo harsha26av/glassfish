@@ -44,6 +44,7 @@ import com.sun.appserv.connectors.internal.api.ConnectorConstants;
 import com.sun.enterprise.connectors.ConnectorRuntime;
 import com.sun.enterprise.util.SystemPropertyConstants;
 import com.sun.logging.LogDomains;
+import io.github.pixee.security.BoundedLineReader;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -404,7 +405,7 @@ public class DriverLoader implements ConnectorConstants {
             reader = new InputStreamReader(metaInf);
             buffReader = new BufferedReader(reader);
             String line;
-            while ((line = buffReader.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(buffReader, 5_000_000)) != null) {
                 driverClassName = line;
             }
         } catch(IOException ioex) {
