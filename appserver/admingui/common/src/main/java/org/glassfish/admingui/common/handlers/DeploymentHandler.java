@@ -228,10 +228,12 @@ public class DeploymentHandler {
             Map<String,String> valueMap = (Map) handlerCtx.getInputValue("valueMap");
             List<String> convertToFalsList = (List<String>) handlerCtx.getInputValue("convertToFalse");
             if (convertToFalsList != null)
-            for (String one : convertToFalsList) {
+            {
+                for (String one : convertToFalsList) {
                 if (deployMap.get(one) == null) {
                     deployMap.put(one, "false");
                 }
+            }
             }
             String appName = deployMap.get("appName");
             Map payload = new HashMap();
