@@ -40,6 +40,7 @@
 
 package com.sun.ejb.containers;
 
+import io.github.pixee.security.ObjectInputFilters;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -2756,6 +2757,7 @@ public final class StatefulSessionContainer
                     if (emf != null) {
                         try (ByteArrayInputStream bis = new ByteArrayInputStream(refInfo.serializedEEM);
                             ObjectInputStream ois = new ObjectInputStream(bis);) {
+                            ObjectInputFilters.enableObjectFilterIfUnprotected(ois);
                             eMgr = (EntityManager) ois.readObject();
                             newRefInfo = new EEMRefInfo(emRefName, unitName, refInfo.getSynchronizationType(), super.getContainerId(),
                                     sessionKey, eMgr, emf);

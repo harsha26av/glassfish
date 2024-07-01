@@ -40,6 +40,7 @@
 
 package org.glassfish.contextpropagation;
 
+import io.github.pixee.security.ObjectInputFilters;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -100,6 +101,7 @@ public interface SerializableContextFactory {
       public WLSContext readFromBytes(WLSContext ctx, byte[] bytes) throws IOException {
         ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
         ObjectInputStream ois = new ObjectInputStream(bais);
+        ObjectInputFilters.enableObjectFilterIfUnprotected(ois);
         ctx.readContext(ois);  
         return ctx;
       }
@@ -115,6 +117,7 @@ public interface SerializableContextFactory {
       public Serializable readFromBytes(byte[] bytes) throws IOException, ClassNotFoundException {
         ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
         ObjectInputStream ois = new ObjectInputStream(bais);
+        ObjectInputFilters.enableObjectFilterIfUnprotected(ois);
         return (Serializable) ois.readObject();
       }      
     };

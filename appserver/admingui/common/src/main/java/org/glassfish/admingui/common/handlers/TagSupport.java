@@ -40,6 +40,7 @@
 
 package org.glassfish.admingui.common.handlers;
 
+import io.github.pixee.security.ObjectInputFilters;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
@@ -199,6 +200,7 @@ public class TagSupport implements Serializable{
 	} else {
 	    try {
 		ObjectInputStream stream = new ObjectInputStream(new ByteArrayInputStream(tagData));
+		ObjectInputFilters.enableObjectFilterIfUnprotected(stream);
 		result = (Map<String, List<Tag>>[]) stream.readObject();
 	    } catch (java.io.InvalidClassException ex) {
 		throw new IllegalStateException(
