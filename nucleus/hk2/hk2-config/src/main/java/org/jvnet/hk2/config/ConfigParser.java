@@ -40,6 +40,7 @@
 
 package org.jvnet.hk2.config;
 
+import static io.github.pixee.security.XMLInputFactorySecurity.hardenFactory;
 import org.glassfish.hk2.api.ServiceLocator;
 import org.jvnet.hk2.config.Dom.Child;
 
@@ -264,7 +265,7 @@ public class ConfigParser {
     // https://glassfish.dev.java.net/issues/show_bug.cgi?id=6428
 
     // as of Hk2 version 1.5, we do not support JDK 1.5 any more.
-    private static final XMLInputFactory xif =  XMLInputFactory.newInstance();
+    private static final XMLInputFactory xif =  hardenFactory(XMLInputFactory.newInstance());
 //            XMLInputFactory.class.getClassLoader() == null ?
 //                    XMLInputFactory.newInstance() :
 //                    XMLInputFactory.newInstance(XMLInputFactory.class.getName(),

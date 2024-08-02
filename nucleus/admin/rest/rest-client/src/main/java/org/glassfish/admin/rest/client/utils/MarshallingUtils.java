@@ -40,6 +40,7 @@
 
 package org.glassfish.admin.rest.client.utils;
 
+import static io.github.pixee.security.XMLInputFactorySecurity.hardenFactory;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -90,7 +91,7 @@ public class MarshallingUtils {
         List<Map<String, String>> list = new ArrayList<Map<String, String>>();
         InputStream input = null;
         try {
-            XMLInputFactory inputFactory = XMLInputFactory.newInstance();
+            XMLInputFactory inputFactory = hardenFactory(XMLInputFactory.newInstance());
             inputFactory.setProperty(XMLInputFactory.IS_SUPPORTING_EXTERNAL_ENTITIES, Boolean.FALSE);
             input = new ByteArrayInputStream(xml.trim().getBytes("UTF-8"));
             XMLStreamReader parser = inputFactory.createXMLStreamReader(input);
@@ -185,7 +186,7 @@ public class MarshallingUtils {
         } else if (text.startsWith("<")) {
             InputStream input = null;
             try {
-                XMLInputFactory inputFactory = XMLInputFactory.newInstance();
+                XMLInputFactory inputFactory = hardenFactory(XMLInputFactory.newInstance());
                 inputFactory.setProperty(XMLInputFactory.IS_VALIDATING, false);
                 input = new ByteArrayInputStream(text.trim().getBytes("UTF-8"));
                 XMLStreamReader parser = inputFactory.createXMLStreamReader(input);
