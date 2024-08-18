@@ -40,6 +40,7 @@
 
 package com.sun.enterprise.admin.util;
 
+import java.nio.file.Files;
 import javax.xml.parsers.ParserConfigurationException;
 import org.glassfish.api.admin.InstanceState;
 import org.w3c.dom.*;
@@ -89,7 +90,7 @@ class InstanceStateFileProcessor {
             throws IOException {
         BufferedWriter writer = null;
         try {
-            writer = new BufferedWriter(new FileWriter(xmlFileObject));
+            writer = Files.newBufferedWriter(xmlFileObject.toPath());
 
             writer.write("<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"no\"?>");
             writer.newLine();

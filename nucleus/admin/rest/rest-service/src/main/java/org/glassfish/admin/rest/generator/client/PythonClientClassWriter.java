@@ -40,6 +40,7 @@
 
 package org.glassfish.admin.rest.generator.client;
 
+import java.nio.file.Files;
 import org.glassfish.admin.rest.utils.Util;
 import org.glassfish.api.Param;
 import org.glassfish.api.admin.CommandModel;
@@ -182,7 +183,7 @@ class PythonClientClassWriter implements ClientClassWriter {
                     throw new RuntimeException("Unable to create new file"); //i18n
                 }
                 classFile.deleteOnExit();
-                writer = new BufferedWriter(new FileWriter(classFile));
+                writer = Files.newBufferedWriter(classFile.toPath());
                 writer.append(source.toString());
             } catch (IOException ioe) {
                 throw new RuntimeException(ioe);
