@@ -40,6 +40,7 @@
 
 package test.jsf.astrologer;
 
+import io.github.pixee.security.BoundedLineReader;
 import org.testng.annotations.Configuration;
 import org.testng.annotations.ExpectedExceptions;
 import org.testng.annotations.Test;
@@ -108,7 +109,7 @@ public class JSFWebTestNG {
         String line = null;
         boolean result=false;
         String testLine = null;        
-        while ((line = input.readLine()) != null) {
+        while ((line = BoundedLineReader.readLine(input, 5_000_000)) != null) {
             if(line.indexOf("Welcome to jAstrologer")!=-1){
                 result=true;            
                 testLine = line;
@@ -150,7 +151,7 @@ public class JSFWebTestNG {
         String line = null;
         boolean result=false;
         String testLine = null;        
-        while ((line = input.readLine()) != null) {
+        while ((line = BoundedLineReader.readLine(input, 5_000_000)) != null) {
             if(line.indexOf("JavaServer Faces Greetings Page")!=-1){
                 result=true;
              testLine = line;

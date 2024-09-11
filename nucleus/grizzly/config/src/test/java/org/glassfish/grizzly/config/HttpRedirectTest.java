@@ -40,6 +40,7 @@
 
 package org.glassfish.grizzly.config;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -154,7 +155,7 @@ public class HttpRedirectTest extends BaseTestGrizzlyConfig {
             BufferedReader br = new BufferedReader(new InputStreamReader(in));
             boolean found = false;
 
-            for (String line = br.readLine(); line != null; line = br.readLine()) {
+            for (String line = BoundedLineReader.readLine(br, 5_000_000); line != null; line = BoundedLineReader.readLine(br, 5_000_000)) {
                 if (line.length() > 0 && line.toLowerCase().charAt(0) == 'l') {
                     final String lineLC = line.toLowerCase();
                     

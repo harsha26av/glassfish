@@ -40,6 +40,7 @@
 
 package com.sun.enterprise.tools.verifier.tests.app;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.*;
 
 import com.sun.enterprise.deployment.io.ApplicationDeploymentDescriptorFile;
@@ -89,7 +90,7 @@ public class AppPublicID extends ApplicationTest implements AppCheck {
 
 	    if (deploymentEntry != null) {
 		BufferedReader in = new BufferedReader(new InputStreamReader(deploymentEntry));
-		String s = in.readLine();
+		String s = BoundedLineReader.readLine(in, 5_000_000);
 		boolean foundDOCTYPE = false, foundPubid = false, foundURL = false;
 
 		while(s != null) {
@@ -121,7 +122,7 @@ public class AppPublicID extends ApplicationTest implements AppCheck {
 			result.setStatus(Result.PASSED);
 			break;
 		    } else if(foundDOCTYPE && s.endsWith(">")) break; // DOCTYPE doesn't have any more lines to check
-		    s = in.readLine();
+		    s = BoundedLineReader.readLine(in, 5_000_000);
 		}
 
 		if(!foundDOCTYPE){

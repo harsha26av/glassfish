@@ -52,6 +52,7 @@ import com.sun.enterprise.deployment.Application;
 import com.sun.enterprise.deployment.ConnectorDescriptor;
 import com.sun.enterprise.util.i18n.StringManager;
 import com.sun.logging.LogDomains;
+import io.github.pixee.security.BoundedLineReader;
 import org.glassfish.api.ActionReport;
 import org.glassfish.api.admin.ServerEnvironment;
 import org.glassfish.api.deployment.DeploymentContext;
@@ -552,7 +553,7 @@ public class ConnectorDeployer extends JavaEEDeployer<ConnectorContainer, Connec
                     reader = new BufferedReader(new InputStreamReader(is));
                     String line;
 
-                    while ((line = reader.readLine()) != null) {
+                    while ((line = BoundedLineReader.readLine(reader, 5_000_000)) != null) {
 
                         if (line.contains(validationMappingNSName)) {
                             mappingList.add(fileName);

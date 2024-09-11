@@ -41,6 +41,7 @@
 package com.sun.jaspic.config.factory;
 
 import com.sun.jaspic.config.helper.JASPICLogManager;
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -350,7 +351,7 @@ public final class RegStoreFileParser {
             entries = new ArrayList<EntryInfo>();
             if (confFile.exists()) {
                 try (BufferedReader reader = new BufferedReader(new FileReader(confFile))) {
-                    String line = reader.readLine();
+                    String line = BoundedLineReader.readLine(reader, 5_000_000);
                     while (line != null) {
                         String trimLine = line.trim(); // can't trim readLine() result
                         if (trimLine.startsWith(CON_ENTRY)) {
@@ -358,7 +359,7 @@ public final class RegStoreFileParser {
                         } else if (trimLine.startsWith(REG_ENTRY)) {
                             entries.add(readRegEntry(reader));
                         }
-                        line = reader.readLine();
+                        line = BoundedLineReader.readLine(reader, 5_000_000);
                     }
                 }
             } else {
@@ -377,7 +378,7 @@ public final class RegStoreFileParser {
 
     private EntryInfo readConEntry(BufferedReader reader) throws IOException {
         // entry must contain class name as next line
-        String className = reader.readLine();
+        String className = BoundedLineReader.readLine(reader, 5_000_000);
         if(className != null) {
             className = className.trim();
         }
@@ -394,7 +395,7 @@ public final class RegStoreFileParser {
     private Map<String, String> readProperties(BufferedReader reader)
         throws IOException {
 
-        String line = reader.readLine();
+        String line = BoundedLineReader.readLine(reader, 5_000_000);
         if(line != null) {
             line = line.trim();
         }
@@ -406,7 +407,7 @@ public final class RegStoreFileParser {
         while (!"}".equals(line)) {
             properties.put(line.substring(0, line.indexOf(SEP)),
                 line.substring(line.indexOf(SEP) + 1, line.length()));
-            line = reader.readLine();
+            line = BoundedLineReader.readLine(reader, 5_000_000);
             if (line != null) {
                 line = line.trim();
             }
@@ -419,7 +420,7 @@ public final class RegStoreFileParser {
         Map<String, String> properties = null;
         List<RegistrationContext> ctxs =
             new ArrayList<RegistrationContext>();
-        String line = reader.readLine();
+        String line = BoundedLineReader.readLine(reader, 5_000_000);
         if(line != null) {
             line = line.trim();
         }
@@ -431,7 +432,7 @@ public final class RegStoreFileParser {
             } else if (line.startsWith(REG_CTX)) {
                 ctxs.add(readRegContext(reader));
             }
-            line = reader.readLine();
+            line = BoundedLineReader.readLine(reader, 5_000_000);
             if(line != null) {
                 line = line.trim();
             }
@@ -446,7 +447,7 @@ public final class RegStoreFileParser {
         String layer = null;
         String appCtx = null;
         String description = null;
-        String line = reader.readLine();
+        String line = BoundedLineReader.readLine(reader, 5_000_000);
         if(line != null) {
             line = line.trim();
         }
@@ -460,7 +461,7 @@ public final class RegStoreFileParser {
             } else if (line.startsWith(DESCRIPTION)) {
                 description = value;
             }
-           line = reader.readLine();
+           line = BoundedLineReader.readLine(reader, 5_000_000);
             if(line != null) {
                 line = line.trim();
             }

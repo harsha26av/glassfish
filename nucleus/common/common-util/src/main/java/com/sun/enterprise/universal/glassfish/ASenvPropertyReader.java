@@ -43,6 +43,7 @@ package com.sun.enterprise.universal.glassfish;
 import com.sun.enterprise.universal.io.SmartFile;
 import static com.sun.enterprise.util.SystemPropertyConstants.*;
 import com.sun.enterprise.util.net.NetUtils;
+import io.github.pixee.security.BoundedLineReader;
 
 import java.io.*;
 import java.util.*;
@@ -245,7 +246,7 @@ public class ASenvPropertyReader {
             try {
                 reader = new BufferedReader(new FileReader(asenv));
                 String line;
-                while ((line = reader.readLine()) != null) {
+                while ((line = BoundedLineReader.readLine(reader, 5_000_000)) != null) {
                     setProperty(line);
                 }
             }

@@ -43,6 +43,7 @@ package org.glassfish.tests.paas.enabledisable;
 import com.sun.enterprise.util.ExecException;
 import com.sun.enterprise.util.OS;
 import com.sun.enterprise.util.ProcessExecutor;
+import io.github.pixee.security.BoundedLineReader;
 import org.glassfish.api.ActionReport;
 import org.glassfish.api.admin.ParameterMap;
 import org.glassfish.hk2.api.ServiceLocator;
@@ -216,7 +217,7 @@ public class ExtSharedServiceEnableDisableTest {
                 yc.getInputStream()));
         String line = null;
         boolean found = false;
-        while ((line = in.readLine()) != null) {
+        while ((line = BoundedLineReader.readLine(in, 5_000_000)) != null) {
             System.out.println(line);
             if (line.indexOf(result) != -1) {
                 found = true;

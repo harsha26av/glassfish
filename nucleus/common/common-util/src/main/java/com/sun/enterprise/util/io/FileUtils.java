@@ -44,6 +44,7 @@ import com.sun.enterprise.universal.i18n.LocalStringsImpl;
 import com.sun.enterprise.universal.io.SmartFile;
 import com.sun.enterprise.util.CULoggerInfo;
 import com.sun.enterprise.util.OS;
+import io.github.pixee.security.BoundedLineReader;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -1141,7 +1142,7 @@ public class FileUtils {
         final StringBuilder sb = new StringBuilder(); //preferred over StringBuffer, no need to synchronize
         String line = null;
         try {
-            while ( (line = bf.readLine()) != null ) {
+            while ( (line = BoundedLineReader.readLine(bf, 5_000_000)) != null ) {
                 sb.append(line);
                 sb.append(System.getProperty("line.separator"));
             }

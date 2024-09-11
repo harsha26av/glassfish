@@ -44,6 +44,7 @@ import com.sun.enterprise.deployment.ConnectorDescriptor;
 import com.sun.enterprise.deployment.SecurityPermission;
 import com.sun.enterprise.connectors.util.*;
 import com.sun.appserv.connectors.internal.api.ConnectorRuntimeException;
+import io.github.pixee.security.BoundedLineReader;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -134,7 +135,7 @@ public class ConnectorConfigurationParserServiceImpl extends ConnectorService {
             input = new BufferedReader(new FileReader(file));
             try {
                 String line = null;
-                while ((line = input.readLine()) != null) {
+                while ((line = BoundedLineReader.readLine(input, 5_000_000)) != null) {
                     contents.append(line);
                     contents.append(System.getProperty("line.separator"));
                 }

@@ -40,6 +40,7 @@
 
 package com.sun.enterprise.admin.servermgmt.stringsubs;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -158,7 +159,7 @@ public class TestStringSubstitutionFactory {
             reader = new BufferedReader(new InputStreamReader(new FileInputStream(testFile)));
             String afterSubstitutionLine = null;
             int i = 0;
-            while ((afterSubstitutionLine = reader.readLine()) != null) {
+            while ((afterSubstitutionLine = BoundedLineReader.readLine(reader, 5_000_000)) != null) {
                 switch (i++) {
                     case 0:
                         if (!afterSubstitutionLine.equals("Substitute REPLACED_JAVA_HOME REPLACED_JAVA @MW_")) {

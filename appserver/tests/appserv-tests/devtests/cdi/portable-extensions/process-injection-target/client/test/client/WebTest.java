@@ -40,6 +40,7 @@
 
 package test.client;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.*;
 import java.net.*;
 import com.sun.ejte.ccl.reporter.*;
@@ -88,7 +89,7 @@ public class WebTest {
 
         InputStream in = new URL(url).openStream();
         BufferedReader rdr = new BufferedReader(new InputStreamReader(in));
-        String line = rdr.readLine();
+        String line = BoundedLineReader.readLine(rdr, 5_000_000);
         if (EXPECTED_RESPONSE.equals(line)) {
             stat.addStatus(TEST_NAME, stat.PASS);
         } else {

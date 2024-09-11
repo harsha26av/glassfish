@@ -40,6 +40,7 @@
 
 package org.glassfish.tests.sse.basic;
 
+import io.github.pixee.security.BoundedLineReader;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -61,11 +62,11 @@ public class BasicTest {
             throw new RuntimeException("Invoked main page, got HTTP response code="+uc.getResponseCode());
         }
         BufferedReader rdr = new BufferedReader(new InputStreamReader(uc.getInputStream()));
-        String str = rdr.readLine();
+        String str = BoundedLineReader.readLine(rdr, 5_000_000);
         Assert.assertEquals("data:message1", str);
-        str = rdr.readLine();
+        str = BoundedLineReader.readLine(rdr, 5_000_000);
         Assert.assertEquals("", str);
-        str = rdr.readLine();
+        str = BoundedLineReader.readLine(rdr, 5_000_000);
         Assert.assertNull(str);
         rdr.close();
     }

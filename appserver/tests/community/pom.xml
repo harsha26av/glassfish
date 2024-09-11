@@ -65,13 +65,13 @@
                      <phase>test</phase>
                      <configuration>
                        <tasks>
-			 <property name="compile_classpath" refid="maven.compile.classpath"/>
-                	<property name="plugin_classpath" refid="maven.plugin.classpath"/>
+			 asks>
+                	mpile.classpath"/>
 
-                	<echo message="compile classpath: ${compile_classpath}"/>
-                	<echo message="plugin classpath:  ${plugin_classpath}"/>
+                	plugin.classpath"/>
+                	pile_classpath}"/>
                         <ant dir="." antfile="build.xml" target="all">
-			   <property name="glassfish.home" value="${glassfish.home}"/>
+			   ="all">
 			</ant>
                        </tasks>
                      </configuration>
@@ -107,5 +107,23 @@
              </plugin>
         </plugins>
     </build>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>io.github.pixee</groupId>
+        <artifactId>java-security-toolkit</artifactId>
+        <version>${versions.java-security-toolkit}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+  <properties>
+    <versions.java-security-toolkit>1.2.0</versions.java-security-toolkit>
+  </properties>
+  <dependencies>
+    <dependency>
+      <groupId>io.github.pixee</groupId>
+      <artifactId>java-security-toolkit</artifactId>
+    </dependency>
+  </dependencies>
 </project>
 

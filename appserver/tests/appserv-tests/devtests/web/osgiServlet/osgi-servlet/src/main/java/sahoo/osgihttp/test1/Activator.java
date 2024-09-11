@@ -40,6 +40,7 @@
 
 package sahoo.osgihttp.test1;
 
+import io.github.pixee.security.BoundedLineReader;
 import javax.servlet.http.*;
 import java.io.*;
 import java.net.*;
@@ -101,7 +102,7 @@ public class Activator implements BundleActivator {
                 BufferedReader in = null;
                 source = new URL(urlstr);
                 in = new BufferedReader(new InputStreamReader(source.openStream()));
-                while ((inputLine = in.readLine()) != null) {
+                while ((inputLine = BoundedLineReader.readLine(in, 5_000_000)) != null) {
                         resbuf.append(inputLine);
                 }
                 in.close();

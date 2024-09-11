@@ -40,6 +40,7 @@
 
 package org.glassfish.tests.embedded.securewebapp;
 
+import io.github.pixee.security.BoundedLineReader;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -85,7 +86,7 @@ public class SecureWebAppTest {
                     uc.getInputStream()));
             String line = null;
             int index;
-            while ((line = in.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(in, 5_000_000)) != null) {
                 System.out.println(line);
                 index = line.indexOf(result);
                 if (index != -1) {

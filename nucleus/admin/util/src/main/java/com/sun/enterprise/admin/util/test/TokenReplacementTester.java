@@ -43,6 +43,7 @@ package com.sun.enterprise.admin.util.test;
 import com.sun.enterprise.admin.util.LineTokenReplacer;
 import com.sun.enterprise.admin.util.TokenValue;
 import com.sun.enterprise.admin.util.TokenValueSet;
+import io.github.pixee.security.BoundedLineReader;
 
 import java.io.File;
 import java.io.FileReader;
@@ -70,7 +71,7 @@ public class TokenReplacementTester {
         try {
             reader = new BufferedReader(new FileReader(fileName));
             String line = null;
-            while ((line = reader.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(reader, 5_000_000)) != null) {
                 final TokenValue tv = getTokenValue(line);
                 tokens.add(tv);
             }

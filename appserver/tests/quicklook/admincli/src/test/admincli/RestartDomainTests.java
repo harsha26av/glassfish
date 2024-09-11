@@ -40,6 +40,7 @@
 
 package test.admincli;
 
+import io.github.pixee.security.BoundedLineReader;
 import org.testng.annotations.Test;
 import org.testng.Assert;
 
@@ -79,7 +80,7 @@ public class RestartDomainTests {
            String line;
            String testLine = null;
            try {
-              while (( line = in.readLine() )  != null ) {
+              while (( line = BoundedLineReader.readLine(in, 5_000_000) )  != null ) {
                 //System.out.println("The line read is: " + line);
                 if(line.indexOf(expectedOutPut)!=-1){
                   result=true;

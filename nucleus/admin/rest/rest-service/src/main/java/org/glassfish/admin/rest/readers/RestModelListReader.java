@@ -40,6 +40,7 @@
 
 package org.glassfish.admin.rest.readers;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -94,10 +95,10 @@ public class RestModelListReader implements MessageBodyReader<List<RestModel>> {
             List<RestModel> list = new ArrayList<RestModel>();
             BufferedReader in = new BufferedReader(new InputStreamReader(entityStream));
             StringBuilder sb = new StringBuilder();
-            String line = in.readLine();
+            String line = BoundedLineReader.readLine(in, 5_000_000);
             while (line != null) {
                 sb.append(line);
-                line = in.readLine();
+                line = BoundedLineReader.readLine(in, 5_000_000);
             }
 
             JSONArray array = new JSONArray(sb.toString());

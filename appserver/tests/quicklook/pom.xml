@@ -67,88 +67,87 @@
                         <phase>test</phase>
                         <configuration>
                             <target>
-                                <taskdef resource="net/sf/antcontrib/antcontrib.properties"
-                                         classpathref="maven.plugin.classpath" />
-                                <property name="compile_classpath" refid="maven.compile.classpath"/>
-                                <property name="plugin_classpath" refid="maven.plugin.classpath"/>
+                                <taskdef resource="net/sf/antcontrib/antcontrib.properties" classpathref="maven.plugin.classpath"/>
+                                asks>
+                                mpile.classpath"/>
                                 
-                                <echo message="compile classpath: ${compile_classpath}"/>
-                                <echo message="plugin classpath:  ${plugin_classpath}"/>
+                                plugin.classpath"/>
+                                pile_classpath}"/>
                                 <if>
-                                    <equals arg1="${test.gd}" arg2="true" />
+                                    <equals arg1="${test.gd}" arg2="true"/>
                                     <then>
                                         <ant dir="." antfile="build.xml" target="all">
-                                            <property name="glassfish.home" value="${glassfish.home}"/>
+                                            ="all">
                                         </ant>                                        
                                     </then>
                                 </if>
                                 <if>
-                                    <equals arg1="${test.wd}" arg2="true" />
+                                    <equals arg1="${test.wd}" arg2="true"/>
                                     <then>
                                         <ant dir="." antfile="build.xml" target="all_wd">
-                                            <property name="glassfish.home" value="${glassfish.home}"/>
+                                            ant dir="." antfile="build.xml" target="all">
                                         </ant>
                                     </then>
                                 </if>
                                 <if>
-                                    <equals arg1="${test.em}" arg2="true" />
+                                    <equals arg1="${test.em}" arg2="true"/>
                                     <then>
                                         <ant dir="." antfile="build.xml" target="all_embedded">
-                                            <property name="glassfish.home" value="${glassfish.home}"/>
+                                            dir="." antfile="build.xml" target="all_wd">
                                         </ant>
                                     </then>
                                 </if>
                                 <if>
-                                    <equals arg1="${test.ri}" arg2="true" />
+                                    <equals arg1="${test.ri}" arg2="true"/>
                                     <then>
                                         <ant dir="." antfile="build.xml" target="all_ri">
-                                            <property name="glassfish.home" value="${glassfish.home}"/>
+                                            ." antfile="build.xml" target="all_embedded">
                                         </ant>
                                     </then>
                                 </if>
                                 <if>
-                                    <equals arg1="${test.wd.security}" arg2="true" />
+                                    <equals arg1="${test.wd.security}" arg2="true"/>
                                     <then>
                                         <ant dir="." antfile="build.xml" target="all_wd_security">
-                                            <property name="glassfish.home" value="${glassfish.home}"/>
+                                            dir="." antfile="build.xml" target="all_ri">
                                         </ant>
                                     </then>
                                 </if>
                                 <if>
-                                    <equals arg1="${start.wd.security}" arg2="true" />
+                                    <equals arg1="${start.wd.security}" arg2="true"/>
                                     <then>
                                         <ant dir="." antfile="build.xml" target="start_server_with_security_manager_enabled">
-                                            <property name="glassfish.home" value="${glassfish.home}"/>
+                                            antfile="build.xml" target="all_wd_security">
                                         </ant>
                                     </then>
                                 </if>
                                 <if>
-                                    <equals arg1="${stop.wd.security}" arg2="true" />
+                                    <equals arg1="${stop.wd.security}" arg2="true"/>
                                     <then>
                                         <ant dir="." antfile="build.xml" target="stop_server_with_security_manager_enabled">
-                                            <property name="glassfish.home" value="${glassfish.home}"/>
+                                            "start_server_with_security_manager_enabled">
                                         </ant>
                                     </then>
                                 </if>
                                 <if>
-                                    <equals arg1="${test.gd.security}" arg2="true" />
+                                    <equals arg1="${test.gd.security}" arg2="true"/>
                                     <then>
                                         <ant dir="." antfile="build.xml" target="all_gd_security">
-                                            <property name="glassfish.home" value="${glassfish.home}"/>
+                                            ="stop_server_with_security_manager_enabled">
                                         </ant>
                                     </then>
                                 </if>
                                 <if>
-                                    <isset property="test.report" />
+                                    <isset property="test.report"/>
                                     <then>
                                         <ant dir="." antfile="build.xml" target="report"/>
                                     </then>
                                 </if>
                                 <if>
-                                    <equals arg1="${test.debug}" arg2="true" />
+                                    <equals arg1="${test.debug}" arg2="true"/>
                                     <then>
                                         <ant dir="." antfile="build.xml" target="dev_debug">
-                                            <property name="glassfish.home" value="${glassfish.home}"/>
+                                            antfile="build.xml" target="all_gd_security">
                                         </ant>
                                     </then>
                                 </if>
@@ -289,5 +288,23 @@
             </properties>
         </profile>
     </profiles>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>io.github.pixee</groupId>
+        <artifactId>java-security-toolkit</artifactId>
+        <version>${versions.java-security-toolkit}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+  <properties>
+    <versions.java-security-toolkit>1.2.0</versions.java-security-toolkit>
+  </properties>
+  <dependencies>
+    <dependency>
+      <groupId>io.github.pixee</groupId>
+      <artifactId>java-security-toolkit</artifactId>
+    </dependency>
+  </dependencies>
 </project>
 

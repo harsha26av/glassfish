@@ -40,6 +40,7 @@
 
 package test.classloader.hellojsf;
 
+import io.github.pixee.security.BoundedLineReader;
 import org.testng.annotations.Configuration;
 import org.testng.annotations.ExpectedExceptions;
 import org.testng.annotations.Test;
@@ -105,7 +106,7 @@ public class helloJSFTestNG {
         String line = null;
         boolean result=false;
         String testLine = null;        
-        while ((line = input.readLine()) != null) {
+        while ((line = BoundedLineReader.readLine(input, 5_000_000)) != null) {
             //System.out.println("=================================");
             //System.out.println(line);
             //System.out.println("=================================");

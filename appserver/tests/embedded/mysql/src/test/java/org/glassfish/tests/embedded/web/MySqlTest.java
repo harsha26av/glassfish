@@ -40,6 +40,7 @@
 
 package org.glassfish.tests.embedded.web;
 
+import io.github.pixee.security.BoundedLineReader;
 import org.glassfish.embeddable.Deployer;
 import org.glassfish.embeddable.GlassFish;
 import org.glassfish.embeddable.GlassFishProperties;
@@ -93,7 +94,7 @@ public class MySqlTest {
             String line = null;
             boolean found = false;
             int index;
-            while ((line = in.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(in, 5_000_000)) != null) {
                 System.out.println(line);
                 index = line.indexOf(result);
                 if (index != -1) {

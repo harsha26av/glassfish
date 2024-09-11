@@ -40,6 +40,7 @@
 
 package com.sun.enterprise.tools.verifier.tests.connector;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.*;
 import com.sun.enterprise.tools.verifier.tests.*;
 
@@ -90,7 +91,7 @@ public class ConnectorPublicID extends ConnectorTest implements ConnectorCheck {
 
 	    if (deploymentEntry != null) {
 		in = new BufferedReader(new InputStreamReader(deploymentEntry));
-		String s = in.readLine();
+		String s = BoundedLineReader.readLine(in, 5_000_000);
 		boolean foundDOCTYPE = false, foundPubid = false, foundURL = false;
 
 		while (s != null) {
@@ -129,7 +130,7 @@ public class ConnectorPublicID extends ConnectorTest implements ConnectorCheck {
 			result.setStatus(Result.PASSED);  
 			break;
 		    } else if(foundDOCTYPE && s.endsWith(">")) break; // DOCTYPE doesn't have any more lines to check
-		    s = in.readLine();
+		    s = BoundedLineReader.readLine(in, 5_000_000);
 		}
 
 		if (!foundDOCTYPE){

@@ -40,6 +40,7 @@
 
 package org.glassfish.tests.dirListing;
 
+import io.github.pixee.security.BoundedLineReader;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -80,7 +81,7 @@ public class WebTest {
             String line = null;            
             int index=0, lineNum=0;
             String cookies = "";
-            while ((line = in.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(in, 5_000_000)) != null) {
                 System.out.println(lineNum + ": " + line);
                 if (line.indexOf("Directory Listing") != -1){
                     System.out.println("Getting a \"Directory Listing\"");

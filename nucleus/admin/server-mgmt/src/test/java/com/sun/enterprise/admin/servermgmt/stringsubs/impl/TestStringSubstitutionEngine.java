@@ -40,6 +40,7 @@
 
 package com.sun.enterprise.admin.servermgmt.stringsubs.impl;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -235,7 +236,7 @@ public class TestStringSubstitutionEngine {
                 reader = new BufferedReader(new InputStreamReader(new FileInputStream(_testFile)));
                 String afterSubstitutionLine = null;
                 int i = 0;
-                while ((afterSubstitutionLine = reader.readLine()) != null) {
+                while ((afterSubstitutionLine = BoundedLineReader.readLine(reader, 5_000_000)) != null) {
                     switch (i++)
                     {
                         case 0:

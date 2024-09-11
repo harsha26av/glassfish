@@ -39,6 +39,7 @@
  */
 
 package test;
+import io.github.pixee.security.BoundedLineReader;
 import org.testng.annotations.*;
 import org.testng.Assert;
 
@@ -89,7 +90,7 @@ public class CmpRosterTestNG {
 	  boolean result=false;
 	  String testLine = null;        
 	  String EXPECTED_RESPONSE ="ROSTER-FINISHED-OK";
-	  while ((line = input.readLine()) != null) {
+	  while ((line = BoundedLineReader.readLine(input, 5_000_000)) != null) {
 	    // echo(line);
             if(line.indexOf(EXPECTED_RESPONSE)!=-1){
 	      testLine = line;

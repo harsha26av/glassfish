@@ -39,6 +39,7 @@
  */
 
 package test.web.jsp.hello;
+import io.github.pixee.security.BoundedLineReader;
 import org.testng.annotations.Configuration;
 import org.testng.annotations.ExpectedExceptions;
 import org.testng.annotations.Test;
@@ -96,7 +97,7 @@ public class HelloJSPTestNG {
         boolean result=false;
         String testLine = null;        
 	String EXPECTED_RESPONSE ="JSP Test Page";
-        while ((line = input.readLine()) != null) {
+        while ((line = BoundedLineReader.readLine(input, 5_000_000)) != null) {
             if(line.indexOf(EXPECTED_RESPONSE)!=-1){
                 result=true;
              testLine = line;
@@ -133,7 +134,7 @@ public class HelloJSPTestNG {
         String line = null;
         boolean result=false;
         String testLine = null;        
-        while ((line = input.readLine()) != null) {
+        while ((line = BoundedLineReader.readLine(input, 5_000_000)) != null) {
         echo(line);
             if(line.indexOf("Your Application Server is now running")!=-1){
                 result=true;
@@ -168,7 +169,7 @@ public class HelloJSPTestNG {
         String line = null;
         boolean result=false;
         String testLine = null;        
-        while ((line = input.readLine()) != null) {
+        while ((line = BoundedLineReader.readLine(input, 5_000_000)) != null) {
             if(line.indexOf("Welcome to HTML Test Program")!=-1){
                 result=true;
              testLine = line;
@@ -207,7 +208,7 @@ public class HelloJSPTestNG {
         String line = null;
         boolean result=false;
         String testLine = null;        
-        while ((line = input.readLine()) != null) {
+        while ((line = BoundedLineReader.readLine(input, 5_000_000)) != null) {
             if(line.indexOf("Sample Application Servlet")!=-1){
                 result=true;
              testLine = line;

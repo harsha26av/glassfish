@@ -40,6 +40,7 @@
 
 package com.sun.enterprise.server.logging;
 
+import io.github.pixee.security.BoundedLineReader;
 import static org.junit.Assert.assertEquals;
 
 import java.io.BufferedReader;
@@ -194,7 +195,7 @@ public class LoggingAnnotationsTest {
         try {
             reader = new BufferedReader(new FileReader(file));
             String line;
-            while ((line=reader.readLine()) != null) {
+            while ((line=BoundedLineReader.readLine(reader, 5_000_000)) != null) {
                 buf.append(line);
                 buf.append(LINE_SEP);
             }

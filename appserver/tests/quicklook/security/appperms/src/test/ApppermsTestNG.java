@@ -39,6 +39,7 @@
  */
 
 package test.security.appperms;
+import io.github.pixee.security.BoundedLineReader;
 import org.testng.annotations.Configuration;
 import org.testng.annotations.ExpectedExceptions;
 import org.testng.annotations.Test;
@@ -111,7 +112,7 @@ public class ApppermsTestNG {
             InputStream is = conn.getInputStream();
             BufferedReader input = new BufferedReader(new InputStreamReader(is));
 	    String line = null;
-	    while ((line = input.readLine()) != null) {
+	    while ((line = BoundedLineReader.readLine(input, 5_000_000)) != null) {
 	      if (line.contains(EXPECTED_RESPONSE)) {
                 // System.out.println("line="+line);
                 result = true;

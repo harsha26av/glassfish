@@ -53,6 +53,7 @@ import com.sun.enterprise.util.uuid.UuidGeneratorImpl;
 import com.sun.enterprise.v3.common.ActionReporter;
 import com.sun.enterprise.v3.common.PlainTextActionReporter;
 import com.sun.enterprise.v3.common.PropsFileActionReporter;
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -131,7 +132,7 @@ public class CommandResource {
         StringBuilder result = new StringBuilder();
         result.append("<html><body>");
         String line;
-        while ((line = help.readLine()) != null) {
+        while ((line = BoundedLineReader.readLine(help, 5_000_000)) != null) {
             result.append(leadingSpacesToNbsp(StringUtils.escapeForHtml(line))).append("<br/>\n");
         }
         result.append("</body></html>");
@@ -156,7 +157,7 @@ public class CommandResource {
         }
         StringBuilder result = new StringBuilder();
         String line;
-        while ((line = help.readLine()) != null) {
+        while ((line = BoundedLineReader.readLine(help, 5_000_000)) != null) {
             result.append(line).append(eol);
         }
         return result.toString();

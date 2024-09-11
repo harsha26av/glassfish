@@ -46,7 +46,8 @@
 
 package com.sun.appserv.test;
 
-//import com.sun.appserv.test.BaseDevTest;
+
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -176,7 +177,7 @@ public abstract class AdminBaseDevTest extends BaseDevTest {
                     "ISO-8859-1"));
             StringWriter ow = new StringWriter();
             String line;
-            while ((line = ir.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(ir, 5_000_000)) != null) {
                 ow.write(line);
                 ow.write("\n");
             }

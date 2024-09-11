@@ -40,6 +40,7 @@
 
 package test.client;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.*;
 import java.net.*;
 import com.sun.ejte.ccl.reporter.*;
@@ -98,7 +99,7 @@ public class WebTest {
             try {
                 is = conn.getInputStream();
                 input = new BufferedReader(new InputStreamReader(is));
-                line = input.readLine();
+                line = BoundedLineReader.readLine(input, 5_000_000);
                 System.out.println("line = " + line);
             } finally {
                 try {

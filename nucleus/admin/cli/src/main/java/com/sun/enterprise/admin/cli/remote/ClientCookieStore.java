@@ -40,6 +40,7 @@
 
 package com.sun.enterprise.admin.cli.remote;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -143,7 +144,7 @@ public class ClientCookieStore implements CookieStore {
         try {
             in = new BufferedReader(new FileReader(cookieStoreFile));
             String str;
-            while ((str = in.readLine()) != null) {
+            while ((str = BoundedLineReader.readLine(in, 5_000_000)) != null) {
 
                 // Ignore comment lines
                 if (str.startsWith("#")) continue;

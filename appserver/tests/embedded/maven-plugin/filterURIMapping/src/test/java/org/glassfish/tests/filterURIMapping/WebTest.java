@@ -40,6 +40,7 @@
 
 package org.glassfish.tests.sessionDestroyed;
 
+import io.github.pixee.security.BoundedLineReader;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -81,7 +82,7 @@ public class WebTest {
                     yc.getInputStream()));
             String line = null;
             int index;
-            while ((line = in.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(in, 5_000_000)) != null) {
                 System.out.println(line);
                 if (line.startsWith("Filter invoked")) {
                     pass = true;

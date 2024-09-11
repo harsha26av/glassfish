@@ -40,6 +40,7 @@
 
 package admin;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.*;
 import java.net.*;
 import java.security.MessageDigest;
@@ -429,7 +430,7 @@ public class LBCommandsTest extends AdminBaseDevTest {
         BufferedReader reader = new BufferedReader(new FileReader(file));
         MessageDigest complete = MessageDigest.getInstance("MD5");
         String line = null;
-        while((line = reader.readLine()) != null) {
+        while((line = BoundedLineReader.readLine(reader, 5_000_000)) != null) {
             System.out.println(line);
             if(line.contains("This file was generated on:")){
                 continue;

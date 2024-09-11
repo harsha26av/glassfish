@@ -40,6 +40,7 @@
 
 package com.sun.enterprise.tools.verifier.tests.web;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.*;
 
 import com.sun.enterprise.deployment.*;
@@ -88,7 +89,7 @@ public class WebPublicID extends WebTest implements WebCheck {
                          "WEB-INF/web.xml");
                  if (deploymentEntry != null) {
                      BufferedReader in = new BufferedReader(new InputStreamReader(deploymentEntry));
-                     String s = in.readLine();
+                     String s = BoundedLineReader.readLine(in, 5_000_000);
                      boolean foundDOCTYPE = false, foundPubid = false, foundURL = false;
                      while (s != null) {
                          // did we find the DOCTYPE entry? 
@@ -126,7 +127,7 @@ public class WebPublicID extends WebTest implements WebCheck {
 			result.setStatus(Result.PASSED);  
 			break;
 		    } else if(foundDOCTYPE && s.endsWith(">")) break; // DOCTYPE doesn't have any more lines to check
-		    s = in.readLine();
+		    s = BoundedLineReader.readLine(in, 5_000_000);
 		}
 		
 		if (!foundDOCTYPE){

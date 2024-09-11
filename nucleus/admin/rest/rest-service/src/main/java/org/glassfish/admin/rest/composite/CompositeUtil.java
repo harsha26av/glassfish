@@ -42,6 +42,7 @@ package org.glassfish.admin.rest.composite;
 
 import com.sun.enterprise.util.LocalStringManagerImpl;
 import com.sun.enterprise.v3.common.ActionReporter;
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -599,7 +600,7 @@ public class CompositeUtil {
                 URL url = urls.nextElement();
                 reader = new BufferedReader(new InputStreamReader(url.openStream()));
                 while (reader.ready()) {
-                    final String line = reader.readLine();
+                    final String line = BoundedLineReader.readLine(reader, 5_000_000);
                     if ((line == null) || line.isEmpty()) {
                         continue;
                     }

@@ -40,6 +40,7 @@
 
 package org.glassfish.tests.embedded.web;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.*;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -114,7 +115,7 @@ public class EmbeddedClassLoaderTest {
 
         StringBuilder sb = new StringBuilder();
         String inputLine;
-        while ((inputLine = in.readLine()) != null){
+        while ((inputLine = BoundedLineReader.readLine(in, 5_000_000)) != null){
             sb.append(inputLine);
         }
 

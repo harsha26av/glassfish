@@ -50,6 +50,7 @@ import com.sun.enterprise.util.AnnotationUtil;
 import com.sun.enterprise.util.LocalStringManagerImpl;
 import com.sun.enterprise.util.StringUtils;
 import com.sun.enterprise.v3.common.XMLContentActionReporter;
+import io.github.pixee.security.BoundedLineReader;
 import java.io.*;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
@@ -1075,7 +1076,7 @@ public class CommandRunnerImpl implements CommandRunner {
             String line;
             StringBuilder sb = new StringBuilder();
 
-            while ((line = br.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(br, 5_000_000)) != null) {
                 sb.append(line);
                 sb.append(ManifestUtils.EOL_TOKEN);
             }

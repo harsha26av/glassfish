@@ -40,6 +40,7 @@
 
 package org.glassfish.javaee7.batch.test.util;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -82,7 +83,7 @@ public class CommandUtil {
 
             BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
             try {
-                for (String line = br.readLine(); line != null; line = br.readLine()) {
+                for (String line = BoundedLineReader.readLine(br, 5_000_000); line != null; line = BoundedLineReader.readLine(br, 5_000_000)) {
                     result.add(line);
                     if (withOutput)
                         System.out.println(line);
@@ -115,7 +116,7 @@ public class CommandUtil {
 
             BufferedReader br = new BufferedReader(new InputStreamReader(process.getErrorStream()));
             try {
-                for (String line = br.readLine(); line != null; line = br.readLine()) {
+                for (String line = BoundedLineReader.readLine(br, 5_000_000); line != null; line = BoundedLineReader.readLine(br, 5_000_000)) {
                     result.add(line);
                     if (withOutput)
                         System.out.println(line);

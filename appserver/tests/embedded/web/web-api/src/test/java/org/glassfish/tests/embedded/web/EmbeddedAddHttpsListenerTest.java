@@ -40,6 +40,7 @@
 
 package org.glassfish.tests.embedded.web;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.*;
 import java.net.*;
 import java.security.*;
@@ -119,7 +120,7 @@ public class EmbeddedAddHttpsListenerTest {
         BufferedReader in = new BufferedReader(new InputStreamReader(uc.getInputStream()));
         StringBuilder sb = new StringBuilder();
         String inputLine;
-        while ((inputLine = in.readLine()) != null){
+        while ((inputLine = BoundedLineReader.readLine(in, 5_000_000)) != null){
             sb.append(inputLine);
         }
         in.close();

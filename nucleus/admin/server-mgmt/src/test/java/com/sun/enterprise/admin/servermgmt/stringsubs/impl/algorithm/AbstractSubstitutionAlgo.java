@@ -40,6 +40,7 @@
 
 package com.sun.enterprise.admin.servermgmt.stringsubs.impl.algorithm;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -128,7 +129,7 @@ public abstract class AbstractSubstitutionAlgo
             BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(_testFile)));
             String afterSubstitutionLine = null;
             int i = 0;
-            while ((afterSubstitutionLine = reader.readLine()) != null) {
+            while ((afterSubstitutionLine = BoundedLineReader.readLine(reader, 5_000_000)) != null) {
                 switch (i++)
                 {
                     case 0:
@@ -168,7 +169,7 @@ public abstract class AbstractSubstitutionAlgo
             BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(_testFile)));
             String afterSubstitutionLine = null;
             int i = 0;
-            while ((afterSubstitutionLine = reader.readLine()) != null) {
+            while ((afterSubstitutionLine = BoundedLineReader.readLine(reader, 5_000_000)) != null) {
                 switch (i++)
                 {
                     case 1:
@@ -216,7 +217,7 @@ public abstract class AbstractSubstitutionAlgo
         String afterSubstitutionLine = null;
         try {
             int i = 0;
-            while ((afterSubstitutionLine = reader.readLine()) != null) {
+            while ((afterSubstitutionLine = BoundedLineReader.readLine(reader, 5_000_000)) != null) {
                 switch (i++)
                 {
                     case 0:
@@ -265,7 +266,7 @@ public abstract class AbstractSubstitutionAlgo
         String afterSubstitutionLine = null;
         try {
             int i = 0;
-            while ((afterSubstitutionLine = reader.readLine()) != null) {
+            while ((afterSubstitutionLine = BoundedLineReader.readLine(reader, 5_000_000)) != null) {
                 switch (i++)
                 {
                     case 1:

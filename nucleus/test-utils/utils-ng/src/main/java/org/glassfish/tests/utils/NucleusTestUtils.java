@@ -43,6 +43,7 @@ package org.glassfish.tests.utils;
 import com.sun.enterprise.universal.process.ProcessManager;
 import com.sun.enterprise.universal.process.ProcessManagerException;
 import com.sun.enterprise.universal.process.ProcessManagerTimeoutException;
+import io.github.pixee.security.BoundedLineReader;
 import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
@@ -291,7 +292,7 @@ public class NucleusTestUtils {
             try {
                 ow = new StringWriter();
                 String line;
-                while ((line = ir.readLine()) != null) {
+                while ((line = BoundedLineReader.readLine(ir, 5_000_000)) != null) {
                     ow.write(line);
                     ow.write("\n");
                 }

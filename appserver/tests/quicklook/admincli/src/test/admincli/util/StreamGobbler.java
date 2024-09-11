@@ -46,6 +46,7 @@ package test.admincli.util;
  */
 
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.*;
 
 /**
@@ -70,7 +71,7 @@ public class StreamGobbler extends Thread
             InputStreamReader isr = new InputStreamReader(is);
             BufferedReader br = new BufferedReader(isr);
             String line=null;
-            while ( (line = br.readLine()) != null) {
+            while ( (line = BoundedLineReader.readLine(br, 5_000_000)) != null) {
                 stringBuffer.append(type + ">" + line + "\n");
             }
         }
