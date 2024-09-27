@@ -494,7 +494,9 @@ public class TransactionImpl
 
     public void setSynchronization(Synchronization sync) {
         if (this.tracing)
-        this.traceCall("setSynchronization"); // NOI18N
+        {
+            this.traceCall("setSynchronization");
+        } // NOI18N
 
         persistenceManager.acquireExclusiveLock();
 

@@ -239,7 +239,9 @@ public class CreateMessageSecurityProvider implements AdminCommand, AdminCommand
                         if (isDefaultProvider) {
                             if (providerType.equals(SERVER) || 
                                 providerType.equals(CLIENT_SERVER) )
-                            param.setDefaultProvider(providerId);
+                            {
+                                param.setDefaultProvider(providerId);
+                            }
                             
                             if (providerType.equals(CLIENT) || 
                                 providerType.equals(CLIENT_SERVER) )
@@ -287,7 +289,9 @@ public class CreateMessageSecurityProvider implements AdminCommand, AdminCommand
                         if (isDefaultProvider) {
                             if (providerType.equals(SERVER) || 
                                 providerType.equals(CLIENT_SERVER) )
-                            newMSC.setDefaultProvider(providerId);
+                            {
+                                newMSC.setDefaultProvider(providerId);
+                            }
                             
                             if (providerType.equals(CLIENT) || 
                                 providerType.equals(CLIENT_SERVER) )
