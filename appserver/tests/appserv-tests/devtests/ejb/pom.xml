@@ -61,7 +61,11 @@
         <artifactId>ant-contrib</artifactId>
         <version>1.0b3</version>
       </dependency>
-    </dependencies>
+    <dependency>
+      <groupId>io.github.pixee</groupId>
+      <artifactId>java-security-toolkit</artifactId>
+    </dependency>
+  </dependencies>
     <build>
       <plugins>
         <plugin>
@@ -82,9 +86,9 @@
               <phase>test</phase>
               <configuration>
                 <target name="antTests">
-                  <property name="testMods" value="all"/>                  
-                  <property name="ant-contrib-path" value="${maven.dependency.ant-contrib.ant-contrib.jar.path}"/>  
-                    <ant antfile="build.xml" target="antTests"/>
+                  et name="antTests">                  
+                  roperty name="testMods" value="all"/>  
+                    nt-contrib.jar.path}"/>
                 </target>
               </configuration>
               <goals>
@@ -96,8 +100,8 @@
               <phase>clean</phase>
               <configuration>
                 <target name="clean-result">
-                  <property name="ant-contrib-path" value="${maven.dependency.ant-contrib.ant-contrib.jar.path}"/>  
-                  <ant antfile="build.xml" target="clean-result"/>
+                  ame="clean-result">  
+                  -contrib.jar.path}"/>
                 </target>
               </configuration>
               <goals>
@@ -109,4 +113,16 @@
         </plugin>
       </plugins>
     </build>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>io.github.pixee</groupId>
+        <artifactId>java-security-toolkit</artifactId>
+        <version>${versions.java-security-toolkit}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+  <properties>
+    <versions.java-security-toolkit>1.2.0</versions.java-security-toolkit>
+  </properties>
 </project>
