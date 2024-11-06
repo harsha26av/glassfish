@@ -40,6 +40,7 @@
 
 package com.acme;
 
+import io.github.pixee.security.SystemCommand;
 import java.net.*;
 import java.io.*;
 import java.util.*;
@@ -133,7 +134,7 @@ public class HttpClient {
 	try {
 	    System.out.println("Executing stop-instance "  + instName);
 	    Thread.sleep(3 * 1000);
-	    Process proc = Runtime.getRuntime().exec(ASADMIN + "  stop-instance " + instName);
+	    Process proc = SystemCommand.runCommand(Runtime.getRuntime(), ASADMIN + "  stop-instance " + instName);
 	    proc.waitFor();
 	    System.out.println("Process stop-instance "  + instName + " finished...");
 	} catch (Exception ex) {
@@ -144,7 +145,7 @@ public class HttpClient {
     private void startInstance(String instName) {
 	try {
 	    System.out.println("Executing start-instance "  + instName);
-	    Process proc = Runtime.getRuntime().exec(ASADMIN + "  start-instance " + instName);
+	    Process proc = SystemCommand.runCommand(Runtime.getRuntime(), ASADMIN + "  start-instance " + instName);
 	    proc.waitFor();
 	    System.out.println("Process start-instance "  + instName + " finished...");
 	    Thread.sleep(3 * 1000);

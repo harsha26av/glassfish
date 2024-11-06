@@ -48,6 +48,7 @@
  */
 package com.sun.enterprise.universal.process;
 
+import io.github.pixee.security.SystemCommand;
 import java.io.*;
 import java.util.*;
 
@@ -105,7 +106,7 @@ public class ProcessManager {
     public final int execute() throws ProcessManagerException {
         try {
             Runtime rt = Runtime.getRuntime();
-            process = rt.exec(cmdline, env);
+            process = SystemCommand.runCommand(rt, cmdline, env);
             readStream("stderr", process.getErrorStream(), sb_err);
             readStream("stdout", process.getInputStream(), sb_out);
             writeStdin();
