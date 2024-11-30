@@ -40,6 +40,7 @@
 
 package com.sun.web.security;
 
+import static io.github.pixee.security.jakarta.PathValidator.validateDispatcherPath;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -495,7 +496,7 @@ class HttpRequestWrapper
  
      @Override
      public RequestDispatcher getRequestDispatcher(String path) {
-         return servletRequest.getRequestDispatcher(path);
+         return servletRequest.getRequestDispatcher(validateDispatcherPath(path));
      }
  
      @Override

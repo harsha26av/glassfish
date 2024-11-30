@@ -40,6 +40,7 @@
 
 package org.glassfish.admingui.common.security;
 
+import static io.github.pixee.security.jakarta.PathValidator.validateDispatcherPath;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
@@ -225,7 +226,7 @@ public class AdminConsoleAuthModule implements ServerAuthModule {
                 origPath += "?" + qs;
             }
             session.setAttribute(ORIG_REQUEST_PATH, origPath);
-            RequestDispatcher rd = request.getRequestDispatcher(loginPage);
+            RequestDispatcher rd = request.getRequestDispatcher(validateDispatcherPath(loginPage));
             try {
                 rd.forward(request, response);
             } catch (Exception ex) {
@@ -317,7 +318,7 @@ public class AdminConsoleAuthModule implements ServerAuthModule {
                 request.setAttribute("errorText", GuiUtil.getMessage("alert.ConfigurationError"));
                 request.setAttribute("messageText", GuiUtil.getMessage("alert.EnableSecureAdmin"));
             }
-            RequestDispatcher rd = request.getRequestDispatcher(this.loginErrorPage);
+            RequestDispatcher rd = request.getRequestDispatcher(validateDispatcherPath(this.loginErrorPage));
             try {
                 rd.forward(request, response);
             } catch (Exception ex) {

@@ -40,6 +40,7 @@
 
 package test;
 
+import static io.github.pixee.security.jakarta.PathValidator.validateDispatcherPath;
 import java.io.IOException;
 import java.io.PrintWriter;
             
@@ -63,7 +64,7 @@ public class DispatchForward extends HttpServlet {
 
         if (!req.getDispatcherType().equals(DispatcherType.ASYNC)) {
             System.out.println("DF: forwarding " + forwardUrl);
-            req.getRequestDispatcher(forwardUrl).forward(req, res);
+            req.getRequestDispatcher(validateDispatcherPath(forwardUrl)).forward(req, res);
         } else {        
             System.out.println("DF: async dispatch type ...");
             PrintWriter writer = res.getWriter();
