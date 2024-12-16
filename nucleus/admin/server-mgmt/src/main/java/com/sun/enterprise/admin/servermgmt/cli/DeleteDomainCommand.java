@@ -42,6 +42,7 @@ package com.sun.enterprise.admin.servermgmt.cli;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 
 import org.jvnet.hk2.annotations.*;
 import org.jvnet.hk2.component.*;
@@ -126,7 +127,7 @@ public final class DeleteDomainCommand extends LocalDomainCommand {
         try {
             File root = getDomainsDir();
             File domdir = new File(root, getDomainName());
-            File tmpdir = File.createTempFile("del-", "", root);
+            File tmpdir = Files.createTempFile(root.toPath(), "del-", "").toFile();
 
             ok = tmpdir.delete() && domdir.renameTo(tmpdir) &&
                     tmpdir.renameTo(domdir);

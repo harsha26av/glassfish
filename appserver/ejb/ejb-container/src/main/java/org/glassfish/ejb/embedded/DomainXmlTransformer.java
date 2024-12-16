@@ -46,6 +46,7 @@ import java.io.FileOutputStream;
 import java.io.FileNotFoundException;
 import java.io.EOFException;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -132,7 +133,7 @@ public class DomainXmlTransformer {
         Set<String> empty_elements = (keepPorts)? EMPTY_ELEMENTS_KEEP_PORTS : EMPTY_ELEMENTS;
         try {
             fis = new FileInputStream(in);
-            out = File.createTempFile("domain", "xml");
+            out = Files.createTempFile("domain", "xml").toFile();
             if (_logger.isLoggable(Level.FINE)) {
                 _logger.fine("[DomainXmlTransformer] Creating temp domain file: " + out);
             }

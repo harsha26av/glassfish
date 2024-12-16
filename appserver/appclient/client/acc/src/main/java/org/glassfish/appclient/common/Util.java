@@ -41,6 +41,7 @@
 package org.glassfish.appclient.common;
 
 import com.sun.enterprise.deployment.ApplicationClientDescriptor;
+import java.nio.file.Files;
 import org.glassfish.deployment.common.ModuleDescriptor;
 import org.glassfish.deployment.common.RootDeploymentDescriptor;
 
@@ -164,7 +165,7 @@ public class Util {
      public static File writeTextToTempFile(String content, String prefix, String suffix, boolean retainFile) throws IOException, FileNotFoundException {
         BufferedWriter wtr = null;
         try {
-            File result = File.createTempFile(prefix, suffix);
+            File result = Files.createTempFile(prefix, suffix).toFile();
             if ( ! retainFile) {
                 result.deleteOnExit();
             }
@@ -252,7 +253,7 @@ public class Util {
         BufferedInputStream is = null;
         BufferedOutputStream os = null;
         try {
-            result = File.createTempFile(prefix, suffix);
+            result = Files.createTempFile(prefix, suffix).toFile();
             if ( ! retainFile) {
                 result.deleteOnExit();
             }

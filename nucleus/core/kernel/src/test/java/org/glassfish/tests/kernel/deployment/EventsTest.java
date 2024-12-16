@@ -40,6 +40,7 @@
 
 package org.glassfish.tests.kernel.deployment;
 
+import java.nio.file.Files;
 import org.junit.*;
 import org.glassfish.api.event.Events;
 import org.glassfish.api.event.EventListener;
@@ -125,7 +126,7 @@ public class EventsTest extends ConfigApiTest {
         ServiceLocatorUtilities.addOneDescriptor(habitat, descriptor);
 
         try {
-            application = File.createTempFile("kerneltest", "tmp");
+            application = Files.createTempFile("kerneltest", "tmp").toFile();
         } catch (IOException e) {
             e.printStackTrace();
             throw e;

@@ -40,6 +40,7 @@
 
 package com.sun.enterprise.admin.cli.cluster;
 
+import java.nio.file.Files;
 import java.util.logging.Level;
 import com.sun.enterprise.universal.io.SmartFile;
 import com.sun.enterprise.util.SystemPropertyConstants;
@@ -171,7 +172,7 @@ abstract class InstallNodeBaseCommand extends NativeRemoteCommandsBase {
             if (!zipFileLocation.canWrite()) {
                 zipFileLocation = new File(System.getProperty("java.io.tmpdir"));
             }
-            glassFishZipFile = File.createTempFile("glassfish", ".zip", zipFileLocation);
+            glassFishZipFile = Files.createTempFile(zipFileLocation.toPath(), "glassfish", ".zip").toFile();
             String filePath = glassFishZipFile.getCanonicalPath();
             filePath = filePath.replaceAll("\\\\", "/");
             archiveName = filePath.substring(filePath.lastIndexOf("/") + 1, filePath.length());

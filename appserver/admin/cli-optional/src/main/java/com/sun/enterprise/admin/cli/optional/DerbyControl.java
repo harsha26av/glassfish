@@ -45,6 +45,7 @@ import java.lang.reflect.Method;
 import java.io.PrintStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
 import org.glassfish.api.admin.CommandException;
 import com.sun.enterprise.util.i18n.StringManager;
 
@@ -214,7 +215,7 @@ public final class DerbyControl
     {
         String tempFileName = "";
         try {
-            final File fTemp = File.createTempFile("foo", null);
+            final File fTemp = Files.createTempFile("foo", null).toFile();
             fTemp.deleteOnExit();
 	        tempFileName = fTemp.toString();
 	    }

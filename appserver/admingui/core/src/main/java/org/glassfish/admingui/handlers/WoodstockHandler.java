@@ -178,7 +178,7 @@ public class WoodstockHandler {
                 if (prefix.length() <= 2) {
                     prefix = prefix + new SecureRandom().nextInt(100000);
                 }
-                tmpFile = File.createTempFile(prefix, suffix);
+                tmpFile = Files.createTempFile(prefix, suffix).toFile();
                 tmpFile.deleteOnExit();
                 if (logger.isLoggable(Level.FINE)) {
                     logger.fine(GuiUtil.getCommonMessage("log.writeToTmpFile"));

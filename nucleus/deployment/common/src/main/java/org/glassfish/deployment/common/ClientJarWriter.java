@@ -46,6 +46,7 @@ import com.sun.enterprise.util.io.FileUtils;
 import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Enumeration;
@@ -200,7 +201,7 @@ public class ClientJarWriter {
          * creates the generated client JAR it does not overwrite the existing
          * file created by the app client deployer.
          */
-        final File movedGeneratedFile = File.createTempFile(generatedClientJARFile.getName(), ".tmp", generatedClientJARFile.getParentFile());
+        final File movedGeneratedFile = Files.createTempFile(generatedClientJARFile.getParentFile().toPath(), generatedClientJARFile.getName(), ".tmp").toFile();
         FileUtils.renameFile(generatedClientJARFile, movedGeneratedFile);
         final ReadableArchive existingGeneratedJAR = new InputJarArchive();
         existingGeneratedJAR.open(movedGeneratedFile.toURI());
@@ -234,7 +235,7 @@ public class ClientJarWriter {
     }
     
     private void addManifest(final Collection<Artifacts.FullAndPartURIs> artifacts) throws IOException {
-        final File mfFile = File.createTempFile("clientmf", ".MF");
+        final File mfFile = Files.createTempFile("clientmf", ".MF").toFile();
         final OutputStream mfOS = new BufferedOutputStream(new FileOutputStream(mfFile));
         try {
             final Manifest mf = new Manifest();

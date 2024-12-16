@@ -47,6 +47,7 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URI;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -182,7 +183,7 @@ public class JavaClientGenerator extends ClientGenerator {
         try {
             String pom = new Scanner(Thread.currentThread().getContextClassLoader().getResourceAsStream("/client/pom.template.xml")).useDelimiter("\\Z").next();
             pom = pom.replace("{{glassfish.version}}", versionString);
-            File out = File.createTempFile("pom", "xml");
+            File out = Files.createTempFile("pom", "xml").toFile();
             out.deleteOnExit();
             writer = new FileWriter(out);
             writer.write(pom);

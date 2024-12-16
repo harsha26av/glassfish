@@ -48,6 +48,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
+import java.nio.file.Files;
 import java.util.StringTokenizer;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -184,7 +185,7 @@ public class GetJWSClientStubs {
                             result.delete();
                         }
                     } else {
-                        result = File.createTempFile("jws", null);
+                        result = Files.createTempFile("jws", null).toFile();
                     }
 
                     InputStream is = c1.getInputStream();

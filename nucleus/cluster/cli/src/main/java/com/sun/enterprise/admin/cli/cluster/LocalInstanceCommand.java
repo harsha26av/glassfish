@@ -48,6 +48,7 @@ import java.io.*;
 import java.io.File;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.nio.file.Files;
 import java.util.*;
 import java.util.logging.Level;
 
@@ -379,7 +380,7 @@ public abstract class LocalInstanceCommand extends LocalServerCommand {
         // the directory tree can be deleted on Windows.
         // The FileUtils.renameFile method has a retry built in.
         try {
-            File tmpwhackee = File.createTempFile("oldinst", null, parent);
+            File tmpwhackee = Files.createTempFile(parent.toPath(), "oldinst", null).toFile();
             if (!tmpwhackee.delete()) {
                 throw new IOException(Strings.get("cantdelete", tmpwhackee));
             }
@@ -409,7 +410,7 @@ public abstract class LocalInstanceCommand extends LocalServerCommand {
             files = parent.listFiles();
 
             if (noInstancesRemain(files)) {
-                File tmpwhackee = File.createTempFile("oldnode", null, grandParent);
+                File tmpwhackee = Files.createTempFile(grandParent.toPath(), "oldnode", null).toFile();
                 if (!tmpwhackee.delete()) {
                     throw new IOException(Strings.get("cantdelete", tmpwhackee));
                 }

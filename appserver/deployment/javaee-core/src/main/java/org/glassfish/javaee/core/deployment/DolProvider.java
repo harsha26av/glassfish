@@ -57,6 +57,7 @@ import com.sun.enterprise.deployment.util.ResourceValidator;
 import com.sun.enterprise.util.LocalStringManagerImpl;
 import com.sun.enterprise.util.io.FileUtils;
 import com.sun.enterprise.v3.common.HTMLActionReporter;
+import java.nio.file.Files;
 import org.glassfish.api.ActionReport;
 import org.glassfish.api.admin.ServerEnvironment;
 import org.glassfish.api.deployment.ApplicationMetaDataProvider;
@@ -313,8 +314,7 @@ public class DolProvider implements ApplicationMetaDataProvider<Application>,
 
             if (archive instanceof InputJarArchive) {
                 // we need to expand the archive first in this case
-                tmpFile = File.createTempFile(
-                    archiveName,"");
+                tmpFile = Files.createTempFile(archiveName, "").toFile();
                 String path = tmpFile.getAbsolutePath();
                 if (!tmpFile.delete()) {
                     logger.log(Level.WARNING, "cannot.delete.temp.file", new Object[] {path});

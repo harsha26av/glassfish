@@ -21,6 +21,7 @@
 package org.apache.catalina.fileupload;
 
 import java.io.*;
+import java.nio.file.Files;
 
 /**
  * An output stream which will retain data in memory until a specified
@@ -157,7 +158,7 @@ class DeferredFileOutputStream
     protected void thresholdReached() throws IOException
     {
         if (prefix != null) {
-            outputFile = File.createTempFile(prefix, suffix, directory);
+            outputFile = Files.createTempFile(directory.toPath(), prefix, suffix).toFile();
         }
         FileOutputStream fos = null;
         try {

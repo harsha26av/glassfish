@@ -52,6 +52,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.file.Files;
 import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -137,7 +138,7 @@ public class Util {
      public static File writeTextToTempFile(String content, String prefix, String suffix, boolean retainTempFiles) throws IOException, FileNotFoundException {
         BufferedWriter wtr = null;
         try {
-            File result = File.createTempFile(prefix, suffix);
+            File result = Files.createTempFile(prefix, suffix).toFile();
             if ( ! retainTempFiles) {
                 result.deleteOnExit();
             }

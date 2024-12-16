@@ -40,6 +40,7 @@
 
 package org.glassfish.deployment.client;
 
+import java.nio.file.Files;
 import org.glassfish.api.admin.CommandException;
 import com.sun.enterprise.util.LocalStringManagerImpl;
 import java.io.File;
@@ -339,7 +340,7 @@ public abstract class AbstractDeploymentFacility implements DeploymentFacility, 
     } 
 
     private File writeMemoryMappedArchiveToTempFile(MemoryMappedArchive mma, String fileSuffix) throws IOException {
-        File tempFile = File.createTempFile("jsr88-", fileSuffix);
+        File tempFile = Files.createTempFile("jsr88-", fileSuffix).toFile();
         BufferedOutputStream bos = null; 
         BufferedInputStream bis = null;
         int chunkSize = 32 * 1024;

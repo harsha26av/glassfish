@@ -47,6 +47,7 @@ package org.glassfish.admin.amxtest.base;
 
 import com.sun.appserv.management.base.UploadDownloadMgr;
 import com.sun.appserv.management.util.misc.ExceptionUtil;
+import java.nio.file.Files;
 import org.glassfish.admin.amxtest.AMXTestBase;
 import org.glassfish.admin.amxtest.Capabilities;
 import org.glassfish.admin.amxtest.PropertyKeys;
@@ -114,7 +115,7 @@ public final class UploadDownloadMgrTest
             throws IOException {
         final long start = now();
 
-        final File temp = File.createTempFile("UploadDownloadMgrTest", "junk");
+        final File temp = Files.createTempFile("UploadDownloadMgrTest", "junk").toFile();
 
         temp.deleteOnExit();
 

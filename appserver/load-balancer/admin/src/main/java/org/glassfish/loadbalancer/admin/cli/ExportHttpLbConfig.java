@@ -43,6 +43,7 @@ package org.glassfish.loadbalancer.admin.cli;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
 
 import org.glassfish.api.I18n;
 import org.glassfish.api.Param;
@@ -184,7 +185,7 @@ public class ExportHttpLbConfig implements AdminCommand {
 
             File tmpLbXmlFile = null;
             if (retrieveFile) {
-                tmpLbXmlFile = File.createTempFile("load-balancer", ".xml");
+                tmpLbXmlFile = Files.createTempFile("load-balancer", ".xml").toFile();
                 tmpLbXmlFile.deleteOnExit();
             } else {
                 if (lbConfigFile.exists()) {

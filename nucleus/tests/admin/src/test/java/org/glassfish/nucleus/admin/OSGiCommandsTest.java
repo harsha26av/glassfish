@@ -40,6 +40,7 @@
 
 package org.glassfish.nucleus.admin;
 
+import java.nio.file.Files;
 import org.glassfish.api.admin.AccessRequired;
 import org.glassfish.tests.utils.NucleusTestUtils;
 import org.testng.annotations.AfterMethod;
@@ -135,7 +136,7 @@ public class OSGiCommandsTest {
      * @throws IOException
      */
     public void osgiShell() throws IOException {
-        File cmdFile = File.createTempFile("osgi-commands", ".txt");
+        File cmdFile = Files.createTempFile("osgi-commands", ".txt").toFile();
         cmdFile.deleteOnExit();
         PrintStream ps = new PrintStream(new FileOutputStream(cmdFile));
         try {

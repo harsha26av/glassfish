@@ -67,6 +67,7 @@ import java.nio.channels.Channels;
 import java.nio.channels.FileChannel;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.WritableByteChannel;
+import java.nio.file.Files;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -770,7 +771,7 @@ public class FileUtils {
         File f = null;
 
         try {
-            f = File.createTempFile(TMPFILENAME, "jar", directory);
+            f = Files.createTempFile(directory.toPath(), TMPFILENAME, "jar").toFile();
         }
         catch (IOException ioe) {
             _utillogger.log(Level.SEVERE, CULoggerInfo.exceptionIO, ioe);

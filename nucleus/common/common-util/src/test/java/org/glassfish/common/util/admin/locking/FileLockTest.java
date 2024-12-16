@@ -40,6 +40,7 @@
 
 package org.glassfish.common.util.admin.locking;
 
+import java.nio.file.Files;
 import junit.framework.Assert;
 import org.glassfish.common.util.admin.ManagedFile;
 import org.junit.Test;
@@ -266,7 +267,7 @@ public class FileLockTest {
 
     @Test
      public void lockAndReadTest() throws IOException {
-         File f = File.createTempFile("common-util-FileLockTest", "tmp");
+         File f = Files.createTempFile("common-util-FileLockTest", "tmp").toFile();
          try {
 
              // Now let's try to write the file.
@@ -301,7 +302,7 @@ public class FileLockTest {
          if (!System.getProperty("os.name").toUpperCase().contains("WINDOWS")) {
              return;
          }
-         File f = File.createTempFile("common-util-FileLockTest", "tmp");
+         File f = Files.createTempFile("common-util-FileLockTest", "tmp").toFile();
          try {
 
              // Now let's try to write the file.
@@ -365,7 +366,7 @@ public class FileLockTest {
 
     @Test
     public void lockAndWriteTest() throws IOException {
-        File f = File.createTempFile("common-util-FileLockTest", "tmp");
+        File f = Files.createTempFile("common-util-FileLockTest", "tmp").toFile();
         try {
             final ManagedFile managed = new ManagedFile(f, 1000, 1000);
             ManagedFile.ManagedLock fl = managed.accessWrite();
@@ -392,7 +393,7 @@ public class FileLockTest {
 
     //@Test
     public void lockAndRenameTest() throws IOException {
-        File f = File.createTempFile("common-util-FileLockTest", "tmp");
+        File f = Files.createTempFile("common-util-FileLockTest", "tmp").toFile();
         try {
             final ManagedFile managed = new ManagedFile(f, 1000, 1000);
             Lock fl = managed.accessWrite();

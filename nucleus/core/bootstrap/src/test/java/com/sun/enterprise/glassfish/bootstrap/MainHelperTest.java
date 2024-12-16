@@ -44,6 +44,7 @@ package com.sun.enterprise.glassfish.bootstrap;
  * Created by kokil on 5/18/17.
  */
 
+import java.nio.file.Files;
 import static org.junit.Assert.*;
 import org.junit.Test;
 import com.sun.enterprise.glassfish.bootstrap.MainHelper;
@@ -61,7 +62,7 @@ public class MainHelperTest {
     @Test
     public void parseAsEnvTest() {
         try {
-            File resources = File.createTempFile("helperTestResources", "config");
+            File resources = Files.createTempFile("helperTestResources", "config").toFile();
             resources.delete();      // delete the temp file
             resources.mkdir();       // reuse the name for a directory
             resources.deleteOnExit();

@@ -40,6 +40,7 @@
 
 package com.sun.enterprise.admin.cli;
 
+import java.nio.file.Files;
 import static org.junit.Assert.*;
 import org.junit.Test;
 import org.junit.Before;
@@ -61,7 +62,7 @@ public class CLIUtilTest {
         BufferedWriter out = null;
         String fileName = null;
         try {
-            final File f = File.createTempFile("TestPasswordFile", ".tmp");
+            final File f = Files.createTempFile("TestPasswordFile", ".tmp").toFile();
             fileName = f.toString();
             f.deleteOnExit();
             out = new BufferedWriter(new FileWriter(f));

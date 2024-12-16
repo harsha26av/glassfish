@@ -40,6 +40,7 @@
 
 package com.sun.enterprise.deploy.shared;
 
+import java.nio.file.Files;
 import org.glassfish.api.deployment.archive.ReadableArchive;
 import org.glassfish.api.deployment.archive.WritableArchive;
 import org.glassfish.hk2.api.ServiceLocator;
@@ -152,7 +153,7 @@ public class FileArchiveTest {
     }
 
     private File tempDir() throws IOException {
-        final File f = File.createTempFile("FileArch", "");
+        final File f = Files.createTempFile("FileArch", "").toFile();
         f.delete();
         f.mkdir();
         return f;

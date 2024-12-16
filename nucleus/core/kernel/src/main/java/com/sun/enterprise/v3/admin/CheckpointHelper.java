@@ -50,6 +50,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.nio.file.Files;
 import java.util.Iterator;
 import java.util.Properties;
 import java.util.zip.ZipEntry;
@@ -454,7 +455,7 @@ public class CheckpointHelper {
         topDir.deleteOnExit();
         while (parts.hasNext()) {
             Part part = parts.next();
-            File sourceFile = File.createTempFile("source", "", topDir);
+            File sourceFile = Files.createTempFile(topDir.toPath(), "source", "").toFile();
             FileUtils.copy(part.getInputStream(), new FileOutputStream(sourceFile), Long.MAX_VALUE);
             outbound.addPart(part.getContentType(), part.getName(), part.getProperties(), new FileInputStream(sourceFile));
         }
@@ -513,7 +514,7 @@ public class CheckpointHelper {
     }
 
     private File createTempDir(final String prefix, final String suffix) throws IOException {
-        File temp = File.createTempFile(prefix, suffix);
+        File temp = Files.createTempFile(prefix, suffix).toFile();
         if ( ! temp.delete()) {
             throw new IOException("Cannot delete temp file " + temp.getAbsolutePath());
         }

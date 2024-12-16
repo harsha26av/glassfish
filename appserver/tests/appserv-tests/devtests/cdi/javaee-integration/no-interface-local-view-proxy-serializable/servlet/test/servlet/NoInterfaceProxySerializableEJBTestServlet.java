@@ -47,6 +47,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
+import java.nio.file.Files;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -75,7 +76,7 @@ public class NoInterfaceProxySerializableEJBTestServlet extends HttpServlet {
 
         // Test serializability of EJB in TestBean.
         try {
-            File tmpFile = File.createTempFile("SerializableProxyTest", null);
+            File tmpFile = Files.createTempFile("SerializableProxyTest", null).toFile();
             FileOutputStream fout = new FileOutputStream(tmpFile);
             ObjectOutputStream oos = new ObjectOutputStream(fout);
             System.out.println("Writing " + tbi + " to file-" + tmpFile);
