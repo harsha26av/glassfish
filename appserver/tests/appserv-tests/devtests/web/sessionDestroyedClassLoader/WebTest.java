@@ -38,6 +38,8 @@
  * holder.
  */
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.*;
 import java.net.*;
 import com.sun.ejte.ccl.reporter.*;
@@ -87,7 +89,7 @@ public class WebTest {
         
         String baseUrl = "http://" + host + ":" + port + contextRoot + "/test";
 
-        HttpURLConnection conn = (HttpURLConnection)(new URL(baseUrl + "?timeout=1")).openConnection();
+        HttpURLConnection conn = (HttpURLConnection)(Urls.create(baseUrl + "?timeout=1", Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS)).openConnection();
         int code = conn.getResponseCode();
         if (code != 200) {
             throw new Exception("Unexpected return code: " + code);
@@ -97,7 +99,7 @@ public class WebTest {
 
         Thread.sleep(4 * 1000);
 
-        conn = (HttpURLConnection) (new URL(baseUrl)).openConnection();
+        conn = (HttpURLConnection) (Urls.create(baseUrl, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS)).openConnection();
         conn.addRequestProperty("Cookie", JSESSIONID + "=" + sessionId1);
         code = conn.getResponseCode();
         if (code != 200) {

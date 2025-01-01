@@ -40,6 +40,8 @@
 
 package com.sun.enterprise.security.web.integration;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import org.glassfish.internal.api.ServerContext;
 import java.security.*;
 import java.util.Set;
@@ -250,7 +252,7 @@ public class WebSecurityManager  {
 		    logger.log(Level.FINE, "[Web-Security] Creating a Codebase URI with = {0}", CODEBASE);
 		uri = new java.net.URI("file:///"+ CODEBASE);
 		if(uri != null){
-		    codesource = new CodeSource(new URL(uri.toString()), 
+		    codesource = new CodeSource(Urls.create(uri.toString(), Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS), 
                             (java.security.cert.Certificate[]) null);
 		}
 		

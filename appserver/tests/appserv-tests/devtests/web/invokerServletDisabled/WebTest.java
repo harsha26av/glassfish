@@ -38,6 +38,8 @@
  * holder.
  */
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.*;
 import java.net.*;
 import com.sun.ejte.ccl.reporter.*;
@@ -96,8 +98,8 @@ public class WebTest {
              * has been enabled, and therefore must fail (with a 404 response
              * code) since the InvokerServlet should not have been enabled.
              */ 
-            url = new URL("http://" + host  + ":" + port + contextRoot
-                    + "/servlet/TestServlet");
+            url = Urls.create("http://" + host  + ":" + port + contextRoot
+                    + "/servlet/TestServlet", Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
             System.out.println("Connecting to: " + url.toString());
             conn = (HttpURLConnection) url.openConnection();
             conn.connect();
@@ -111,8 +113,8 @@ public class WebTest {
              * Connect to the correct mapping, as specified in the deployment
              * descriptor. This must work.
              */
-            url = new URL("http://" + host  + ":" + port + contextRoot
-                    + "/TestServlet");
+            url = Urls.create("http://" + host  + ":" + port + contextRoot
+                    + "/TestServlet", Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
             System.out.println("Connecting to: " + url.toString());
             conn = (HttpURLConnection) url.openConnection();
             conn.connect();

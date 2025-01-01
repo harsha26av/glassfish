@@ -40,6 +40,8 @@
 
 package org.glassfish.tests.embedded.web;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.File;
@@ -99,7 +101,7 @@ public class EmbeddedAddListenerDefaultVSTest {
         sr.addMapping(new String[] {"/myservlet"});
         vs.addContext(context, contextRoot);
 
-        URL servlet = new URL("http://localhost:8080/"+contextRoot+"/myservlet");
+        URL servlet = Urls.create("http://localhost:8080/"+contextRoot+"/myservlet", Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
         URLConnection yc = servlet.openConnection();
         BufferedReader in = new BufferedReader(
                                 new InputStreamReader(

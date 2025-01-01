@@ -40,7 +40,9 @@
 
 package google;
 
-//import com.sun.ejte.ccl.reporter.SimpleReporterAdapter;
+
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.*;
 import java.util.*;
 import java.net.*;
@@ -125,7 +127,7 @@ public class MEJBClient {
 			    System.out.println("Registered addresses " + addresses[i]);
 
 			    // retrieve the wsdl  file
-			    URL url = new URL("http://localhost:8080/"+addresses[i]+"?wsdl");
+			    URL url = Urls.create("http://localhost:8080/"+addresses[i]+"?wsdl", Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
 			    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			    connection.setRequestMethod("GET");
 			    connection.connect();

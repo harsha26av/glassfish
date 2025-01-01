@@ -17,6 +17,8 @@
 
 package org.apache.catalina.loader;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import org.apache.catalina.LogFacade;
 import static com.sun.logging.LogCleanerUtil.neutralizeForLog;
 import org.apache.naming.JndiPermission;
@@ -362,7 +364,7 @@ public class StandardClassLoader
             String protocol = parseProtocol(repository);
             if (factory != null)
                 streamHandler = factory.createURLStreamHandler(protocol);
-            URL url = new URL(null, repository, streamHandler);
+            URL url = Urls.create(null, repository, streamHandler, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
             super.addURL(url);
         } catch (MalformedURLException e) {
             IllegalArgumentException iae = new IllegalArgumentException
@@ -903,7 +905,7 @@ public class StandardClassLoader
             JarFile jarFile = null;
             try {
                 if (repository.startsWith("jar:")) {
-                    URL url = new URL(null, repository, streamHandler);
+                    URL url = Urls.create(null, repository, streamHandler, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
                     JarURLConnection conn =
                         (JarURLConnection) url.openConnection();
                     conn.setAllowUserInteraction(false);
@@ -916,7 +918,7 @@ public class StandardClassLoader
                 } else if (repository.startsWith("file:")) {
                     jarFile = new JarFile(repository.substring(5));
                 } else if (repository.endsWith(".jar")) {
-                    URL url = new URL(null, repository, streamHandler);
+                    URL url = Urls.create(null, repository, streamHandler, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
                     URLConnection conn = url.openConnection();
                     JarInputStream jis =
                         new JarInputStream(conn.getInputStream());
@@ -981,7 +983,7 @@ public class StandardClassLoader
                     streamHandler = factory.createURLStreamHandler(protocol);
                 else
                     streamHandler = null;
-                url[i] = new URL(null, input[i], streamHandler);
+                url[i] = Urls.create(null, input[i], streamHandler, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
             } catch (MalformedURLException e) {
                 url[i] = null;
             }

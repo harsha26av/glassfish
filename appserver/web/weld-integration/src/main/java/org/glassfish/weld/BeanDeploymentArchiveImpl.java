@@ -40,6 +40,8 @@
 
 package org.glassfish.weld;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import org.glassfish.api.deployment.DeploymentContext;
 import org.glassfish.api.deployment.archive.ReadableArchive;
 import org.glassfish.cdi.CDILoggerInfo;
@@ -772,7 +774,7 @@ public class BeanDeploymentArchiveImpl implements BeanDeploymentArchive {
             file = new File(file, beansXMLPath);
             url = file.toURI().toURL();
         } else {
-            url = new URL("jar:" + file.toURI() + "!/" + beansXMLPath);
+            url = Urls.create("jar:" + file.toURI() + "!/" + beansXMLPath, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
         }
 
         return url;

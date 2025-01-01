@@ -40,6 +40,8 @@
 
 package org.glassfish.admin.rest.utils;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
@@ -113,7 +115,7 @@ public abstract class ProxyImpl implements Proxy {
                         for (Map.Entry<String, String> entry : childResources.entrySet()) {
                             String targetURL = null;
                             try {
-                                URL originalURL = new URL(entry.getValue());
+                                URL originalURL = Urls.create(entry.getValue(), Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
                                 //Construct targetURL which has host+port of DAS and path from originalURL
                                 targetURL = constructTargetURLPath(sourceUriInfo, originalURL).build().toASCIIString();
                             } catch (MalformedURLException e) {

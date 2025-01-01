@@ -38,6 +38,8 @@
  * holder.
  */
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.*;
 import java.net.*;
 import com.sun.ejte.ccl.reporter.*;
@@ -124,7 +126,7 @@ public class WebTest {
         }
 
         String redirect = location.substring("Location:".length()).trim();
-        followRedirect(new URL(redirect));
+        followRedirect(Urls.create(redirect, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS));
     }
 
     private void followRedirect(URL url) throws Exception {

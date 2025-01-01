@@ -40,6 +40,8 @@
 
 package org.glassfish.admin.amx.impl.mbean;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import javax.management.ObjectName;
 
 import java.io.InputStream;
@@ -199,7 +201,7 @@ public final class RuntimeRootImpl extends AMXImplBase
         {
             final String url = getRESTBaseURL() + cmd;
 
-            final URL invoke = new URL(url);
+            final URL invoke = Urls.create(url, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
             //System.out.println( "Opening connection to: " + invoke );
             conn = (HttpURLConnection) invoke.openConnection();
 

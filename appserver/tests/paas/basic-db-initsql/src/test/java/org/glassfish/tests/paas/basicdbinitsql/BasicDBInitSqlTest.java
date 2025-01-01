@@ -40,6 +40,8 @@
 
 package org.glassfish.tests.paas.basicdbinitsql;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import junit.framework.Assert;
 import org.glassfish.api.ActionReport;
 import org.glassfish.api.admin.ParameterMap;
@@ -136,7 +138,7 @@ public class BasicDBInitSqlTest {
 	}
 
 	private void get(String urlStr, String result) throws Exception {
-		URL url = new URL(urlStr);
+		URL url = Urls.create(urlStr, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
 		URLConnection yc = url.openConnection();
 		System.out.println("\nURLConnection [" + yc + "] : ");
 		BufferedReader in = new BufferedReader(new InputStreamReader(

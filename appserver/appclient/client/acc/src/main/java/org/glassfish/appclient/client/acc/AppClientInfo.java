@@ -47,6 +47,8 @@ import com.sun.enterprise.deployment.archivist.Archivist;
 import com.sun.enterprise.deployment.util.AnnotationDetector;
 import com.sun.enterprise.util.LocalStringManager;
 import com.sun.enterprise.util.LocalStringManagerImpl;
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -352,7 +354,7 @@ public abstract class AppClientInfo {
         throws MalformedURLException, IOException {
         URL url = null;
         try {
-            url = new URL(uri);
+            url = Urls.create(uri, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
         } catch(java.net.MalformedURLException e) {
             // ignore
             url = null;
@@ -373,7 +375,7 @@ public abstract class AppClientInfo {
 
     private static URL createJarUrl(File jarFile, String entry)
         throws MalformedURLException, IOException {
-        return new URL("jar:" + jarFile.toURI().toURL() + "!/" + entry);
+        return Urls.create("jar:" + jarFile.toURI().toURL() + "!/" + entry, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
     }
 
 

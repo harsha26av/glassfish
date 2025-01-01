@@ -38,6 +38,8 @@
  * holder.
  */
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.*;
 import java.net.*;
 import java.security.*;
@@ -88,8 +90,8 @@ public class WebTest {
      * Attempts to access resource protected by FORM based login.
      */
     private void run() throws Exception {
-        URL url = new URL("http://" + host  + ":" + httpPort + contextRoot +
-                "/protected.txt");
+        URL url = Urls.create("http://" + host  + ":" + httpPort + contextRoot +
+                "/protected.txt", Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
         System.out.println("Connecting to " + url.toString());
         URLConnection conn = url.openConnection();
         String redirectLocation = conn.getHeaderField("Location");
@@ -159,7 +161,7 @@ public class WebTest {
 
     private HttpsURLConnection connect(String urlAddress,
             SSLSocketFactory ssf) throws Exception {
-        URL url = new URL(urlAddress);
+        URL url = Urls.create(urlAddress, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
         HttpsURLConnection.setDefaultSSLSocketFactory(ssf);
         HttpsURLConnection connection = (HttpsURLConnection)
             url.openConnection();

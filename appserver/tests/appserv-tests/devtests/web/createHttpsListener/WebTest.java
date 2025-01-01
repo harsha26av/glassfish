@@ -38,6 +38,8 @@
  * holder.
  */
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.lang.*;
 import java.io.*;
 import java.net.*;
@@ -68,7 +70,7 @@ public class WebTest {
 
         try{
             System.out.println("Running test");
-url = new URL("https://" + host  + ":" + 8181 + contextRoot + "/ServletTest");
+url = Urls.create("https://" + host  + ":" + 8181 + contextRoot + "/ServletTest", Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
             //url = new URL("https://" + host  + ":" + port + contextRoot + "/ServletTest");
             String originalLoc = url.toString();
             System.out.println("\n Invoking url: " + url.toString());

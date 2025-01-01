@@ -40,6 +40,8 @@
 
 package org.glassfish.tests.sessionDestroyed;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -73,7 +75,7 @@ public class WebTest {
     private static void goGet(String host, int port,
                               String result, String contextPath) throws Exception {
         try {
-            URL servlet = new URL("http://localhost:8080/"+contextPath);
+            URL servlet = Urls.create("http://localhost:8080/"+contextPath, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
             URLConnection yc = servlet.openConnection();
             BufferedReader in = new BufferedReader(new InputStreamReader(
                     yc.getInputStream()));

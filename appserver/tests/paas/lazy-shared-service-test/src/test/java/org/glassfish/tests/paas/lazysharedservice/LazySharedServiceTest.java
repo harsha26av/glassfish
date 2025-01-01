@@ -41,6 +41,8 @@
 package org.glassfish.tests.paas.lazysharedservice;
 
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import org.glassfish.api.ActionReport;
 import org.glassfish.api.admin.ParameterMap;
 import org.glassfish.embeddable.*;
@@ -165,7 +167,7 @@ public class LazySharedServiceTest {
     }
 
     private void get(String urlStr, String result) throws Exception {
-        URL url = new URL(urlStr);
+        URL url = Urls.create(urlStr, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
         URLConnection yc = url.openConnection();
         System.out.println("\nURLConnection [" + yc + "] : ");
         BufferedReader in = new BufferedReader(new InputStreamReader(
@@ -326,7 +328,7 @@ public class LazySharedServiceTest {
         HttpURLConnection huc;
 
         try {
-            URL u = new URL(urlString);
+            URL u = Urls.create(urlString, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
             huc =  (HttpURLConnection)  u.openConnection();
             huc.setRequestMethod("GET");
             huc.connect();

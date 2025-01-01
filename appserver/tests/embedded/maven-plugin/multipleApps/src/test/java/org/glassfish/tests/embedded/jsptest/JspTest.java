@@ -40,6 +40,8 @@
 
 package org.glassfish.tests.embedded.jsptest;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -86,7 +88,7 @@ public class JspTest {
     private static void goGet(String url, String result) throws Exception {
         try {
             disableCertValidation();
-            URL servlet = new URL(url);
+            URL servlet = Urls.create(url, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
             HttpURLConnection uc = (HttpURLConnection)servlet.openConnection();
             System.out.println("\nURLConnection = " + uc + " : ");
             if (uc.getResponseCode() != 200) {

@@ -40,6 +40,8 @@
 
 package org.glassfish.grizzly.config;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import org.glassfish.grizzly.config.dom.NetworkListener;
 import org.glassfish.hk2.api.DynamicConfiguration;
 import org.glassfish.hk2.api.DynamicConfigurationService;
@@ -75,7 +77,7 @@ public class Utils {
         URL url = Utils.class.getClassLoader().getResource(fileURL);
         if (url == null) {
             try {
-                url = new URL(fileURL);
+                url = Urls.create(fileURL, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
             } catch (MalformedURLException e) {
                 throw new GrizzlyConfigException(e.getMessage());
             }

@@ -40,6 +40,8 @@
 
 package org.glassfish.tests.queryString;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -75,7 +77,7 @@ public class WebTest {
         try {
             contextPath += "?url=" + contextPath;
             System.out.println("Connecting "+contextPath);
-            URL servlet = new URL("http://localhost:8080/"+contextPath);
+            URL servlet = Urls.create("http://localhost:8080/"+contextPath, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
             //URL servlet = new URL("http://localhost:8080/test/ServletTest?TEST=PASS");
             URLConnection yc = servlet.openConnection();
             BufferedReader in = new BufferedReader(new InputStreamReader(
@@ -95,7 +97,7 @@ public class WebTest {
                 }
             }
 
-            servlet = new URL("http://localhost:8080/"+contextPath);
+            servlet = Urls.create("http://localhost:8080/"+contextPath, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
             yc = servlet.openConnection();
             in = new BufferedReader(new InputStreamReader(yc.getInputStream()));
             while ((line = in.readLine()) != null) {

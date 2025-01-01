@@ -38,6 +38,8 @@
  * holder.
  */
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.*;
 import java.net.*;
 import java.text.DateFormat;
@@ -90,8 +92,8 @@ public class WebTest {
 
     private void invokeWithLargeCookie() throws Exception {
 
-        URL url = new URL("http://" + host  + ":" + port + contextRoot
-                          + "/largecookie.html");
+        URL url = Urls.create("http://" + host  + ":" + port + contextRoot
+                          + "/largecookie.html", Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
         System.out.println(url.toString());
 
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();

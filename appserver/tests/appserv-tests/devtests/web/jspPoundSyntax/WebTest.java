@@ -38,6 +38,8 @@
  * holder.
  */
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.*;
 import java.net.*;
 import com.sun.ejte.ccl.reporter.*;
@@ -107,7 +109,7 @@ public class WebTest {
         InputStream is = null;
         BufferedReader input = null;
         try {
-            URL url = new URL("http://" + host  + ':' + port + '/' + contextRoot + path);
+            URL url = Urls.create("http://" + host  + ':' + port + '/' + contextRoot + path, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
             System.out.println("Connecting to: " + url.toString());
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.connect();
@@ -156,7 +158,7 @@ is));
     public void doTest2(String path, String testName) {
      
         try { 
-            URL url = new URL("http://" + host  + ':' + port + '/' + contextRoot + path);
+            URL url = Urls.create("http://" + host  + ':' + port + '/' + contextRoot + path, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
             System.out.println("Connecting to: " + url.toString());
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.connect();
@@ -179,8 +181,8 @@ is));
         InputStream is = null;
         BufferedReader input = null;
         try {
-            URL url = new URL("http://" + host  + ':' + port + '/' + contextRoot
- + path);
+            URL url = Urls.create("http://" + host  + ':' + port + '/' + contextRoot
+ + path, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
             System.out.println("Connecting to: " + url.toString());
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.connect();
@@ -232,8 +234,8 @@ is));
         InputStream is = null;
         BufferedReader input = null;
         try {
-            URL url = new URL("http://" + host  + ':' + port + '/' + contextRoot
- + path);
+            URL url = Urls.create("http://" + host  + ':' + port + '/' + contextRoot
+ + path, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
             System.out.println("Connecting to: " + url.toString());
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.connect();

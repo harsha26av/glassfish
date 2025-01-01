@@ -38,6 +38,8 @@
  * holder.
  */
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.*;
 import java.net.*;
 
@@ -60,7 +62,7 @@ public class WebTest{
         try{
             stat.addDescription("JMX undeployment event test.");
             
-            url = new URL("http://" + host  + ":" + port + contextRoot + "/ServletTest");
+            url = Urls.create("http://" + host  + ":" + port + contextRoot + "/ServletTest", Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
             System.out.println("\n Invoking url: " + url.toString());
             conn = url.openConnection();
             if (conn instanceof HttpURLConnection) {

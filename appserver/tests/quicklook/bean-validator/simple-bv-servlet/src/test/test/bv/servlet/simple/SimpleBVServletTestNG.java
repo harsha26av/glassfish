@@ -40,6 +40,8 @@
 
 package test.bv.servlet.simple;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import org.testng.annotations.*;
 import org.testng.Assert;
 
@@ -79,7 +81,7 @@ public class SimpleBVServletTestNG {
 
             String testurl = "http://" + host + ":" + port + "/" + strContextRoot + "/test/bv_10";
             //System.out.println("URL is: "+testurl);
-            URL url = new URL(testurl);
+            URL url = Urls.create(testurl, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
             //echo("Connecting to: " + url.toString());
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.connect();
@@ -152,7 +154,7 @@ public class SimpleBVServletTestNG {
 
             String testurl = "http://" + host + ":" + port + "/" + strContextRoot + "/test/bv_20";
             //System.out.println("URL is: "+testurl);
-            URL url = new URL(testurl);
+            URL url = Urls.create(testurl, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
             //echo("Connecting to: " + url.toString());
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.connect();

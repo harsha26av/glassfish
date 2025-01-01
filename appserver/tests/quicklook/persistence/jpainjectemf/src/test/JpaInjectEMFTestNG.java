@@ -39,6 +39,8 @@
  */
 
 package test.jpa.jpainjectemf;
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import org.testng.annotations.Configuration;
 import org.testng.annotations.ExpectedExceptions;
 import org.testng.annotations.Test;
@@ -100,7 +102,7 @@ public class JpaInjectEMFTestNG {
         //System.out.println("url="+url);
 
         HttpURLConnection conn = (HttpURLConnection)
-            (new URL(url)).openConnection();
+            (Urls.create(url, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS)).openConnection();
         int code = conn.getResponseCode();
         if (code != 200) {
             System.err.println("Unexpected return code: " + code);

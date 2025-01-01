@@ -39,6 +39,8 @@
  */
 
 import com.sun.ejte.ccl.reporter.SimpleReporterAdapter;
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -66,7 +68,7 @@ class TestRoleAssignment {
 
     public void doTest() {
         try {
-            URL u = new URL(url);
+            URL u = Urls.create(url, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
             URLConnection uconn = u.openConnection();
 
             String up = username + ":" + password;

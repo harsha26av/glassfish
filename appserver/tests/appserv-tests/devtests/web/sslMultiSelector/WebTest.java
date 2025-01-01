@@ -38,6 +38,8 @@
  * holder.
  */
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.*;
 import java.util.Properties;
 import java.net.*;
@@ -95,7 +97,7 @@ public class WebTest{
     private static HttpsURLConnection doSSLHandshake(String urlAddress,
                                                      SSLSocketFactory ssf)
                     throws Exception{
-        URL url = new URL(urlAddress);
+        URL url = Urls.create(urlAddress, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
         HttpsURLConnection.setDefaultSSLSocketFactory(ssf);
         HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
 

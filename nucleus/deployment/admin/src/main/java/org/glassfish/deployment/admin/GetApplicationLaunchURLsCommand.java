@@ -40,6 +40,8 @@
 
 package org.glassfish.deployment.admin;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import javax.security.auth.Subject;
 import org.glassfish.api.ActionReport;
 import org.glassfish.api.admin.AdminCommand;
@@ -238,7 +240,7 @@ public class GetApplicationLaunchURLsCommand implements AdminCommand, AdminComma
                     }
                     try {
                         int port = Integer.parseInt(portStr);
-                        URL url = new URL(proto, host, port, contextRoot);
+                        URL url = Urls.create(proto, host, port, contextRoot, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
                         serverURLs.add(url);
                     } catch (Exception ee) {
                         logger.log(Level.WARNING, ee.getMessage(), ee);

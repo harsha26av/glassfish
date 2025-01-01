@@ -43,6 +43,8 @@ package admin.monitoring;
 import admin.AdminBaseDevTest;
 import admin.TestEnv;
 import com.sun.appserv.test.BaseDevTest.AsadminReturn;
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.*;
 import java.net.*;
 import java.nio.channels.*;
@@ -428,7 +430,7 @@ abstract class MonTest {
      */
     static boolean wget(int port, String uri) {
         try {
-            URL url = new URL("http://localhost:" + port + "/" + uri);
+            URL url = Urls.create("http://localhost:" + port + "/" + uri, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setReadTimeout(60000);
             conn.getInputStream().close();

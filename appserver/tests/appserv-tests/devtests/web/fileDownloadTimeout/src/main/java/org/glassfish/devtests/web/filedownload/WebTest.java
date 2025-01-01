@@ -41,6 +41,8 @@
 package org.glassfish.devtests.web.filedownload;
 
 import com.sun.appserv.test.BaseDevTest;
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -75,7 +77,7 @@ public class WebTest extends BaseDevTest {
 	public void run() throws Exception {
 		asadmin("set", "configs.config.server-config.network-config.protocols.protocol.http-listener-1.http.timeout-seconds=300");
 		// TODO code application logic here
-		URL u = new URL("http://localhost:" + antProp("http.port") + "/web-file-download-timeout/webservices-osgi.jar");
+		URL u = Urls.create("http://localhost:" + antProp("http.port") + "/web-file-download-timeout/webservices-osgi.jar", Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
 		HttpURLConnection huc = (HttpURLConnection) u.openConnection();
 		huc.setRequestMethod("GET");
 		huc.setReadTimeout(0);

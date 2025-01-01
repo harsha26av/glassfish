@@ -38,6 +38,8 @@
  * holder.
  */
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.*;
 import java.net.*;
 import com.sun.ejte.ccl.reporter.*;
@@ -74,8 +76,8 @@ public class WebTest {
 
         BufferedReader bis = null;
         try { 
-            URL url = new URL("http://" + host  + ":" + port
-                       + contextRoot + "/jsp//test.jsp");
+            URL url = Urls.create("http://" + host  + ":" + port
+                       + contextRoot + "/jsp//test.jsp", Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
             System.out.println("Connecting to: " + url.toString());
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.connect();

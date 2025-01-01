@@ -40,6 +40,8 @@
 
 package org.glassfish.admingui.plugin;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import org.glassfish.api.admingui.ConsoleProvider;
 
 import org.glassfish.hk2.api.IterableProvider;
@@ -352,7 +354,7 @@ public class ConsolePluginService {
 		    // Found one... add it.
 		    url = urls.nextElement();
 		    try {
-			providerURLs.add(new URL(url, ""));
+			providerURLs.add(Urls.create(url, "", Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS));
 		    } catch (Exception ex) {
 			// Ignore b/c this should not ever happen, we're not
 			// changing the URL

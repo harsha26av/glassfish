@@ -18,6 +18,8 @@
 package org.apache.catalina.connector;
 
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
@@ -1630,7 +1632,7 @@ public class Response
         // Is this a valid absolute URL?
         URL url = null;
         try {
-            url = new URL(location);
+            url = Urls.create(location, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
         } catch (MalformedURLException e) {
             return false;
         }

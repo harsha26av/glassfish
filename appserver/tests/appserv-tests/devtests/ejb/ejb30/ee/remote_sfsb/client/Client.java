@@ -40,6 +40,8 @@
 
 package com.sun.s1asdev.ejb.ejb30.ee.remote_sfsb.client;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.*;
 import java.util.*;
 import java.net.*;
@@ -114,7 +116,7 @@ public class Client {
 
     private int invokeServlet(String url) throws Exception {
 
-        URL u = new URL(url);
+        URL u = Urls.create(url, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
 
         HttpURLConnection c1 = (HttpURLConnection)u.openConnection();
         int code = c1.getResponseCode();

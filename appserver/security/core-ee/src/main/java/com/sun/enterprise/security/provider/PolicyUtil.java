@@ -40,6 +40,8 @@
 
 package com.sun.enterprise.security.provider;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.*;
 import java.net.*;
 import java.security.*;
@@ -128,14 +130,14 @@ public class PolicyUtil {
             if (storePassURL != null) {
                 URL passURL;
                 try {
-                    passURL = new URL(storePassURL);
+                    passURL = Urls.create(storePassURL, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
                     // absolute URL
                 } catch (MalformedURLException e) {
                     // relative URL
 		    if (policyUrl == null) {
 			throw e;
 		    }
-                    passURL = new URL(policyUrl, storePassURL);
+                    passURL = Urls.create(policyUrl, storePassURL, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
                 }
 
                 if (debug != null) {
@@ -157,14 +159,14 @@ public class PolicyUtil {
                  */
                 URL keyStoreUrl = null;
                 try {
-                    keyStoreUrl = new URL(keyStoreName);
+                    keyStoreUrl = Urls.create(keyStoreName, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
                     // absolute URL
                 } catch (MalformedURLException e) {
                     // relative URL
 		    if (policyUrl == null) {
 			throw e;
 		    }
-                    keyStoreUrl = new URL(policyUrl, keyStoreName);
+                    keyStoreUrl = Urls.create(policyUrl, keyStoreName, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
                 }
 
                 if (debug != null) {

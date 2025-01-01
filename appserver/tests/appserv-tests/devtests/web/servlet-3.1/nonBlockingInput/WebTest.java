@@ -38,6 +38,8 @@
  * holder.
  */
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.*;
 import java.net.*;
 import java.util.List;
@@ -62,7 +64,7 @@ public class WebTest {
         stat.addDescription("Unit test for non blocking read");
 
         try {
-            URL url = new URL("http://" + host + ":" + port + "/" + contextRoot + "/test?testname=abc&data=1");
+            URL url = Urls.create("http://" + host + ":" + port + "/" + contextRoot + "/test?testname=abc&data=1", Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
             HttpURLConnection conn = (HttpURLConnection)url.openConnection();
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Content-type", "text/plain; charset=utf-8");

@@ -38,6 +38,8 @@
  * holder.
  */
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.*;
 import java.net.*;
 import com.sun.ejte.ccl.reporter.*;
@@ -98,7 +100,7 @@ public class WebTest {
 
         String jsessionId = accessIndexDotJsp();
         String redirect = accessLoginPage(jsessionId);
-        String jsessionIdSSO = followRedirect(new URL(redirect).getPath(),
+        String jsessionIdSSO = followRedirect(Urls.create(redirect, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS).getPath(),
                                               jsessionId);
 
         if (jsessionIdSSO != null) {

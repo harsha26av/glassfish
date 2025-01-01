@@ -48,6 +48,8 @@ import com.sun.jsftemplating.layout.descriptors.handler.HandlerContext;
 import com.sun.jsftemplating.layout.descriptors.handler.HandlerDefinition;
 import com.sun.jsftemplating.layout.descriptors.handler.OutputTypeManager;
 import com.sun.jsftemplating.util.FileUtil;
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
@@ -103,7 +105,7 @@ public class GadgetHandlers {
 		url = FileUtil.searchForFile(gadgetName, null);
 	    }
 	    if (url == null) {
-		url = new URL(gadgetName);
+		url = Urls.create(gadgetName, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
 	    }
 	} catch (Exception ex) {
 	    throw new IllegalArgumentException("Cannot creaqte URL from '"

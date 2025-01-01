@@ -38,6 +38,8 @@
  * holder.
  */
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.IOException;
 import java.net.URL;
 
@@ -63,7 +65,7 @@ public class WebTest {
 
 	private static void goGet(String host, int port, String contextPath, boolean noTimeout) {
 		try {
-			URL url = new URL("http://" + host + ":" + port + contextPath);
+			URL url = Urls.create("http://" + host + ":" + port + contextPath, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
 			url.getContent();
 			stat.addStatus("web-thread-timeout" + (noTimeout ? "-debug" : ""), noTimeout ? SimpleReporterAdapter.PASS : SimpleReporterAdapter.FAIL);
 		} catch( IOException ex){

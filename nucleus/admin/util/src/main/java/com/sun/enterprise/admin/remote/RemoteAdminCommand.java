@@ -42,6 +42,8 @@ package com.sun.enterprise.admin.remote;
 
 import com.sun.enterprise.admin.util.AdminLoggerInfo;
 import com.sun.enterprise.config.serverbeans.SecureAdmin;
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.*;
 import java.net.*;
 import java.util.*;
@@ -905,7 +907,7 @@ public class RemoteAdminCommand {
     private HttpConnectorAddress followRedirection(
             final HttpConnectorAddress originalAddr,
             final String redirection) throws MalformedURLException {
-        final URL url = new URL(redirection);
+        final URL url = Urls.create(redirection, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
         final boolean useSecure = (url.getProtocol().equalsIgnoreCase("https"));
         HttpConnectorAddress hca = new HttpConnectorAddress(
                 url.getHost(),

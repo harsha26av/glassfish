@@ -44,6 +44,8 @@ package org.glassfish.webservices;
 import com.sun.enterprise.deployment.*;
 import com.sun.enterprise.deployment.util.DOLUtils;
 import com.sun.enterprise.deployment.archivist.Archivist;
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import org.glassfish.api.deployment.archive.ArchiveType;
 import com.sun.enterprise.deployment.web.AppListenerDescriptor;
 import com.sun.enterprise.util.io.FileUtils;
@@ -231,7 +233,7 @@ public class WebServicesDeployer extends JavaEEDeployer<WebServicesContainer,Web
             // If wsdl file is an http URL, download that WSDL and all embedded relative wsdls, schemas
             if (ws.getWsdlFileUri().startsWith("http")) {
                 try {
-                    wsdlFileUri = downloadWsdlsAndSchemas( new URL(ws.getWsdlFileUri()), wsdlDir);
+                    wsdlFileUri = downloadWsdlsAndSchemas( Urls.create(ws.getWsdlFileUri(), Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS), wsdlDir);
                 } catch(Exception e) {
                     throw new DeploymentException(e.toString(), e);
                 }
@@ -309,7 +311,7 @@ public class WebServicesDeployer extends JavaEEDeployer<WebServicesContainer,Web
                 location.substring(0, location.lastIndexOf(File.separator)));
                 mkDirs(newDir);
             }
-            downloadFile(new URL(urlWithoutFileName+"/"+next.getLocation()),
+            downloadFile(Urls.create(urlWithoutFileName+"/"+next.getLocation(), Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS),
                         new File(wsdlDir.getAbsolutePath()+File.separator+location));
         }
 
@@ -324,7 +326,7 @@ public class WebServicesDeployer extends JavaEEDeployer<WebServicesContainer,Web
             } else {
                 newWsdlDir = wsdlDir;
             }
-            downloadWsdlsAndSchemas( new URL(urlWithoutFileName+"/"+next.getLocation()), newWsdlDir);
+            downloadWsdlsAndSchemas( Urls.create(urlWithoutFileName+"/"+next.getLocation(), Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS), newWsdlDir);
         }
         return fileName;
     }
@@ -367,7 +369,7 @@ public class WebServicesDeployer extends JavaEEDeployer<WebServicesContainer,Web
                         ws.setWsdlFileUrl(retVal);
                     }
                 } else if(mappedEntry.startsWith("http")) {
-                    retVal = new URL(mappedEntry);
+                    retVal = Urls.create(mappedEntry, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
                     if(ws != null) {
                         ws.setWsdlFileUrl(retVal);
                     }

@@ -40,6 +40,8 @@
 
 package test.client;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.*;
 import java.net.*;
 import com.sun.ejte.ccl.reporter.*;
@@ -86,7 +88,7 @@ public class WebTest {
         String url = "http://" + host + ":" + port + contextRoot + "/myurl";
         System.out.println("opening connection to " + url);
 
-        InputStream in = new URL(url).openStream();
+        InputStream in = Urls.create(url, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS).openStream();
         BufferedReader rdr = new BufferedReader(new InputStreamReader(in));
         String line = rdr.readLine();
         if (EXPECTED_RESPONSE.equals(line)) {

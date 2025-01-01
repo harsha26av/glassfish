@@ -40,6 +40,8 @@
 
 package org.glassfish.jacc.test.uncoveredmethods;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.net.*;
 import java.io.*;
 import java.util.Enumeration;
@@ -422,7 +424,7 @@ public class Client {
 		String httpMethod = "GET";
 		if ((method != null) && (method.length() > 0)) httpMethod = method;
 		System.out.println("Invoking servlet with HTTP method: " + httpMethod);
-		URL u = new URL(url);
+		URL u = Urls.create(url, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
 		HttpURLConnection c1 = (HttpURLConnection) u.openConnection();
 		c1.setRequestMethod(httpMethod);
 		if ((user != null) && (user.length() > 0)) {
@@ -456,7 +458,7 @@ public class Client {
 			}
 		}
 		else if (code == HttpURLConnection.HTTP_MOVED_TEMP) {
-			URL redir = new URL(c1.getHeaderField("Location"));
+			URL redir = Urls.create(c1.getHeaderField("Location"), Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
 			String line = "Servlet redirected to: " + redir.toString();
 			output.append(line);
 			System.out.println(line);

@@ -40,6 +40,8 @@
 
 package org.glassfish.tests.embedded.jsftest;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -73,7 +75,7 @@ public class JSFTest {
     private static void goGet(String url, String... match) throws Exception {
         try {
 
-            URL servlet = new URL(url);
+            URL servlet = Urls.create(url, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
             HttpURLConnection uc = (HttpURLConnection) servlet.openConnection();
             System.out.println("\nURLConnection = " + uc + " : ");
             if (uc.getResponseCode() != 200) {

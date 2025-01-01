@@ -41,6 +41,8 @@
 package com.sun.enterprise.web;
 
 import static com.sun.logging.LogCleanerUtil.neutralizeForLog;
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import org.apache.catalina.Request;
 import org.apache.catalina.Response;
 import org.apache.catalina.core.StandardPipeline;
@@ -276,7 +278,7 @@ public class VirtualServerPipeline extends StandardPipeline {
 
             if (redirectMatch.isEscape) {
                 try {
-                    URL url = new URL(location);
+                    URL url = Urls.create(location, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
                     locationCC = locations.poll();
                     if (locationCC == null) {
                         locationCC = new CharChunk();
@@ -359,7 +361,7 @@ public class VirtualServerPipeline extends StandardPipeline {
 
             // START 6810361
             try {
-                URL u = new URL(urlPrefix);
+                URL u = Urls.create(urlPrefix, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
                 urlPrefixPath = u.getPath();
             } catch (MalformedURLException e) {
                 urlPrefixPath = urlPrefix;

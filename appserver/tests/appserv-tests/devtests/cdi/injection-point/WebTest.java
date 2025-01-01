@@ -38,6 +38,8 @@
  * holder.
  */
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -90,7 +92,7 @@ public class WebTest {
                      + "/myurl?username=scott&password=tiger";
         System.out.println("opening connection to " + url);
         HttpURLConnection conn = (HttpURLConnection)
-            (new URL(url)).openConnection();
+            (Urls.create(url, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS)).openConnection();
         System.out.println("TESTNAME " + TEST_NAME);
 
         int code = conn.getResponseCode();

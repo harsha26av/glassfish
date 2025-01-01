@@ -17,6 +17,8 @@
 
 package org.apache.catalina.startup;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import org.apache.catalina.LogFacade;
 import org.apache.catalina.loader.StandardClassLoader;
 
@@ -153,8 +155,7 @@ public final class ClassLoaderFactory {
                 if (log.isLoggable(Level.FINE))
                     log.log(Level.FINE, "Including directory or JAR "
                             + file.getAbsolutePath());
-                URL url = new URL("file", null,
-                                  file.getCanonicalPath() + File.separator);
+                URL url = Urls.create("file", null, file.getCanonicalPath() + File.separator, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
                 set.add(url);
             }
         }
@@ -175,8 +176,7 @@ public final class ClassLoaderFactory {
                     if (log.isLoggable(Level.FINE))
                         log.log(Level.FINE, "Including jar file " +
                                 file.getAbsolutePath());
-                    URL url = new URL("file", null,
-                                      file.getCanonicalPath());
+                    URL url = Urls.create("file", null, file.getCanonicalPath(), Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
                     set.add(url);
                 }
             }

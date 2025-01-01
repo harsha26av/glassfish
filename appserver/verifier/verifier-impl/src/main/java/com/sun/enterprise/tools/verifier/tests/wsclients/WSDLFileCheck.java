@@ -44,6 +44,8 @@ import com.sun.enterprise.deployment.*;
 import com.sun.enterprise.tools.verifier.*;
 import com.sun.enterprise.tools.verifier.tests.*;
 import com.sun.enterprise.deploy.shared.FileArchive;
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 
 import java.io.*;
 import java.net.URL;
@@ -80,7 +82,7 @@ public class WSDLFileCheck extends WSClientTest implements WSClientCheck {
             String wsdlUri = descriptor.getWsdlFileUri();
             URL url = null;
             try {
-                url = new URL(wsdlUri);
+                url = Urls.create(wsdlUri, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
             } catch(java.net.MalformedURLException e) {
                 // don't care, will eventuall fail below
             }

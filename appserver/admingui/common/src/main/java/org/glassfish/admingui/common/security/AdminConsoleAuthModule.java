@@ -40,6 +40,8 @@
 
 package org.glassfish.admingui.common.security;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
@@ -204,7 +206,7 @@ public class AdminConsoleAuthModule implements ServerAuthModule {
             // Save this for use later...
             URL url = null;
             try {
-                url = new URL(restURL);
+                url = Urls.create(restURL, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
             } catch (MalformedURLException ex) {
                 throw new IllegalArgumentException(
                         "Unable to parse REST URL: (" + restURL + ")", ex);
