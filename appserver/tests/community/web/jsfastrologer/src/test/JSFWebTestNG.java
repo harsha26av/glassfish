@@ -40,6 +40,8 @@
 
 package test.jsf.astrologer;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import org.testng.annotations.Configuration;
 import org.testng.annotations.ExpectedExceptions;
 import org.testng.annotations.Test;
@@ -95,7 +97,7 @@ public class JSFWebTestNG {
 
         String testurl = "http://" + m_host  + ":" + m_port + "/"+ strContextRoot + "/faces/greetings.jsp";
         System.out.println("URL is: "+testurl);
-        URL url = new URL(testurl);
+        URL url = Urls.create(testurl, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
         echo("Connecting to: " + url.toString());
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.connect();
@@ -137,7 +139,7 @@ public class JSFWebTestNG {
 
         String testurl = "http://" + m_host  + ":" + m_port + "/"+ strContextRoot + "/index.jsp";
         System.out.println("URL is: "+testurl);
-        URL url = new URL(testurl);
+        URL url = Urls.create(testurl, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
         echo("Connecting to: " + url.toString());
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.connect();

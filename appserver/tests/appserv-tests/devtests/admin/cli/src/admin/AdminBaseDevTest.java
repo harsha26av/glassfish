@@ -47,6 +47,8 @@
 package admin;
 
 import com.sun.appserv.test.BaseDevTest;
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.*;
 import java.io.BufferedReader;
 import java.io.File;
@@ -280,7 +282,7 @@ public abstract class AdminBaseDevTest extends BaseDevTest implements Runnable {
 
     static String getURL(String urlstr) {
         try {
-            URL u = new URL(urlstr);
+            URL u = Urls.create(urlstr, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
             URLConnection urlc = u.openConnection();
             BufferedReader ir = new BufferedReader(new InputStreamReader(urlc.getInputStream(),
                     "ISO-8859-1"));

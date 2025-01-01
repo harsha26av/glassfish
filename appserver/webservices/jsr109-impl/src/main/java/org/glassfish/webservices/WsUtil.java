@@ -42,6 +42,8 @@ package org.glassfish.webservices;
 
 import com.sun.enterprise.v3.admin.AdminAdapter;
 import com.sun.enterprise.v3.admin.adapter.AdminConsoleAdapter;
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import org.glassfish.deployment.common.ModuleDescriptor;
 import org.glassfish.grizzly.config.dom.NetworkListener;
 import com.sun.xml.ws.api.server.SDDocumentSource;
@@ -552,7 +554,7 @@ public class WsUtil {
             
             // Convert each relative import into an absolute import, using
             // the final wsdl's Url as the context
-            URL relativeUrl  = new URL(finalWsdlUrl, next.getLocation());
+            URL relativeUrl  = Urls.create(finalWsdlUrl, next.getLocation(), Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
             transformer.setParameter
                 (WSDL_IMPORT_LOCATION_PARAM_NAME + wsdlImportNum, relativeUrl);
             
@@ -568,7 +570,7 @@ public class WsUtil {
             
             // Convert each relative import into an absolute import, using
             // the final wsdl's Url as the context
-            URL relativeUrl  = new URL(finalWsdlUrl, next.getLocation());
+            URL relativeUrl  = Urls.create(finalWsdlUrl, next.getLocation(), Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
             transformer.setParameter
                 (SCHEMA_IMPORT_LOCATION_PARAM_NAME + schemaImportNum, 
                  relativeUrl);
@@ -579,7 +581,7 @@ public class WsUtil {
         int wsdlIncludeNum = 0;
         for(Iterator iter = wsdlIncludes.iterator(); iter.hasNext();){
             Import next = (Import) iter.next();
-            URL relativeUrl  = new URL(finalWsdlUrl, next.getLocation());
+            URL relativeUrl  = Urls.create(finalWsdlUrl, next.getLocation(), Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
             transformer.setParameter
                 (WSDL_INCLUDE_LOCATION_PARAM_NAME + wsdlIncludeNum, relativeUrl);            
             wsdlIncludeNum++;
@@ -588,7 +590,7 @@ public class WsUtil {
         int schemaIncludeNum = 0;
         for(Iterator iter = schemaIncludes.iterator(); iter.hasNext();){
             Import next = (Import) iter.next();
-            URL relativeUrl  = new URL(finalWsdlUrl, next.getLocation());
+            URL relativeUrl  = Urls.create(finalWsdlUrl, next.getLocation(), Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
             transformer.setParameter
                 (SCHEMA_INCLUDE_LOCATION_PARAM_NAME + schemaIncludeNum, 
                  relativeUrl);            
@@ -674,7 +676,7 @@ public class WsUtil {
                                     retVal = serviceRef.getWsdlFileUrl();
                                 } else {
                                     if(serviceRef.getWsdlFileUri().startsWith("http")) {
-                                        retVal = new URL(serviceRef.getWsdlFileUri());
+                                        retVal = Urls.create(serviceRef.getWsdlFileUri(), Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
                                     } else {
                                         if ((serviceRef.getWsdlFileUri().startsWith("WEB-INF")|| serviceRef.getWsdlFileUri().startsWith("META-INF"))) {
 

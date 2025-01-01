@@ -39,6 +39,8 @@
  */
 
 package test.web.jsfinjection;
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import org.testng.annotations.Configuration;
 import org.testng.annotations.ExpectedExceptions;
 import org.testng.annotations.Test;
@@ -83,7 +85,7 @@ public class JSFInjectionTestNG {
 
         String testUrl = "http://" + host  + ":" + port + "/"+ strContextRoot + "/jsfHello.jsf";
         echo("URL is: " + testUrl);
-        URL url = new URL(testUrl);
+        URL url = Urls.create(testUrl, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
         echo("Connecting to: " + url.toString());
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.connect();

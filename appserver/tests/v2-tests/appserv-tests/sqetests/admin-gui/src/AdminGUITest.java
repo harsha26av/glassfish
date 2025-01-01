@@ -39,6 +39,8 @@
  */
 
 import com.meterware.httpunit.*;
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import util.Util;
 import util.JSSE;
 import java.net.URL;
@@ -82,7 +84,7 @@ public class AdminGUITest {
                 URL = "http://"+host+":"+port;
             } else {
                 System.out.println("GOING TO EXECUTE EE TEST CASE");
-                JSSE jse = new JSSE(new URL("https", host, Integer.parseInt(port), "/index.jsf"));
+                JSSE jse = new JSSE(Urls.create("https", host, Integer.parseInt(port), "/index.jsf", Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS));
                 jse.trustAnyServerCertificate();
                 URL = "https://"+host+":"+port;
             }

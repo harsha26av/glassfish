@@ -40,6 +40,8 @@
 
 package client;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -80,7 +82,7 @@ public class TestClient {
 
     private int invokeServlet(String url, String userPassword) throws Exception {
         log("Invoking url = " + url+", password = " + userPassword);
-        URL u = new URL(url);
+        URL u = Urls.create(url, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
 	String encoding = new sun.misc.BASE64Encoder().encode (userPassword.getBytes());
         HttpURLConnection c1 = (HttpURLConnection)u.openConnection();
 	c1.setRequestProperty ("Authorization", "Basic " + encoding);

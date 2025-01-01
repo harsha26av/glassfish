@@ -43,6 +43,8 @@ package com.sun.enterprise.v3.admin.adapter;
 import com.sun.appserv.server.util.Version;
 import com.sun.enterprise.config.serverbeans.*;
 import com.sun.enterprise.v3.admin.AdminConsoleConfigUpgrade;
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.beans.PropertyVetoException;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -516,11 +518,7 @@ public final class AdminConsoleAdapter extends HttpHandler implements Adapter, P
                     .getNetworkListener("admin-listener");
             SecureAdmin secureAdmin = habitat.getService(SecureAdmin.class);
 
-            URL url = new URL(
-                    (SecureAdmin.Util.isEnabled(secureAdmin) ? "https" : "http"),
-                    nl.getAddress(),
-                    Integer.parseInt(nl.getPort()),
-                    "/management/domain");
+            URL url = Urls.create((SecureAdmin.Util.isEnabled(secureAdmin) ? "https" : "http"), nl.getAddress(), Integer.parseInt(nl.getPort()), "/management/domain", Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
             URLConnection conn = url.openConnection();
             is = conn.getInputStream();
             isRestStarted = true;

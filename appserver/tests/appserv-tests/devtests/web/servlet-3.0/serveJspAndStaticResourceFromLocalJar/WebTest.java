@@ -38,6 +38,8 @@
  * holder.
  */
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.*;
 import java.net.*;
 import com.sun.ejte.ccl.reporter.*;
@@ -101,8 +103,8 @@ public class WebTest {
     }
 
     private void invokeJspServlet() throws Exception {
-        URL url = new URL("http://" + host  + ":" +
-                          port + contextRoot + "/abc.jsp");
+        URL url = Urls.create("http://" + host  + ":" +
+                          port + contextRoot + "/abc.jsp", Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
         System.out.println("Invoking URL: " + url.toString());
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.connect();
@@ -126,8 +128,8 @@ public class WebTest {
 
     private void invokeDefaultServlet(String path, int[] expectedStatuses,
             String expectedResponse) throws Exception {
-        URL url = new URL("http://" + host  + ":" +
-                          port + contextRoot + path);
+        URL url = Urls.create("http://" + host  + ":" +
+                          port + contextRoot + path, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
         System.out.println("Invoking URL: " + url.toString());
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setInstanceFollowRedirects(false);
@@ -164,8 +166,8 @@ public class WebTest {
     }
 
     private void invokeTestServlet() throws Exception {
-        URL url = new URL("http://" + host  + ":" +
-                          port + contextRoot + "/test");
+        URL url = Urls.create("http://" + host  + ":" +
+                          port + contextRoot + "/test", Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
         System.out.println("Invoking URL: " + url.toString());
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.connect();

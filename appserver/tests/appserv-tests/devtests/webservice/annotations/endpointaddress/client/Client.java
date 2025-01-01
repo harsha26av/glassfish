@@ -40,6 +40,8 @@
 
 package client;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.net.*;
 import java.io.*;
 import com.example.hello.HelloService;
@@ -63,7 +65,7 @@ public class Client {
        public void doTest(String[] args) {
             try {
 
-                URL serviceInfo = new URL (args[0]);
+                URL serviceInfo = Urls.create(args[0], Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
                 URLConnection con = serviceInfo.openConnection();
                BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream())); 
 

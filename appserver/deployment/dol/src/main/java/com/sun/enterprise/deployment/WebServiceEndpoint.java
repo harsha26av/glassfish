@@ -54,6 +54,8 @@ import com.sun.enterprise.deployment.runtime.ws.ReliabilityConfig;
 import com.sun.enterprise.deployment.types.HandlerChainContainer;
 import com.sun.enterprise.deployment.web.SecurityConstraint;
 import com.sun.enterprise.deployment.web.UserDataConstraint;
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import org.glassfish.deployment.common.Descriptor;
 import org.glassfish.internal.api.Globals;
 
@@ -696,7 +698,7 @@ public class WebServiceEndpoint extends Descriptor
             throws MalformedURLException  {
 
         String uri = getEndpointAddressPath(contextRoot);
-        return new URL(root.getProtocol(), root.getHost(), root.getPort(), uri);
+        return Urls.create(root.getProtocol(), root.getHost(), root.getPort(), uri, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
     }
 
     public String getEndpointAddressPath(){
@@ -754,8 +756,7 @@ public class WebServiceEndpoint extends Descriptor
         URL context = composeEndpointAddress(root);
         String mainFile = context.getFile() + "/" +
                 PUBLISHING_SUBCONTEXT + "/" + webService.getWsdlFileUri();
-        URL finalWsdlUrl = new URL(context.getProtocol(), context.getHost(),
-                context.getPort(), mainFile);
+        URL finalWsdlUrl = Urls.create(context.getProtocol(), context.getHost(), context.getPort(), mainFile, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
         return finalWsdlUrl;
     }
 

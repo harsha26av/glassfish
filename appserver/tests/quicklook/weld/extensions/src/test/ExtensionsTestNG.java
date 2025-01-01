@@ -40,6 +40,8 @@
 
 package test.web.extensions;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import org.testng.annotations.*;
 import org.testng.Assert;
 import java.io.*;
@@ -148,7 +150,7 @@ public class ExtensionsTestNG {
     }
 
     private boolean checkForString(String testurl, String str) throws Exception {
-        URL url = new URL(testurl);
+        URL url = Urls.create(testurl, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.connect();
         int responseCode = conn.getResponseCode();

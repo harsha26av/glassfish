@@ -44,6 +44,8 @@ import com.sun.enterprise.deployment.*;
 import com.sun.enterprise.deployment.node.*;
 import com.sun.enterprise.deployment.util.DOLUtils;
 import com.sun.enterprise.deployment.xml.WebServicesTagNames;
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import org.w3c.dom.Node;
 
 import java.io.File;
@@ -112,7 +114,7 @@ public class WLWebServiceNode extends DisplayableComponentNode {
                     (element.getQName())) {
                 URL url = null;
                 try {
-                    url = new URL(value);
+                    url = Urls.create(value, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
                 } catch (MalformedURLException e) {
                     try {
                         //try file

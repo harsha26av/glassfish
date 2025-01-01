@@ -40,6 +40,8 @@
 
 package org.glassfish.appclient.common;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -145,7 +147,7 @@ public class PermissionsUtil {
         
         CodeSource cs = 
             new CodeSource(
-                    new URL(SMGlobalPolicyUtil.CLIENT_TYPE_CODESOURCE), (Certificate[])null );
+                    Urls.create(SMGlobalPolicyUtil.CLIENT_TYPE_CODESOURCE, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS), (Certificate[])null );
         PermissionCollection pc = pf.getPermissions(cs);
 
         return pc;        
@@ -159,7 +161,7 @@ public class PermissionsUtil {
         if (!f.exists())
             return null;
         
-        URL furl = new URL("file:" + policyFilename);
+        URL furl = Urls.create("file:" + policyFilename, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
             
         return getEEPolicyPermissions(furl);
     }

@@ -40,6 +40,8 @@
 
 package com.sun.enterprise.admin.util;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.IOException;
 import java.net.URL;
 import java.net.MalformedURLException;
@@ -244,8 +246,7 @@ public final class HttpConnectorAddress {
     }
 
     public URL toURL(String path) throws MalformedURLException{
-        return new URL(getConnectorType(), getHost(), getPort(), 
-                path == null ? "" : path);
+        return Urls.create(getConnectorType(), getHost(), getPort(), path == null ? "" : path, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
     }
 
     public synchronized SSLSocketFactory getSSLSocketFactory() {

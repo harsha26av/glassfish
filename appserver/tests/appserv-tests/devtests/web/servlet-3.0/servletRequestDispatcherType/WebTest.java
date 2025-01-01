@@ -38,6 +38,8 @@
  * holder.
  */
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.*;
 import java.net.*;
 import com.sun.ejte.ccl.reporter.*;
@@ -80,8 +82,8 @@ public class WebTest {
 
     public void doForward() throws Exception {
 
-        URL url = new URL("http://" + host  + ":" + port
-                          + contextRoot + "/From?mode=forward");
+        URL url = Urls.create("http://" + host  + ":" + port
+                          + contextRoot + "/From?mode=forward", Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
         System.out.println("Connecting to: " + url.toString());
 
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -95,8 +97,8 @@ public class WebTest {
 
     public void doInclude() throws Exception {
 
-        URL url = new URL("http://" + host  + ":" + port
-                          + contextRoot + "/From?mode=include");
+        URL url = Urls.create("http://" + host  + ":" + port
+                          + contextRoot + "/From?mode=include", Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
         System.out.println("Connecting to: " + url.toString());
 
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -110,8 +112,8 @@ public class WebTest {
 
     public void doError() throws Exception {
 
-        URL url = new URL("http://" + host  + ":" + port
-                          + contextRoot + "/From?mode=error");
+        URL url = Urls.create("http://" + host  + ":" + port
+                          + contextRoot + "/From?mode=error", Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
         System.out.println("Connecting to: " + url.toString());
 
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();

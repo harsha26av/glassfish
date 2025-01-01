@@ -40,6 +40,8 @@
 
 package org.glassfish.tests.paas.basicdbteardownsql;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.util.ArrayList;
 import junit.framework.Assert;
 import org.glassfish.embeddable.CommandResult;
@@ -177,7 +179,7 @@ public class CoffeeTest {
 
     private List<String> getDbConnectionDetails(String urlStr) throws Exception {
         List dbConnectionDetails = new ArrayList<String>();
-        URL url = new URL(urlStr);
+        URL url = Urls.create(urlStr, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
         URLConnection yc = url.openConnection();
         System.out.println("\nURLConnection [" + yc + "] : ");
         BufferedReader in = new BufferedReader(new InputStreamReader(
@@ -191,7 +193,7 @@ public class CoffeeTest {
 
 
     private void get(String urlStr, String result) throws Exception {
-        URL url = new URL(urlStr);
+        URL url = Urls.create(urlStr, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
         URLConnection yc = url.openConnection();
         System.out.println("\nURLConnection [" + yc + "] : ");
         BufferedReader in = new BufferedReader(new InputStreamReader(

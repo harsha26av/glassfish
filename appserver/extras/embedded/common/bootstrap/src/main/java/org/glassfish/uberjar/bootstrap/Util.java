@@ -40,6 +40,8 @@
 
 package org.glassfish.uberjar.bootstrap;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import org.glassfish.embeddable.GlassFish;
 
 import java.io.File;
@@ -133,8 +135,8 @@ public class Util {
                         !entry.getName().endsWith(MODULES_DIR_SUFFIX)) {
                     continue;
                 }
-                moduleJarURLs.add(new URL(JARFILE_URL_PREFIX + modulesJar.getName() +
-                        JARENTRY_PREFIX + entry.getName()));
+                moduleJarURLs.add(Urls.create(JARFILE_URL_PREFIX + modulesJar.getName() +
+                        JARENTRY_PREFIX + entry.getName(), Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS));
             }
         } catch (Exception ex) {
             ex.printStackTrace();

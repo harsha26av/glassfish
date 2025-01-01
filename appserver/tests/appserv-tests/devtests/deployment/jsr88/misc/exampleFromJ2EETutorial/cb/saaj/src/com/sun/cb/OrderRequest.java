@@ -40,6 +40,8 @@
 
 package com.sun.cb;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.net.*;
 import java.io.*;
 import java.util.*;
@@ -151,7 +153,7 @@ public class OrderRequest {
                 order.addChildElement(childName);
             total.addTextNode(orderBean.getTotal().toString()); 
               
-            URL endpoint = new URL(url);
+            URL endpoint = Urls.create(url, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
             SOAPMessage reply = con.call(msg, endpoint);
             con.close();
 

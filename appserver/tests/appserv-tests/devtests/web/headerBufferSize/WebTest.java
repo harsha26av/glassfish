@@ -38,6 +38,8 @@
  * holder.
  */
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
@@ -346,7 +348,7 @@ public class WebTest {
             	queryString.append( URLEncoder.encode(paramName,"ISO8859-1") + "=" + URLEncoder.encode(paramValue,"ISO8859-1") );
             }
         }
-        URL urlToCall = new URL( url + queryString.toString() );
+        URL urlToCall = Urls.create(url + queryString.toString(), Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
         HttpURLConnection urlConnection = (HttpURLConnection) urlToCall.openConnection();
         urlConnection.setInstanceFollowRedirects(true);
         urlConnection.setUseCaches(false);
@@ -423,7 +425,7 @@ public class WebTest {
      **/
     protected static Hashtable doPostCall(String url, Hashtable headers, String[] cookies, Hashtable requestParams)
 			throws MalformedURLException, IOException {
-        URL urlToCall = new URL(url);
+        URL urlToCall = Urls.create(url, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
         HttpURLConnection urlConnection = (HttpURLConnection) urlToCall.openConnection();
         urlConnection.setInstanceFollowRedirects(true);
         urlConnection.setUseCaches(false);

@@ -41,6 +41,8 @@
 package org.glassfish.webservices.connector.annotation.handlers;
 
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import javax.jws.WebService;
 import javax.xml.ws.WebServiceProvider;
 import javax.xml.ws.WebServiceRef;
@@ -214,7 +216,7 @@ public class HandlerChainHandler extends AbstractHandler {
         try {
             URL handlerFileURL=null;
             try {
-                handlerFileURL = new URL(handlerFile);
+                handlerFileURL = Urls.create(handlerFile, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
             } catch(java.net.MalformedURLException e) {
                 // swallowing purposely
             }

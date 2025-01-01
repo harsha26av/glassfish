@@ -40,6 +40,8 @@
 
 package org.glassfish.nucleus.quicklook;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -94,7 +96,7 @@ public class RestTest {
     }
 
     protected HttpURLConnection getConnection(String url) throws IOException {
-        HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
+        HttpURLConnection connection = (HttpURLConnection) Urls.create(url, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS).openConnection();
         connection.setRequestProperty("X-GlassFish-3", "true");
         connection.setRequestProperty("X-Requested-By", "dummy");
         return connection;

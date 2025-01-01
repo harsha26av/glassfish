@@ -40,6 +40,8 @@
 
 package test;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.PrintWriter;
@@ -77,7 +79,7 @@ public class ServletTest2 extends HttpServlet {
       throws IOException, ServletException {
         boolean passed = true;
         int port = req.getLocalPort();
-        URL url = new URL("http://localhost:" + port + "/web-readLineIOException/ServletTest");
+        URL url = Urls.create("http://localhost:" + port + "/web-readLineIOException/ServletTest", Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
 
         resp.setContentType("text/html");
         PrintWriter writer = resp.getWriter();

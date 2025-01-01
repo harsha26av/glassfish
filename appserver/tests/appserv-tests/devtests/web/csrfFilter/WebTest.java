@@ -38,6 +38,8 @@
  * holder.
  */
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.*;
 import java.net.*;
 import java.util.*;
@@ -102,7 +104,7 @@ public class WebTest {
         if (param != null) {
             sb.append("?").append(param);
         }
-        URL url = new URL(sb.toString());
+        URL url = Urls.create(sb.toString(), Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
      
         System.out.println("Connecting to: " + url.toString());
 

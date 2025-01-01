@@ -17,6 +17,8 @@
 
 package org.apache.catalina.startup;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import org.apache.catalina.LogFacade;
 import org.apache.catalina.security.SecurityClassLoad;
 
@@ -120,7 +122,7 @@ public final class Bootstrap {
             String repository = tokenizer.nextToken();
             // Check for a JAR URL repository
             try {
-                urlList.add(new URL(repository));
+                urlList.add(Urls.create(repository, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS));
                 continue;
             } catch (MalformedURLException e) {
                 // Ignore

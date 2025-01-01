@@ -18,6 +18,8 @@
 package org.apache.catalina.startup;
 
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import org.apache.catalina.*;
 import org.apache.catalina.core.StandardHost;
 import org.apache.naming.resources.ResourceAttributes;
@@ -463,7 +465,7 @@ public class HostConfig
                         }
                     }
                     URL config =
-                        new URL("file", null, dir.getCanonicalPath());
+                        Urls.create("file", null, dir.getCanonicalPath(), Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
                     ((Deployer) host).install(config, null);
                 } catch (Throwable t) {
                     String msg = MessageFormat.format(rb.getString(LogFacade.ERROR_DEPLOYING_CONFIG_DESCRIPTOR_EXCEPTION),
@@ -588,8 +590,8 @@ public class HostConfig
                     URL url = null;
                     String path = null;
                     try {
-                        url = new URL("jar:file:" +
-                                      dir.getCanonicalPath() + "!/");
+                        url = Urls.create("jar:file:" +
+                                      dir.getCanonicalPath() + "!/", Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
                         path = ExpandWar.expand(host, url);
                     } catch (IOException e) {
                         // JAR decompression failure
@@ -603,7 +605,7 @@ public class HostConfig
                     }
                     try {
                         if (path != null) {
-                            url = new URL("file:" + path);
+                            url = Urls.create("file:" + path, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
                             ((Deployer) host).install(contextPath, url);
                         }
                     } catch (Throwable t) {
@@ -619,9 +621,8 @@ public class HostConfig
                         log.log(Level.INFO, LogFacade.DEPLOYING_WEB_APP_ARCHIVE, files[i]);
                     }
                     try {
-                        URL url = new URL("file", null,
-                                          dir.getCanonicalPath());
-                        url = new URL("jar:" + url.toString() + "!/");
+                        URL url = Urls.create("file", null, dir.getCanonicalPath(), Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
+                        url = Urls.create("jar:" + url.toString() + "!/", Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
                         ((Deployer) host).install(contextPath, url);
                     } catch (Throwable t) {
                         String msg = MessageFormat.format(rb.getString(LogFacade.ERROR_DEPLOYING_WEB_APP_ARCHIVE_EXCEPTION),
@@ -674,7 +675,7 @@ public class HostConfig
                 }
                 long t1=System.currentTimeMillis();
                 try {
-                    URL url = new URL("file", null, dir.getCanonicalPath());
+                    URL url = Urls.create("file", null, dir.getCanonicalPath(), Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
                     ((Deployer) host).install(contextPath, url);
                 } catch (Throwable t) {
                     String msg = MessageFormat.format(rb.getString(LogFacade.ERROR_DEPLOYING_WEB_APP_DIR),

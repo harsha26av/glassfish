@@ -40,6 +40,8 @@
 
 package com.sun.cb;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import javax.xml.soap.*;
 import java.util.*;
 
@@ -76,8 +78,7 @@ public class TestPriceListRequest {
             msg.saveChanges();
 
             // create the endpoint and send the message
-            URL endpoint = new URL(
-                 URLHelper.getSaajURL() + "/getPriceList");
+            URL endpoint = Urls.create(URLHelper.getSaajURL() + "/getPriceList", Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
             SOAPMessage response = con.call(msg, endpoint);
             con.close();
 

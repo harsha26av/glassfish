@@ -40,6 +40,8 @@
 
 package com.acme;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -83,7 +85,7 @@ public class Client {
             String url = "http://" + host + ":" + port + "/" + appName
                     + "/HelloServlet";
             System.out.println("invoking webclient servlet at " + url);
-            URL u = new URL(url);
+            URL u = Urls.create(url, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
             HttpURLConnection c1 = (HttpURLConnection) u.openConnection();
             int code = c1.getResponseCode();
             InputStream is = c1.getInputStream();

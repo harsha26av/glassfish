@@ -46,6 +46,8 @@ import com.sun.enterprise.deployment.archivist.AppClientArchivist;
 import com.sun.enterprise.module.bootstrap.BootException;
 import com.sun.enterprise.util.LocalStringManager;
 import com.sun.enterprise.util.LocalStringManagerImpl;
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -119,7 +121,7 @@ interface Launchable {
                         Thread.currentThread().getContextClassLoader());
             }
             if ( ! (result instanceof JWSFacadeLaunchable)) {
-                URL clientOrFacadeURL = new URL("file:" + result.getURI().getSchemeSpecificPart());
+                URL clientOrFacadeURL = Urls.create("file:" + result.getURI().getSchemeSpecificPart(), Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
                 /*
                  * For the embedded case especially there might not be an
                  * ACCClassLoader instance yet.  Create one if needed

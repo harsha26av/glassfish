@@ -40,6 +40,8 @@
 
 package test.weld.osgi;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import org.testng.annotations.*;
 import org.testng.Assert;
 import java.io.*;
@@ -99,7 +101,7 @@ public class OsgiWeldTestNG {
         boolean result = false;
         String testurl = "http://" + m_host  + ":" + m_port + "/"
                 + strContextRoot +"/OsgiWeld?command=exports";
-        URL url = new URL(testurl);
+        URL url = Urls.create(testurl, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.connect();
         int responseCode = conn.getResponseCode();
@@ -119,7 +121,7 @@ public class OsgiWeldTestNG {
 
     private boolean checkForString(String testurl, String str) throws Exception {
         //System.out.println("Checking for " + str + "in " + testurl);
-        URL url = new URL(testurl);
+        URL url = Urls.create(testurl, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.connect();
         int responseCode = conn.getResponseCode();

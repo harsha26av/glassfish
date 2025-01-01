@@ -40,6 +40,8 @@
 
 package org.glassfish.tests.embedded.web;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.File;
@@ -97,7 +99,7 @@ public class EmbeddedSetDocRootTest {
         embedded.addVirtualServer(vs);
         Context context = (Context) embedded.createContext(root, contextRoot, null);
 
-        URL servlet = new URL("http://localhost:8080/"+contextRoot);
+        URL servlet = Urls.create("http://localhost:8080/"+contextRoot, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
         URLConnection yc = servlet.openConnection();
         BufferedReader in = new BufferedReader(
                                 new InputStreamReader(

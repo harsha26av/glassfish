@@ -40,6 +40,8 @@
 
 package test.admin;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Enumeration;
@@ -69,7 +71,7 @@ public class BaseAsadminTest {
     
     protected Manifest invokeURLAndGetManifest(String urls) {
         try {
-            URL url = new URL(urls);
+            URL url = Urls.create(urls, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
             HttpURLConnection uc = (HttpURLConnection)url.openConnection();
             uc.setRequestMethod("GET");
             uc.setRequestProperty("User-Agent", "hk2-agent");

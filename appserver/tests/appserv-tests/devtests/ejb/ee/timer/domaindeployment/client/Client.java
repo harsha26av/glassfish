@@ -42,6 +42,8 @@ package com.acme;
 
 import admin.AdminBaseDevTest;
 import com.sun.ejte.ccl.reporter.SimpleReporterAdapter;
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 
 import java.io.*;
 import java.net.*;
@@ -164,7 +166,7 @@ public class Client extends AdminBaseDevTest {
         String result=null;
 
         try {
-            URL url = new URL(connection);
+            URL url = Urls.create(connection, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
 
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.connect();

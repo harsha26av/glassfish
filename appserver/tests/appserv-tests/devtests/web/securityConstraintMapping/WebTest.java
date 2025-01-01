@@ -38,6 +38,8 @@
  * holder.
  */
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.lang.*;
 import java.io.*;
 import java.net.*;
@@ -83,14 +85,14 @@ public class WebTest
          throws Exception
     {
 
-        URL url = new URL("http://" + host  + ":" + port + contextPath);
+        URL url = Urls.create("http://" + host  + ":" + port + contextPath, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
         System.out.println("Connecting to: " + url.toString());
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.connect();
         int responseCode = conn.getResponseCode();
         System.out.println("Response code: " + responseCode);
         if (responseCode == HttpURLConnection.HTTP_MOVED_TEMP) {
-            url = new URL(conn.getHeaderField("Location"));
+            url = Urls.create(conn.getHeaderField("Location"), Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
             System.out.println("Redirected to: " + url.toString());
             conn = (HttpURLConnection) url.openConnection();
             conn.connect();

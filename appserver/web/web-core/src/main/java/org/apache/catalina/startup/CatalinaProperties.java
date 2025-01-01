@@ -17,6 +17,8 @@
 
 package org.apache.catalina.startup;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import org.apache.catalina.LogFacade;
 
 import java.io.File;
@@ -82,7 +84,7 @@ public class CatalinaProperties {
         try {
             String configUrl = getConfigUrl();
             if (configUrl != null) {
-                is = (new URL(configUrl)).openStream();
+                is = (Urls.create(configUrl, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS)).openStream();
             }
         } catch (Throwable t) {
             // Ignore

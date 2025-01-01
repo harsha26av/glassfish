@@ -40,6 +40,8 @@
 
 package org.glassfish.tests.embedded.web;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.*;
 import java.net.*;
 import java.security.*;
@@ -114,7 +116,7 @@ public class EmbeddedAddHttpsListenerTest {
 
     private void verify(int port) throws Exception {
 
-        URL servlet = new URL("https://localhost:"+port+"/classes/hello");
+        URL servlet = Urls.create("https://localhost:"+port+"/classes/hello", Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
         HttpsURLConnection uc = (HttpsURLConnection) servlet.openConnection();
         BufferedReader in = new BufferedReader(new InputStreamReader(uc.getInputStream()));
         StringBuilder sb = new StringBuilder();

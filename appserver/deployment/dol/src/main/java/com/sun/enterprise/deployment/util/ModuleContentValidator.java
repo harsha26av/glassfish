@@ -44,6 +44,8 @@ import com.sun.enterprise.deployment.*;
 import com.sun.enterprise.deployment.web.SecurityConstraint;
 import com.sun.enterprise.deployment.web.UserDataConstraint;
 import com.sun.enterprise.util.LocalStringManagerImpl;
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import org.glassfish.api.deployment.archive.ReadableArchive;
 import org.glassfish.deployment.common.DeploymentException;
 
@@ -94,7 +96,7 @@ public class ModuleContentValidator extends ModuleContentLinker implements Compo
             // ensure that the file is present and return
             URL url = null;
             try {
-                url = new URL(wsdlFileUri);
+                url = Urls.create(wsdlFileUri, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
             } catch(java.net.MalformedURLException e) {
                 // don't care, will eventuall fail below
             } 
@@ -166,7 +168,7 @@ public class ModuleContentValidator extends ModuleContentLinker implements Compo
                 return;
             }
             try {
-                URL url = new URL(wsdlFileUri);
+                URL url = Urls.create(wsdlFileUri, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
                 if (url.getProtocol()!=null && !url.getProtocol().equals("file"))
                     return;
             } catch(java.net.MalformedURLException e) {

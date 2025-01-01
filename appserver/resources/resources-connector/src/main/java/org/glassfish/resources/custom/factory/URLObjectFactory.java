@@ -41,6 +41,8 @@
 package org.glassfish.resources.custom.factory;
 
 import com.sun.logging.LogDomains;
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 
 import javax.naming.spi.ObjectFactory;
 import javax.naming.*;
@@ -90,11 +92,11 @@ public class URLObjectFactory implements Serializable, ObjectFactory {
         }
 
         if(protocol != null && host != null && port != -1 && file != null){
-            return new URL(protocol, host, port, file);
+            return Urls.create(protocol, host, port, file, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
         }else if(protocol != null && host != null && file != null){
-            return new URL(protocol, host, file);
+            return Urls.create(protocol, host, file, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
         }else if(spec != null){
-            return new URL(spec);
+            return Urls.create(spec, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
         }
 
         throw new IllegalArgumentException("URLObjectFactory does not have necessary parameters for URL construction");

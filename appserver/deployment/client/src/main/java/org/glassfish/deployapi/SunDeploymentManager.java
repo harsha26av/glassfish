@@ -47,6 +47,8 @@ import com.sun.enterprise.module.ModulesRegistry;
 
 import com.sun.enterprise.module.single.StaticModulesRegistry;
 import com.sun.enterprise.module.bootstrap.StartupContext;
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import org.glassfish.api.admin.ProcessEnvironment;
 
 import org.glassfish.deployapi.config.SunDeploymentConfiguration;
@@ -406,8 +408,7 @@ public class SunDeploymentManager implements DeploymentManager {
                 childTmid.setModuleType(subModuleType);
                 if (subType.equals("war")) {
                     // get the web url
-                    URL webURL = new URL("http", hostAndPort.getHost(), 
-                        hostAndPort.getPort(), infoParts.get(2));
+                    URL webURL = Urls.create("http", hostAndPort.getHost(), hostAndPort.getPort(), infoParts.get(2), Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
                     childTmid.setWebURL(webURL.toExternalForm());
                 }
                 if (tmid instanceof TargetModuleIDImpl) {
@@ -434,7 +435,7 @@ public class SunDeploymentManager implements DeploymentManager {
             path = "/" + path; //NOI18N
         }
         
-        URL webURL = new URL("http", webHost.getHost(), webHost.getPort(), path); //NOI18N
+        URL webURL = Urls.create("http", webHost.getHost(), webHost.getPort(), path, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS); //NOI18N
         if (tmid instanceof TargetModuleIDImpl) {
             ((TargetModuleIDImpl)tmid).setWebURL(webURL.toExternalForm());
         }

@@ -38,6 +38,8 @@
  * holder.
  */
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.net.URL;
 import javax.xml.rpc.ServiceFactory;
 import javax.xml.rpc.Service;
@@ -80,7 +82,7 @@ public class Client {
     public void dynamic(String[] args) throws Exception {
         String endpoint = args[0];
         System.out.println("Invoking dynamic proxies with endpoint at " + endpoint);
-        URL wsdlURL = new URL(endpoint+"?WSDL");
+        URL wsdlURL = Urls.create(endpoint+"?WSDL", Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
         ServiceFactory factory = ServiceFactory.newInstance();
         Service service = factory.createService(wsdlURL, 
             new QName("urn:WebServiceTest","WebServiceServletTest"));

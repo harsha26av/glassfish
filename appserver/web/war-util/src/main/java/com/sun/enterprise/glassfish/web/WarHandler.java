@@ -48,6 +48,8 @@ import com.sun.enterprise.security.perms.SMGlobalPolicyUtil;
 import com.sun.enterprise.security.perms.PermsArchiveDelegate;
 import com.sun.enterprise.util.StringUtils;
 import com.sun.enterprise.util.LocalStringManagerImpl;
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import org.apache.naming.resources.WebDirContext;
 import org.glassfish.api.admin.ServerEnvironment;
 import org.glassfish.api.deployment.DeployCommandParameters;
@@ -256,7 +258,7 @@ public class WarHandler extends AbstractArchiveHandler {
                 }
 
                 try {
-                    URL url = new URL(path);
+                    URL url = Urls.create(path, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
                     cloader.addRepository(path);
                 } catch (MalformedURLException mue1) {
                     // Not a URL, interpret as file

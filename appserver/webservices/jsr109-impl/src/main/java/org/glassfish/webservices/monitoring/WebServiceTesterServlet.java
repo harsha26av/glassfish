@@ -50,6 +50,8 @@ import com.sun.enterprise.deployment.WebServiceEndpoint;
 import com.sun.enterprise.util.LocalStringManagerImpl;
 import com.sun.tools.ws.spi.WSToolsObjectFactory;
 import com.sun.xml.bind.api.JAXBRIContext;
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -521,7 +523,7 @@ public class WebServiceTesterServlet extends HttpServlet {
         URL[] urls = new URL[1];
         String classesDir;
         try {
-            URL wsdlUrl = new URL(sb.toString());
+            URL wsdlUrl = Urls.create(sb.toString(), Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
             // create client artifacts
             classesDir = wsImport(wsdlUrl);
             if (classesDir == null) {
@@ -552,7 +554,7 @@ public class WebServiceTesterServlet extends HttpServlet {
             }
             
             Class serviceClass = testerCL.loadClass(serviceClassName);
-            Service service = Service.create(new URL(sb.toString()), serviceName);            
+            Service service = Service.create(Urls.create(sb.toString(), Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS), serviceName);            
             if (service==null) {
                 throw new RuntimeException("Cannot load Service");
             }

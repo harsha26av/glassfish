@@ -40,6 +40,8 @@
 
 package wrongtransport;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -57,7 +59,7 @@ public class WrongTransport extends BaseDevTest {
         try {
             secureURL = "https://" + host + ":" + port + "/";
             final String url = "http://" + host + ":" + port + "/";
-            HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
+            HttpURLConnection connection = (HttpURLConnection) Urls.create(url, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS).openConnection();
             connection.setInstanceFollowRedirects(true);
             checkStatus(connection);
         } catch (Throwable t) {

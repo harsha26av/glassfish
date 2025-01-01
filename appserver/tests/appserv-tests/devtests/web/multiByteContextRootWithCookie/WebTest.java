@@ -38,6 +38,8 @@
  * holder.
  */
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.*;
 import java.net.*;
 import java.util.List;
@@ -98,8 +100,8 @@ public class WebTest {
      
         String sessionId = null;
 
-        URL url = new URL("http://" + host  + ":" + port + "/"
-            + "good-%E5%A5%BD-good/set.jsp");
+        URL url = Urls.create("http://" + host  + ":" + port + "/"
+            + "good-%E5%A5%BD-good/set.jsp", Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
         System.out.println("Connecting to: " + url.toString());
 
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -126,8 +128,8 @@ public class WebTest {
     private boolean doGetJsp(String sessionId) throws Exception {
         boolean expected = false;
 
-        URL url = new URL("http://" + host  + ":" + port + "/"
-            + "good-%E5%A5%BD-good/get.jsp");
+        URL url = Urls.create("http://" + host  + ":" + port + "/"
+            + "good-%E5%A5%BD-good/get.jsp", Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
         System.out.println("Connecting to: " + url.toString());
 
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();

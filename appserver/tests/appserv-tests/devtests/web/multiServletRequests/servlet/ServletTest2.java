@@ -40,6 +40,8 @@
 
 package test;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.*;
 import java.net.*;
 import java.util.*;
@@ -69,7 +71,7 @@ public class ServletTest2 extends HttpServlet {
         String port = request.getParameter("port");
         String contextRoot = request.getParameter("contextRoot");
 
-        URL url = new URL("http://" + host  + ":" + port + "/web-multiServletRequests/ServletTest3?host="+ host + "&port=" + port + "&contextRoot=" + contextRoot);
+        URL url = Urls.create("http://" + host  + ":" + port + "/web-multiServletRequests/ServletTest3?host="+ host + "&port=" + port + "&contextRoot=" + contextRoot, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
         System.out.println("\n Servlet2 Invoking url: " + url.toString());
         response.sendRedirect(url.toString());
         System.out.println("=========== Servlet3 invoked =============");
