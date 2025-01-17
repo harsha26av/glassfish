@@ -40,7 +40,8 @@
 
 package com.sun.s1asdev.ejb.bmp.handle.mix.ejb;
 
-import java.rmi.RemoteException; 
+import io.github.pixee.security.ObjectInputFilters; 
+import java.rmi.RemoteException;
 import javax.ejb.*;
 import java.sql.*;
 import javax.sql.*;
@@ -378,6 +379,7 @@ public class EnrollerBean implements SessionBean {
         byte[] data = bos.toByteArray();
         ByteArrayInputStream bis = new ByteArrayInputStream(data);
         ObjectInputStream ois = new ObjectInputStream(bis);
+        ObjectInputFilters.enableObjectFilterIfUnprotected(ois);
         HomeHandle newHandle = (HomeHandle) ois.readObject();
         sbuf.append("\tRead  Homehandle for: " + msg + "\n");
 
@@ -398,6 +400,7 @@ public class EnrollerBean implements SessionBean {
         byte[] data = bos.toByteArray();
         ByteArrayInputStream bis = new ByteArrayInputStream(data);
         ObjectInputStream ois = new ObjectInputStream(bis);
+        ObjectInputFilters.enableObjectFilterIfUnprotected(ois);
         Handle newHandle = (Handle) ois.readObject();
         sbuf.append("\tRead  handle for: " + msg + "\n");
 

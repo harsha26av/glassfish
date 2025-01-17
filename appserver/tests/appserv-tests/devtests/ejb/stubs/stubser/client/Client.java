@@ -40,6 +40,7 @@
 
 package com.sun.s1asdev.ejb.stubs.stubser.client;
 
+import io.github.pixee.security.ObjectInputFilters;
 import java.io.*;
 import java.util.*;
 import javax.ejb.*;
@@ -196,6 +197,7 @@ public class Client {
     private Serializable readFromFile(String filename) throws Exception {
         FileInputStream fis = new FileInputStream(filename);
         ObjectInputStream ois = new ObjectInputStream(fis);
+        ObjectInputFilters.enableObjectFilterIfUnprotected(ois);
         Serializable s = (Serializable) ois.readObject();
         ois.close();
         System.out.println("Reconstituted " + filename);

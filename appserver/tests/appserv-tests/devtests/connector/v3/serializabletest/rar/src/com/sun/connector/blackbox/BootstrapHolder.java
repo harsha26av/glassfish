@@ -40,6 +40,7 @@
 
 package com.sun.connector.blackbox;
 
+import io.github.pixee.security.ObjectInputFilters;
 import javax.resource.spi.BootstrapContext;
 import javax.resource.spi.XATerminator;
 import javax.resource.spi.work.WorkManager;
@@ -83,6 +84,7 @@ public class BootstrapHolder {
                 // now deserialize it
                 ByteArrayInputStream bis = new ByteArrayInputStream(data);
                 ObjectInputStream ois = new ObjectInputStream(bis);
+                ObjectInputFilters.enableObjectFilterIfUnprotected(ois);
 
 
                 return ois.readObject();

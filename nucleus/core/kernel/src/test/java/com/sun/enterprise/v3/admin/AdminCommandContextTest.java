@@ -40,6 +40,7 @@
 
 package com.sun.enterprise.v3.admin;
 
+import io.github.pixee.security.ObjectInputFilters;
 import static org.junit.Assert.assertEquals;
 
 import java.io.ByteArrayInputStream;
@@ -68,6 +69,7 @@ public class AdminCommandContextTest {
         oos.writeObject(context);
         ByteArrayInputStream is = new ByteArrayInputStream(os.toByteArray());
         ObjectInputStream ois = new ObjectInputStream(is);
+        ObjectInputFilters.enableObjectFilterIfUnprotected(ois);
         AdminCommandContext restored = (AdminCommandContextImpl) ois.readObject();
         assertEquals("failureCause", "Test", restored.getActionReport().getFailureCause().getMessage());
         // context.setPayload

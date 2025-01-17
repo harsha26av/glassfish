@@ -40,6 +40,7 @@
 
 package test.servlet;
 
+import io.github.pixee.security.ObjectInputFilters;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -84,6 +85,7 @@ public class NoInterfaceProxySerializableEJBTestServlet extends HttpServlet {
 
             FileInputStream fin = new FileInputStream(tmpFile);
             ObjectInputStream ois = new ObjectInputStream(fin);
+            ObjectInputFilters.enableObjectFilterIfUnprotected(ois);
             System.out.println("Attempting to read " + tbi + " from file-"
                     + tmpFile);
 

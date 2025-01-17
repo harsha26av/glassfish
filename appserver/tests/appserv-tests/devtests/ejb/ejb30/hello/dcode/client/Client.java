@@ -40,6 +40,7 @@
 
 package com.sun.s1asdev.ejb.ejb30.hello.dcode.client;
 
+import io.github.pixee.security.ObjectInputFilters;
 import java.io.*;
 import java.util.*;
 import javax.ejb.EJB;
@@ -84,6 +85,7 @@ public class Client {
                 FileInputStream fis = new FileInputStream(handleFile);
                 
                 ObjectInputStream ois = new ObjectInputStream(fis);
+                ObjectInputFilters.enableObjectFilterIfUnprotected(ois);
 
                 for(int i = 0; i < sfuls.length; i++) {
                     

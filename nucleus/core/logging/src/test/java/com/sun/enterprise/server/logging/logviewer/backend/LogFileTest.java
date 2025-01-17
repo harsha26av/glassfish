@@ -40,6 +40,7 @@
 
 package com.sun.enterprise.server.logging.logviewer.backend;
 
+import io.github.pixee.security.ObjectInputFilters;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
@@ -58,6 +59,7 @@ public class LogFileTest {
     public void testLogEntryDeserialization() throws IOException, ClassNotFoundException {   
         ObjectInputStream objectInput = new ObjectInputStream(
                 LogFileTest.class.getResource("logentry.bin").openStream());
+        ObjectInputFilters.enableObjectFilterIfUnprotected(objectInput);
         // Create and initialize a LogEntry from binary file
         LogFile.LogEntry entry = (LogEntry) objectInput.readObject(); 
         

@@ -40,6 +40,7 @@
 
 package javax.security.jacc;
 
+import io.github.pixee.security.ObjectInputFilters;
 import java.lang.reflect.*;
 import java.util.Enumeration;
 import java.security.*; 
@@ -89,6 +90,7 @@ public class TestEJBPerms {
         try {
             FileInputStream fin = new FileInputStream("serial-test-file.tmp");
             ObjectInputStream sin = new ObjectInputStream(fin);
+            ObjectInputFilters.enableObjectFilterIfUnprotected(sin);
             p2 = (Permission) sin.readObject();
             sin.close();
             fin.close(); 
