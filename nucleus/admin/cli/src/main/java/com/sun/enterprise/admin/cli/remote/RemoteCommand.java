@@ -275,7 +275,9 @@ public class RemoteCommand extends CLICommand {
                 ((ClientCookieStore) cookieManager.getCookieStore()).load();
             } catch (IOException e) {
                 if (logger.isLoggable(Level.FINER))
-                logger.finer("Unable to load cookies: " + e.toString());
+                {
+                    logger.finer("Unable to load cookies: " + e.toString());
+                }
                 return;
             }
 

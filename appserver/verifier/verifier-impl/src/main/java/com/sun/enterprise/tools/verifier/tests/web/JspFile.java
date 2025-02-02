@@ -97,7 +97,9 @@ public class JspFile extends WebTest implements WebCheck {
 //                    }
                     
                     if (jspFilename.startsWith("/")) 
-                        jspFilename = jspFilename.substring(1);
+                        {
+                            jspFilename = jspFilename.substring(1);
+                        }
 //                    if(f!=null){
 //                        ze = jar.getEntry(jspFilename);
 //                        foundIt=(ze !=null);

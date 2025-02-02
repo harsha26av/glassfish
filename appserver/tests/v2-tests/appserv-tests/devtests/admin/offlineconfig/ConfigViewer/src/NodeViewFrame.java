@@ -288,7 +288,9 @@ public class NodeViewFrame extends javax.swing.JFrame implements ListSelectionLi
         dialog.setVisible(true);
         String[] pair = dialog.getNameAndValue();
         if(pair[0]!=null)
-            ((DefaultTableModel)jPropsTable.getModel()).addRow(pair);
+            {
+                ((DefaultTableModel)jPropsTable.getModel()).addRow(pair);
+            }
     }//GEN-LAST:event_jAddProperyActionPerformed
 
     private void jTextField1InputMethodTextChanged(java.awt.event.InputMethodEvent evt)//GEN-FIRST:event_jTextField1InputMethodTextChanged

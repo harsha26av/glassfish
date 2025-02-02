@@ -79,10 +79,14 @@ public Result check(WebBundleDescriptor descriptor) {
             stroeProp =sessionMgr.getStoreProperties();
 
             if(stroeProp !=null )
-            SPwebProps=stroeProp.getWebProperty();
+            {
+                SPwebProps=stroeProp.getWebProperty();
+            }
 
             if(mgrProps !=null)
-            MPwebProps=mgrProps.getWebProperty();
+            {
+                MPwebProps=mgrProps.getWebProperty();
+            }
 
             if((SPwebProps ==null|| SPwebProps.length==0) && (MPwebProps ==null || MPwebProps.length==0)){
                 notApp = true;

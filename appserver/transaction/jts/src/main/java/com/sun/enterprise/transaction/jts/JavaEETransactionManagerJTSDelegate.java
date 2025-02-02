@@ -300,7 +300,9 @@ public class JavaEETransactionManagerJTSDelegate
                 XAResource res = h.getXAResource();
                 boolean result = tx.enlistResource(res);
                 if (!h.isEnlisted())
-                    h.enlistedInTransaction(tx);
+                    {
+                        h.enlistedInTransaction(tx);
+                    }
                     return result;
                 } else {
                     return true;

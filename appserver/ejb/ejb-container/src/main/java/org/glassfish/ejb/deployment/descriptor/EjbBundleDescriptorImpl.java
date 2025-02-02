@@ -832,7 +832,9 @@ public class EjbBundleDescriptorImpl extends com.sun.enterprise.deployment.EjbBu
                 ((pmdesc_ver.trim()).equals(pminuse_ver)) ) {
 
                 if (debug)
-            _logger.fine("***IASEjbBundleDescriptor.getPreferredPersistenceManager done -#- ");
+            {
+                _logger.fine("***IASEjbBundleDescriptor.getPreferredPersistenceManager done -#- ");
+            }
 
                 return pmdesc;
         }

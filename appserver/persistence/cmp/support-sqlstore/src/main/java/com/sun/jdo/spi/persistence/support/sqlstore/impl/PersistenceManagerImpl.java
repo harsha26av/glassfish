@@ -1234,8 +1234,10 @@ public class PersistenceManagerImpl implements PersistenceManager {
                 if (_supersedeDeletedInstance && old.isDeleted()) {
 
                 if (debug)
-                    logger.finer(I18NHelper.getMessage(messages,
-                        "sqlstore.persistencemgr.replacingdeletedinstance", oid)); // NOI18N
+                    {
+                        logger.finer(I18NHelper.getMessage(messages,
+                        "sqlstore.persistencemgr.replacingdeletedinstance", oid));
+                    } // NOI18N
 
                     old.markNotRegistered();
                     old.markVerifyAtDeregister();

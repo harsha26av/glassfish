@@ -74,10 +74,12 @@ public class ResourceUtil {
     public static BindableResource getBindableResourceByName(Resources resources, String name) {
         Collection<BindableResource> typedResources = resources.getResources(BindableResource.class);
         if(typedResources != null)
-        for(BindableResource resource : typedResources){
+        {
+            for(BindableResource resource : typedResources){
             if(resource.getJndiName().equals(name)){
                 return resource;
             }
+        }
         }
         return null;
     }

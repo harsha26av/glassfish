@@ -128,7 +128,9 @@ public class AdminInfraTest extends TestCase
     public static void main(String args[]) throws Exception
     {
         if(args==null || args.length<2)
-        args = new String[]{"-testpath", "publish/internal/testclasses/asadmintest", "create"};
+        {
+            args = new String[]{"-testpath", "publish/internal/testclasses/asadmintest", "create"};
+        }
         int length = args.length;
         if(length<2 ||
            !args[0].equals("-testpath"))

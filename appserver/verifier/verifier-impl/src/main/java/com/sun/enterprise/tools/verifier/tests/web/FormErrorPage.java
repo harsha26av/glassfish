@@ -97,7 +97,9 @@ public class FormErrorPage extends WebTest implements WebCheck {
 //                        jar = new JarFile(f);
 //                    }
                     if (formErrorPage.startsWith("/")) 
-                        formErrorPage=formErrorPage.substring(1);
+                        {
+                            formErrorPage=formErrorPage.substring(1);
+                        }
 //                    if (f!=null){
 //                        ze = jar.getEntry(formErrorPage);
 //                        foundIt = (ze != null);
