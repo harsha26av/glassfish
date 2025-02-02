@@ -567,7 +567,9 @@ public class StatelessSessionContainer
 
         // check if the bean was destroyed
         if ( sc.getState() == EJBContextImpl.BeanState.DESTROYED )
-            return;
+            {
+                return;
+            }
 
             sc.setState(EJBContextImpl.BeanState.POOLED);
 

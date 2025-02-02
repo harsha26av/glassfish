@@ -240,7 +240,9 @@ public abstract class DigestProcessor {
 	    public String encode( byte[] binaryData ) {
 
        	         if (binaryData.length != 16)
-                 return null;
+                 {
+                     return null;
+                 }
 
                  char[] buffer = new char[32];
 

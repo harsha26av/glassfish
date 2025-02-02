@@ -235,7 +235,8 @@ public class DefaultTransactionService implements ProxyChecker {
         // if recoverable.
 
         if( factoryInstance == null )
-            try {
+            {
+                try {
                 boolean localFactory = true;
                 TransactionFactory factory = null;
                 factoryInstance = new TransactionFactoryImpl();
@@ -261,6 +262,7 @@ public class DefaultTransactionService implements ProxyChecker {
                 //_logger.log(Level.WARNING,"jts.non_persistent_server");
             } catch( Exception exc ) {
                 _logger.log(Level.WARNING,"jts.cannot_register_with_orb","TransactionFactory");
+            }
             }
 
             active = true; // transaction manager is alive and available

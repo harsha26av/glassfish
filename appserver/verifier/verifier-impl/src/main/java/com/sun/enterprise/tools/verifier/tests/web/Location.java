@@ -94,7 +94,9 @@ public class Location extends WebTest implements WebCheck {
 //                        jar = new JarFile(f);
 //                    }
                     if (location.startsWith("/"))
-                        location = location.substring(1);
+                        {
+                            location = location.substring(1);
+                        }
 //                    if (f!=null){
 //                        ze = jar.getEntry(location);
 //                        foundIt = (ze != null);

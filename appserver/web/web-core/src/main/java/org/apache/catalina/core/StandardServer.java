@@ -470,7 +470,9 @@ public final class StandardServer
             int expected = 1024; // Cut off to avoid DoS attack
             while (expected < shutdown.length()) {
                 if (random == null)
-                    random = new SecureRandom();//use self seeding
+                    {
+                        random = new SecureRandom();
+                    }//use self seeding
                     expected += random.nextInt(1024);
             }
             while (expected > 0) {

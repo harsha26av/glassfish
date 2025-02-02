@@ -70,7 +70,9 @@ public class MessageReceiverBean implements MessageReceiverRemote {
                     String content = ((TextMessage) msg).getText();
                     for (int j=0; j<texts.length; j++) {
                         if (!found[j] && texts[i].equals(content))
-                            found[j] = true;
+                            {
+                                found[j] = true;
+                            }
                             break;
                     }
                 }

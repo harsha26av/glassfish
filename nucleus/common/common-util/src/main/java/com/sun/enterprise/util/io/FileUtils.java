@@ -870,7 +870,9 @@ public class FileUtils {
         }
 
         if (!fin.exists())
-            throw new IllegalArgumentException("File source doesn't exist");
+            {
+                throw new IllegalArgumentException("File source doesn't exist");
+            }
 
             if(!mkdirsMaybe(fout.getParentFile()))
                 throw new RuntimeException("Can't create parent dir of output file: " + fout);

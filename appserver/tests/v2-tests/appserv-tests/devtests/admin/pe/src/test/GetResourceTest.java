@@ -84,7 +84,9 @@ public class GetResourceTest extends LifeCycle
         title("Stage III -- delete ");
         
         if(interactive)
-            Console.readLine("Shall I delete the MBeans? [y]: ");
+            {
+                Console.readLine("Shall I delete the MBeans? [y]: ");
+            }
             delete(name);
             System.out.println("Deleted: " + name);
         

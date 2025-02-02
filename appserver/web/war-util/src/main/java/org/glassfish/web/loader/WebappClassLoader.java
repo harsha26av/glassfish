@@ -976,7 +976,9 @@ public class WebappClassLoader
                     securityManager.checkPackageDefinition(name.substring(0,i));
                 } catch (Exception se) {
                 if (logger.isLoggable(Level.FINER))
-                    logger.log(Level.FINER, "      -->Exception-->ClassNotFoundException", se);
+                    {
+                        logger.log(Level.FINER, "      -->Exception-->ClassNotFoundException", se);
+                    }
                     throw new ClassNotFoundException(name, se);
                 }
             }
@@ -1225,7 +1227,9 @@ public class WebappClassLoader
             url = loader.getResource(name);
             if (url != null) {
             if (logger.isLoggable(Level.FINER))
-                logger.log(Level.FINER, "  --> Returning '" + url.toString() + "'");
+                {
+                    logger.log(Level.FINER, "  --> Returning '" + url.toString() + "'");
+                }
                 return (url);
             }
         }

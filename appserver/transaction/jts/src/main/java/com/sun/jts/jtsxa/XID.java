@@ -321,7 +321,9 @@ public class XID implements Xid {
             return s;
         }
         else
-           return "(Available at FINE log level)"; /*#Frozen*/
+           {
+               return "(Available at FINE log level)";
+           } /*#Frozen*/
     }
 
     /*

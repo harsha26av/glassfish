@@ -281,7 +281,9 @@ public class StartLocalInstanceCommand extends SynchronizeInstanceCommand
 
     private GFLauncherInfo getInfo() {
         if(info == null)
-            throw new RuntimeException(Strings.get("internal.error", "GFLauncherInfo was not initialized"));
+            {
+                throw new RuntimeException(Strings.get("internal.error", "GFLauncherInfo was not initialized"));
+            }
 
             return info;
     }

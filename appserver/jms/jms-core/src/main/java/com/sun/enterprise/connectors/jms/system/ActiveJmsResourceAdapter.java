@@ -791,7 +791,9 @@ public class ActiveJmsResourceAdapter extends ActiveInboundResourceAdapterImpl i
     else
       dbProps.setProperty("imq.cluster.nomasterbroker", "true");
     if(Boolean.valueOf(jmsAvailability.getAvailabilityEnabled()) == true || "jdbc".equals(jmsAvailability.getMessageStoreType()))
-      dbProps.setProperty("imq.brokerid", getBrokerInstanceName(getJmsService()));
+      {
+          dbProps.setProperty("imq.brokerid", getBrokerInstanceName(getJmsService()));
+      }
 
         String dbVendor = jmsAvailability.getDbVendor();
         String dbuser = jmsAvailability.getDbUsername();
@@ -1556,7 +1558,9 @@ public class ActiveJmsResourceAdapter extends ActiveInboundResourceAdapterImpl i
         boolean lazyInit = Boolean.valueOf(getJmsHost().getLazyInit());
         val= "true";
         if (EMBEDDED.equals(integrationMode) && lazyInit)
-        val = "false";
+        {
+            val = "false";
+        }
         doBind = Boolean.valueOf(val);
         ConnectorConfigProperty  envProp5 = new ConnectorConfigProperty  (
             MQ_PORTMAPPER_BIND, val, val, "java.lang.Boolean");

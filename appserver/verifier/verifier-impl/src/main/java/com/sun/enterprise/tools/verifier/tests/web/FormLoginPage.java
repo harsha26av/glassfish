@@ -89,7 +89,9 @@ public class FormLoginPage extends WebTest implements WebCheck {
 //                        jar = new JarFile(f);
 //                    }
                     if (formLoginPage.startsWith("/")) 
-                        formLoginPage=formLoginPage.substring(1);
+                        {
+                            formLoginPage=formLoginPage.substring(1);
+                        }
 //                        if (f!=null){
 //                        ze = jar.getEntry(formLoginPage);
 //                        foundIt = (ze != null);

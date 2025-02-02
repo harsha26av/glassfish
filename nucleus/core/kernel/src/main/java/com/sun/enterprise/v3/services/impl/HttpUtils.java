@@ -89,7 +89,9 @@ public class HttpUtils {
                 int myPos = i+1;
                 for (int srcPos = 1; srcPos < srcEnd; ) {
                         if (Ascii.toLower(byteBuffer.get(myPos++)) != b[srcPos++])
-                    break;
+                    {
+                        break;
+                    }
                         if (srcPos == srcEnd) return i - start; // found it
                 }
             }

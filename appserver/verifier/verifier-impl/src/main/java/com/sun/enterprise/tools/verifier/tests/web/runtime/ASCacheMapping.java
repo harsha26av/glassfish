@@ -356,7 +356,9 @@ public class ASCacheMapping extends ASCache implements WebCheck {
         int keyCount = getCountNodeSet("sun-web-app/cache/cache-mapping["+mapCount+"]/key-field");
         String cacheMapName = getXPathValue("sun-web-app/cache/cache-mapping["+mapCount+"]/servlet-name");
         if (cacheMapName == null)
-        cacheMapName = getXPathValue("sun-web-app/cache/cache-mapping["+mapCount+"]/url-pattern");
+        {
+            cacheMapName = getXPathValue("sun-web-app/cache/cache-mapping["+mapCount+"]/url-pattern");
+        }
         if (keyCount>0){
             for (int k=1;k<=keyCount;k++){
                 String  name = getXPathValue("sun-web-app/cache/cache-mapping["+mapCount+"]/key-field["+k+"]/@name");

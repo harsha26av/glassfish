@@ -134,9 +134,13 @@ public class bmservlet extends HttpServlet
          out.println("Total Records in table1 = "+count);
         out.println("Total Records in table2 = "+count2);
 	if ((count==1)&&(count2==1))
-         out.println("Result:FAIL");
+         {
+             out.println("Result:FAIL");
+         }
          else
-         out.println("Result:PASS");
+         {
+             out.println("Result:PASS");
+         }
          stmt.executeUpdate("delete from status21");
          stmt2.executeUpdate("delete from status2");
          conn.commit();
