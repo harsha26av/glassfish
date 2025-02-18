@@ -46,6 +46,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.math.BigInteger;
+import java.nio.file.Files;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -113,7 +114,7 @@ public class RestTestBase {
                         request().
                         get(Response.class);
 
-                PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("target/surefire-reports/" + currentTestClass + "-server.log")));
+                PrintWriter out = new PrintWriter(Files.newBufferedWriter("target/surefire-reports/" + currentTestClass + "-server.log".toPath()));
                 out.write(cr.readEntity(String.class));
                 out.close();
             }

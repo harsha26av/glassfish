@@ -55,6 +55,7 @@ import java.io.InputStreamReader;
 import java.io.StringWriter;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.file.Files;
 import java.util.SortedSet;
 import java.util.TreeSet;
 import static admin.Constants.*;
@@ -542,7 +543,7 @@ public abstract class AdminBaseDevTest extends BaseDevTest implements Runnable {
         BufferedWriter writer = null;
 
         try {
-            writer = new BufferedWriter(new FileWriter(tempFile));
+            writer = Files.newBufferedWriter(tempFile.toPath());
             reader = new BufferedReader(new FileReader(f));
 
             String currentLine;
