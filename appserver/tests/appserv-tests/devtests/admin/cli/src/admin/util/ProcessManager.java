@@ -48,6 +48,7 @@
  */
 package admin.util;
 
+import io.github.pixee.security.SystemCommand;
 import java.io.*;
 import java.util.*;
 import java.util.logging.Level;
@@ -102,7 +103,7 @@ public class ProcessManager {
             sb_err = new StringBuffer();
 
             Runtime rt = Runtime.getRuntime();
-            process = rt.exec(cmdline);
+            process = SystemCommand.runCommand(rt, cmdline);
             readStream("stderr", process.getErrorStream(), sb_err);
             readStream("stdout", process.getInputStream(), sb_out);
             writeStdin();

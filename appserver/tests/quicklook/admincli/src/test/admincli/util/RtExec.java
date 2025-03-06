@@ -45,6 +45,7 @@
 
 package test.admincli.util;
 
+import io.github.pixee.security.SystemCommand;
 import java.io.*;
 
 /**
@@ -60,7 +61,7 @@ public class RtExec {
     public static boolean execute(String cmd) throws IOException {
         try {
             System.out.println("RtExec.execute: " + cmd);
-            proc = rt.exec(cmd);
+            proc = SystemCommand.runCommand(rt, cmd);
 
             StreamGobbler errorGobbler = new StreamGobbler(proc.getErrorStream(), "ERROR");
             StreamGobbler outputGobbler = new StreamGobbler(proc.getInputStream(), "OUTPUT");

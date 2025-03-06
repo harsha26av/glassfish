@@ -40,6 +40,7 @@
 
 package org.glassfish.ant.tasks;
 
+import io.github.pixee.security.SystemCommand;
 import org.apache.tools.ant.Task;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.BuildException;
@@ -127,7 +128,7 @@ public class AdminTask extends Task {
         BufferedReader input = null;
         try {
             File asadmin = getAsAdmin(f);
-            Process pr = Runtime.getRuntime().exec(asadmin.getAbsolutePath() + " " + commandExec);
+            Process pr = SystemCommand.runCommand(Runtime.getRuntime(), asadmin.getAbsolutePath() + " " + commandExec);
 
             error = new BufferedReader(new InputStreamReader(pr.getErrorStream()));
             String errorLine=null;
