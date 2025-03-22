@@ -45,6 +45,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URL;
+import java.nio.file.Files;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -211,7 +212,7 @@ public class StaticGlassFishRuntime extends GlassFishRuntime {
         } else {
             new File(tmpDir).mkdirs();
         }
-        File instanceRoot = File.createTempFile("gfembed", "tmp", new File(tmpDir));
+        File instanceRoot = Files.createTempFile(new File(tmpDir).toPath(), "gfembed", "tmp").toFile();
         if (!instanceRoot.delete() || !instanceRoot.mkdir()) { // convert the file into a directory.
             throw new Exception("cannot create directory: " + instanceRoot.getAbsolutePath());
         }

@@ -53,6 +53,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.nio.file.Files;
 import java.security.Policy;
 import java.text.MessageFormat;
 import java.util.ResourceBundle;
@@ -380,7 +381,7 @@ public class JWSACCMain implements Runnable {
      private static File writeTextToTempFile(String content, String prefix, String suffix, boolean retainTempFiles) throws IOException, FileNotFoundException {
         BufferedWriter wtr = null;
         try {
-            File result = File.createTempFile(prefix, suffix);
+            File result = Files.createTempFile(prefix, suffix).toFile();
             if ( ! retainTempFiles) {
                 result.deleteOnExit();
             }

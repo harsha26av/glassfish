@@ -40,6 +40,7 @@
 
 package com.sun.enterprise.admin.cli.embeddable;
 
+import java.nio.file.Files;
 import org.glassfish.admin.payload.PayloadFilesManager;
 import org.glassfish.admin.payload.PayloadImpl;
 import org.glassfish.api.ActionReport;
@@ -191,7 +192,7 @@ public class DeployerImpl implements Deployer {
 
     private File createFile(InputStream in) throws IOException {
         File file;
-        file = File.createTempFile("app", "tmp");
+        file = Files.createTempFile("app", "tmp").toFile();
         file.deleteOnExit();
         OutputStream out = null;
         try {
@@ -254,7 +255,7 @@ public class DeployerImpl implements Deployer {
             * admin client does, by writing the *outbound* payload to a temporary file
             * then reading from that file.
             */
-            payloadZip = File.createTempFile("appclient", ".zip");
+            payloadZip = Files.createTempFile("appclient", ".zip").toFile();
             payloadOutputStream = new FileOutputStream(payloadZip);
             outboundPayload.writeTo(payloadOutputStream);
             payloadOutputStream.flush();

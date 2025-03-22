@@ -53,6 +53,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.file.Files;
 import java.util.jar.Attributes;
 import java.util.jar.Attributes.Name;
 import java.util.jar.JarEntry;
@@ -191,7 +192,7 @@ public class PackageAppClient {
          * we can simply rename the file to the correct name.  (Rename does not
          * work on Windows systems across volumes.)
          */
-        final File tempFile = File.createTempFile("appc", ".tmp", installDir);
+        final File tempFile = Files.createTempFile(installDir.toPath(), "appc", ".tmp").toFile();
         final File outputFile = chooseOutputFile(installDir, args);
         
         final File[] configFiles = chooseConfigFiles(installDir, args);

@@ -47,6 +47,7 @@ import com.sun.enterprise.module.ModulesRegistry;
 
 import com.sun.enterprise.module.single.StaticModulesRegistry;
 import com.sun.enterprise.module.bootstrap.StartupContext;
+import java.nio.file.Files;
 import org.glassfish.api.admin.ProcessEnvironment;
 
 import org.glassfish.deployapi.config.SunDeploymentConfiguration;
@@ -1294,7 +1295,7 @@ public class SunDeploymentManager implements DeploymentManager {
         
         if (path==null) {
             // no particular path was provided, using tmp jar file
-            File root = File.createTempFile(name,".jar");  //NOI18N
+            File root = Files.createTempFile(name, ".jar").toFile();  //NOI18N
             path = root.toURI();
         }
         ArchiveFactory factory = getArchiveFactory();

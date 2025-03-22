@@ -48,6 +48,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.file.Files;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -273,7 +274,7 @@ public class ApplicationLoaderService implements org.glassfish.hk2.api.PreDestro
                     if (!sourceFile.isDirectory()) {
 
                     // ok we need to explode the directory somwhere and remember to delete it on shutdown
-                        final File tmpFile = File.createTempFile(sourceFile.getName(),"");
+                        final File tmpFile = Files.createTempFile(sourceFile.getName(), "").toFile();
                         final String path = tmpFile.getAbsolutePath();
                         if (!tmpFile.delete()) {
                             logger.log(Level.WARNING, KernelLoggerInfo.cantDeleteTempFile, path);

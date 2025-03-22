@@ -45,6 +45,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.nio.file.Files;
 import java.security.KeyStore;
 import org.glassfish.api.admin.PasswordAliasStore;
 import org.junit.AfterClass;
@@ -65,7 +66,7 @@ public class PasswordAliasTest {
     
     @BeforeClass
     public static void createStore() throws Exception {
-        storeFile = File.createTempFile("pwAliasStore", "jks");
+        storeFile = Files.createTempFile("pwAliasStore", "jks").toFile();
         final KeyStore ks = KeyStore.getInstance("JCEKS");
         ks.load(null, TEST_STORE_PW);
         final OutputStream os = new BufferedOutputStream(new FileOutputStream(storeFile));

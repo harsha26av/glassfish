@@ -44,6 +44,7 @@ import com.sun.enterprise.config.modularity.ConfigModularityUtils;
 import com.sun.enterprise.util.LocalStringManagerImpl;
 import com.sun.enterprise.util.io.FileUtils;
 import java.io.*;
+import java.nio.file.Files;
 import java.util.concurrent.TimeoutException;
 import java.util.concurrent.locks.Lock;
 import java.util.logging.Level;
@@ -153,7 +154,7 @@ public class DomainXmlPersistence implements ConfigurationPersistence, Configura
             }
 
             // get a temporary file
-            File f = File.createTempFile("domain", ".xml", destination.getParentFile());
+            File f = Files.createTempFile(destination.getParentFile().toPath(), "domain", ".xml").toFile();
             if (!f.exists()) {
                 throw new IOException(localStrings.getLocalString("NoTmpFile",
                         "Cannot create temporary file when saving domain.xml"));

@@ -50,6 +50,7 @@ import com.sun.enterprise.deployment.WebServiceEndpoint;
 import com.sun.enterprise.util.LocalStringManagerImpl;
 import com.sun.tools.ws.spi.WSToolsObjectFactory;
 import com.sun.xml.bind.api.JAXBRIContext;
+import java.nio.file.Files;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -587,7 +588,7 @@ public class WebServiceTesterServlet extends HttpServlet {
         File classesDir = new File(System.getProperty("java.io.tmpdir"));
 
         // create a dumy file to have a unique temporary name for a directory
-        classesDir = File.createTempFile("jax-ws", "tester", classesDir);
+        classesDir = Files.createTempFile(classesDir.toPath(), "jax-ws", "tester").toFile();
         if (!classesDir.delete()) {
             logger.log(Level.WARNING, LogUtils.DELETE_DIR_FAILED, classesDir);
         }

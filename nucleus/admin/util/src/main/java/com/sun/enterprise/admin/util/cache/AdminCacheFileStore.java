@@ -44,6 +44,7 @@ import com.sun.enterprise.admin.util.AdminLoggerInfo;
 import com.sun.enterprise.security.store.AsadminSecurityUtil;
 import com.sun.enterprise.util.io.FileUtils;
 import java.io.*;
+import java.nio.file.Files;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -152,7 +153,7 @@ public class AdminCacheFileStore implements AdminCache {
         // @todo Java SE 7 - use try with resources
         OutputStream os = null;
         try {
-            File tempFile = File.createTempFile("temp", "cache", cacheFile.getParentFile());
+            File tempFile = Files.createTempFile(cacheFile.getParentFile().toPath(), "temp", "cache").toFile();
             os = new BufferedOutputStream(new FileOutputStream(tempFile));
             provider.writeToStream(data, os);
             os.close();

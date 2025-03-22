@@ -54,6 +54,7 @@ import java.io.LineNumberReader;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.net.URI;
+import java.nio.file.Files;
 import java.util.Map;
 import java.util.Properties;
 import java.util.logging.Logger;
@@ -178,7 +179,7 @@ public class PayloadImplTest {
             outboundPayload.requestFileReplacement("application/octet-stream", 
                     new URI(SUBDIR_LEVEL_1 + '/' + SUBDIR_LEVEL_2 + '/'), "replacement", 
                     null, dirToUseForReplacement, true);
-            zipFile = writePayloadToFile(outboundPayload, File.createTempFile("payloadZip", ".zip"));
+            zipFile = writePayloadToFile(outboundPayload, Files.createTempFile("payloadZip", ".zip").toFile());
             
             preparePFM(zipFile);
             
@@ -219,11 +220,11 @@ public class PayloadImplTest {
         
         try {
             Payload.Outbound outboundPayload = PayloadImpl.Outbound.newInstance();
-            newVersion = populateFile(File.createTempFile("payload",".txt"), REPLACED_FILE_X.content);
+            newVersion = populateFile(Files.createTempFile("payload", ".txt").toFile(), REPLACED_FILE_X.content);
             outboundPayload.requestFileReplacement("application/octet-stream", 
                     new URI(REPLACED_FILE_X.path), "replacement", 
                     null, newVersion, false);
-            zipFile = writePayloadToFile(outboundPayload, File.createTempFile("payloadZip", ".zip"));
+            zipFile = writePayloadToFile(outboundPayload, Files.createTempFile("payloadZip", ".zip").toFile());
             
             boolean isFileProcessed = false;
             
@@ -264,7 +265,7 @@ public class PayloadImplTest {
         File zipFile = null;
         try {
             Payload.Outbound outboundPayload = PayloadImpl.Outbound.newInstance();
-            fileToBeAddedToPayload = populateFile(File.createTempFile("payload",".txt"), ADDED_FILE_Z.content);
+            fileToBeAddedToPayload = populateFile(Files.createTempFile("payload", ".txt").toFile(), ADDED_FILE_Z.content);
             log("  Populated " + fileToBeAddedToPayload.getAbsolutePath());
 
             /*
@@ -282,7 +283,7 @@ public class PayloadImplTest {
                     fileToBeAddedToPayload);
             log("  Attached " + ADDED_FILE_Z.path);
             
-            zipFile = writePayloadToFile(outboundPayload, File.createTempFile("payloadZip", ".zip"));
+            zipFile = writePayloadToFile(outboundPayload, Files.createTempFile("payloadZip", ".zip").toFile());
             log("  Wrote payload to " + zipFile.getAbsolutePath());
 
             
@@ -387,7 +388,7 @@ public class PayloadImplTest {
     }
     
     private File createTempDir(final String prefix, final String suffix) throws IOException {
-        File temp = File.createTempFile(prefix, suffix);
+        File temp = Files.createTempFile(prefix, suffix).toFile();
         if ( ! temp.delete()) {
             throw new IOException("Cannot delete temp file " + temp.getAbsolutePath());
         }

@@ -55,6 +55,7 @@ import com.sun.enterprise.deployment.util.*;
 import com.sun.enterprise.util.LocalStringManagerImpl;
 import com.sun.enterprise.util.io.FileUtils;
 import com.sun.enterprise.util.shared.ArchivistUtils;
+import java.nio.file.Files;
 import org.glassfish.apf.*;
 import org.glassfish.apf.Scanner;
 import org.glassfish.apf.impl.DefaultErrorHandler;
@@ -1343,7 +1344,7 @@ public abstract class Archivist<T extends BundleDescriptor> {
                 dir = fileOrDir;
             }
         }
-        return File.createTempFile("tmp", ".jar", dir);
+        return Files.createTempFile(dir.toPath(), "tmp", ".jar").toFile();
     }
 
     /**

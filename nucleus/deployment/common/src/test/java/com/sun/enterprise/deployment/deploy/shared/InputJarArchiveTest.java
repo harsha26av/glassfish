@@ -47,6 +47,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URI;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -268,7 +269,7 @@ public class InputJarArchiveTest {
     }
     
     private File createTestJAR() throws IOException {
-        final File tempJAR = File.createTempFile("InputJarArchive", ".jar");
+        final File tempJAR = Files.createTempFile("InputJarArchive", ".jar").toFile();
         tempJAR.deleteOnExit();
         final Manifest mf = new Manifest();
         Attributes mainAttrs = mf.getMainAttributes();
