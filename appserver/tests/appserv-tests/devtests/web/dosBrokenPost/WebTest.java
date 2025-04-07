@@ -38,6 +38,7 @@
  * holder.
  */
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -80,7 +81,7 @@ public class WebTest extends Thread {
         String line;
         try {
             int i = 0;
-            while ((line = bis.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(bis, 5_000_000)) != null) {
                 System.out.println(i + ":" + line);
                 i++;
             }

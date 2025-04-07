@@ -40,6 +40,7 @@
 
 package com.sun.enterprise.admin.cli;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.*;
 import java.util.*;
 import java.lang.annotation.Annotation;
@@ -839,7 +840,7 @@ public abstract class CLICommand implements PostConstruct {
             br = expandManPage(br);
             String line;
             try {
-                while ((line = br.readLine()) != null)
+                while ((line = BoundedLineReader.readLine(br, 5_000_000)) != null)
                     System.out.println(line);
             } catch (IOException ioex) {
                 throw new CommandException(
@@ -1333,7 +1334,7 @@ public abstract class CLICommand implements PostConstruct {
                 return;     // in case the resource doesn't exist
             reader = new BufferedReader(new InputStreamReader(is));
             String line;
-            while ((line = reader.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(reader, 5_000_000)) != null) {
                 if (line.startsWith("#"))
                     continue; // # indicates comment
                 StringTokenizer tok = new StringTokenizer(line, " ");

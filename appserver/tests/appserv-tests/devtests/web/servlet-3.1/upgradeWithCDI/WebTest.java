@@ -38,6 +38,7 @@
  * holder.
  */
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.*;
 import java.net.*;
 import java.util.List;
@@ -86,7 +87,7 @@ public class WebTest {
                 String line = null;
                 // consume http headers
                 boolean containsUpgrade = false;
-                while ((line = input.readLine()) != null) {
+                while ((line = BoundedLineReader.readLine(input, 5_000_000)) != null) {
                     System.out.println(line);
                     containsUpgrade = containsUpgrade || (line.toLowerCase().startsWith("upgrade"));
                     if ("".equals(line)) {
@@ -99,7 +100,7 @@ public class WebTest {
                 output.write("0691081220\n");
                 output.flush();
 
-                line = input.readLine();
+                line = BoundedLineReader.readLine(input, 5_000_000);
                 System.out.println(line);
                 valid = valid && "0691081220 true".equals(line);
 
@@ -107,7 +108,7 @@ public class WebTest {
                 output.write("069108122X\n");
                 output.flush();
 
-                line = input.readLine();
+                line = BoundedLineReader.readLine(input, 5_000_000);
                 System.out.println(line);
                 valid = valid && "069108122X false".equals(line);
 

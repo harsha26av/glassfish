@@ -38,6 +38,7 @@
  * holder.
  */
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.*;
 import java.net.*;
 import com.sun.ejte.ccl.reporter.*;
@@ -125,7 +126,7 @@ public class WebTest {
                 stat.addStatus(TEST_NAME, stat.FAIL);
             } else {
                 input = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                String line = input.readLine();
+                String line = BoundedLineReader.readLine(input, 5_000_000);
                 System.out.println("Response: " + line);
                 if (EXPECTED_RESPONSE.equals(line)) {
                     stat.addStatus(TEST_NAME, stat.PASS);

@@ -38,6 +38,7 @@
  * holder.
  */
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.*;
 import java.net.*;
 import java.util.*;
@@ -163,7 +164,7 @@ public class WebTest {
             String line = null;
             boolean found = false;
             // there is no Location header here anymore
-            while ((line = br.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(br, 5_000_000)) != null) {
                 System.out.println(line);
                 if ((exact && line.equals(expectedResult)) ||
                         ((!exact) && line.startsWith(expectedResult))) {

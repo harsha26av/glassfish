@@ -38,6 +38,7 @@
  * holder.
  */
 
+import io.github.pixee.security.BoundedLineReader;
 import java.lang.*;
 import java.io.*;
 import java.net.*;
@@ -100,7 +101,7 @@ public class WebTest {
 
             int index=0, lineNum=0;
             String cookies = "";
-            while ((line = bis.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(bis, 5_000_000)) != null) {
                 System.out.println(lineNum + ": " + line);
                 if (line.indexOf("Directory Listing") != -1){
                     System.out.println("Getting a \"Directory Listing\"");

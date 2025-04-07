@@ -38,6 +38,7 @@
  * holder.
  */
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -85,7 +86,7 @@ public class WebTest {
             reader = new BufferedReader(new InputStreamReader(sslsocket.getInputStream()));
             long start = System.currentTimeMillis();
             try {
-                while (reader.readLine() != null) {
+                while (BoundedLineReader.readLine(reader, 5_000_000) != null) {
                 }
             } catch (IOException e) {
             }

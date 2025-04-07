@@ -40,6 +40,7 @@
 
 package com.sun.enterprise.glassfish.bootstrap;
 
+import io.github.pixee.security.BoundedLineReader;
 import org.glassfish.embeddable.*;
 
 import java.io.BufferedReader;
@@ -184,7 +185,7 @@ public class GlassFishMain {
         private String readCommand(BufferedReader reader) throws IOException {
             prompt();
             String command = null;
-            while((command = reader.readLine()) != null && command.isEmpty()) {
+            while((command = BoundedLineReader.readLine(reader, 5_000_000)) != null && command.isEmpty()) {
                 // loop until a non empty command or Ctrl-D is inputted.  
             }
             return command;

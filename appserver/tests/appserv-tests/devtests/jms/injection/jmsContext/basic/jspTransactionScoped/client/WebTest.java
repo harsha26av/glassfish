@@ -38,6 +38,7 @@
  * holder.
  */
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.*;
 import java.net.*;
 import javax.naming.*;
@@ -106,7 +107,7 @@ public class WebTest {
             input = new BufferedReader(new InputStreamReader(is));
             String line = null;
             StringBuffer sb = new StringBuffer();
-            while ((line = input.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(input, 5_000_000)) != null) {
                 sb.append(line);
             }
             line = sb.toString();

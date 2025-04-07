@@ -40,6 +40,7 @@
 
 package com.sun.enterprise.admin.util;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.File;
 import java.io.Reader;
 import java.io.FileReader;
@@ -92,7 +93,7 @@ public final class LineTokenReplacer {
             @Override
             public int read(char[] cbuf, int off, int len) throws IOException {
                 if (line == null || line.isEmpty()) {
-                    line = reader.readLine();
+                    line = BoundedLineReader.readLine(reader, 5_000_000);
                     if (line == null) {
                         return -1;
                     }
@@ -131,7 +132,7 @@ public final class LineTokenReplacer {
                     writer = new BufferedWriter(new FileWriter(outputFile));
                 }
                 String lineContents;
-                while ((lineContents = reader.readLine()) != null) {
+                while ((lineContents = BoundedLineReader.readLine(reader, 5_000_000)) != null) {
                     String modifiedLine = replaceLine(lineContents);
                     writer.write(modifiedLine);
                     writer.newLine();

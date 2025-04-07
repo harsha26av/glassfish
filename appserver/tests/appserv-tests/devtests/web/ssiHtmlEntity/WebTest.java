@@ -38,6 +38,7 @@
  * holder.
  */
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.*;
 import java.net.*;
 import com.sun.ejte.ccl.reporter.*;
@@ -105,7 +106,7 @@ public class WebTest {
         boolean hasExpectedLine1 = false;
         boolean hasExpectedLine2 = false;
         String expected = EXPECTED1;
-        while ((line = bis.readLine()) != null) {
+        while ((line = BoundedLineReader.readLine(bis, 5_000_000)) != null) {
             System.out.println(line);
             if (!hasExpectedContentType) {
                 if (line.toLowerCase().startsWith(EXPECTED_CONTENT_TYPE)) {

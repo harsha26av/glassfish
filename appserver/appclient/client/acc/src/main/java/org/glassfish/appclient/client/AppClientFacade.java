@@ -46,6 +46,7 @@ import com.sun.enterprise.universal.glassfish.TokenResolver;
 import com.sun.enterprise.util.JDK;
 import com.sun.enterprise.util.LocalStringManager;
 import com.sun.enterprise.util.LocalStringManagerImpl;
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.CharArrayWriter;
@@ -302,7 +303,7 @@ public class AppClientFacade {
         final BufferedReader helpReader = new BufferedReader(new InputStreamReader(is));
         String line;
         try {
-            while ((line = helpReader.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(helpReader, 5_000_000)) != null) {
                 System.err.println(line);
             }
         } finally {

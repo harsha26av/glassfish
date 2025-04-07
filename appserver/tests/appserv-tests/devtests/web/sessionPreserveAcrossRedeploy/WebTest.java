@@ -38,6 +38,7 @@
  * holder.
  */
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.*;
 import java.net.*;
 import com.sun.ejte.ccl.reporter.*;
@@ -107,7 +108,7 @@ public class WebTest {
 
         // Get the JSESSIONID from the response
         String line = null;
-        while ((line = br.readLine()) != null) {
+        while ((line = BoundedLineReader.readLine(br, 5_000_000)) != null) {
             System.out.println(line);
             if (line.startsWith("Set-Cookie:")
                     || line.startsWith("Set-cookie:")) {
@@ -134,7 +135,7 @@ public class WebTest {
         // Read the JSESSIONID from the previous run
         FileInputStream fis = new FileInputStream(JSESSIONID);
         BufferedReader br = new BufferedReader(new InputStreamReader(fis));
-        String jsessionId = br.readLine();
+        String jsessionId = BoundedLineReader.readLine(br, 5_000_000);
 
         Socket sock = new Socket(host, new Integer(port).intValue());
         OutputStream os = sock.getOutputStream();
@@ -150,7 +151,7 @@ public class WebTest {
 
         String line = null;
         boolean found = false;
-        while ((line = br.readLine()) != null) {
+        while ((line = BoundedLineReader.readLine(br, 5_000_000)) != null) {
             System.out.println(line);
             if (line.contains(EXPECTED_RESPONSE)) {
                 found = true;

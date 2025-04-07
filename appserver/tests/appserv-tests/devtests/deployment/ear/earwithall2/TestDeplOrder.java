@@ -40,6 +40,7 @@
 
 package ear.earwithall2;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.File;
@@ -77,7 +78,7 @@ public class TestDeplOrder {
         int secondLine = -1;
         BufferedReader reader =
           new BufferedReader(new FileReader(new File(path)));
-        String line = reader.readLine();
+        String line = BoundedLineReader.readLine(reader, 5_000_000);
         int totalLines = 0;
         while (line != null) {
             ++totalLines;
@@ -87,7 +88,7 @@ public class TestDeplOrder {
             if ((secondLine < 0) && (line.contains(second))) {
                 secondLine = totalLines;
             }
-            line = reader.readLine();
+            line = BoundedLineReader.readLine(reader, 5_000_000);
         }
         reader.close();
         log("first line:  " + firstLine);

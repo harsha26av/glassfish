@@ -38,6 +38,7 @@
  * holder.
  */
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -105,7 +106,7 @@ public class WebTest {
         } else {
             InputStream is = conn.getInputStream();
             BufferedReader input = new BufferedReader(new InputStreamReader(is));
-            String line = input.readLine();
+            String line = BoundedLineReader.readLine(input, 5_000_000);
             if (EXPECTED_RESPONSE.equals(line)) {
                 stat.addStatus(testName, SimpleReporterAdapter.PASS);
                 return true;
@@ -129,7 +130,7 @@ public class WebTest {
         BufferedReader bis = new BufferedReader(new InputStreamReader(is));
         String line = null;
         String lastLine = null;
-        while ((line = bis.readLine()) != null) {
+        while ((line = BoundedLineReader.readLine(bis, 5_000_000)) != null) {
             lastLine = line;
         }
         final String testName = "test cookie";

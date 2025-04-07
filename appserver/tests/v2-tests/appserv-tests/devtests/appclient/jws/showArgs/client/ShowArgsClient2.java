@@ -41,6 +41,7 @@
 package com.sun.s1asdev.deployment.appclient.jws.showArgs.client2;
 
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -129,8 +130,8 @@ public class ShowArgsClient2 {
         File expectedArgsFile = new File(expectedArgsFileSpec);
         outStream.println("expected args file is " + expectedArgsFile.getAbsolutePath());
         BufferedReader rdr = new BufferedReader(new FileReader(expectedArgsFile));
-        String delimiter = rdr.readLine();
-        String expectedArgValues = rdr.readLine();
+        String delimiter = BoundedLineReader.readLine(rdr, 5_000_000);
+        String expectedArgValues = BoundedLineReader.readLine(rdr, 5_000_000);
         rdr.close();
 
         StringBuilder otherArgsAsLine = new StringBuilder();

@@ -38,6 +38,7 @@
  * holder.
  */
 
+import io.github.pixee.security.BoundedLineReader;
 import java.lang.*;
 import java.io.*;
 import java.net.*;
@@ -114,7 +115,7 @@ public class WebTest
         try {
             is = sock.getInputStream();
             bis = new BufferedReader(new InputStreamReader(is));
-            while ((line = bis.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(bis, 5_000_000)) != null) {
                 System.out.println(line);
                 // Check if the filter was invoked
                 if (line.startsWith("Filter invoked")) {

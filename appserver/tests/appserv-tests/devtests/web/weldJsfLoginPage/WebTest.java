@@ -38,6 +38,7 @@
  * holder.
  */
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.*;
 import java.net.*;
 import java.security.*;
@@ -115,7 +116,7 @@ public class WebTest {
                     connection.getInputStream()));
             String line = null;
             boolean found = false;
-            while ((line = in.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(in, 5_000_000)) != null) {
                 System.out.println(line);
                 if (line.indexOf("j_security_check") != -1) {
                     found = true;

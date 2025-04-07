@@ -41,6 +41,7 @@
 package com.sun.enterprise.admin.servermgmt.cli;
 
 import com.sun.enterprise.admin.cli.CLICommand;
+import io.github.pixee.security.BoundedLineReader;
 import java.io.*;
 import java.util.*;
 import org.jvnet.hk2.annotations.*;
@@ -94,7 +95,7 @@ public class MonitorCommand extends CLICommand {
                 else if (monitorTask.allOK == false)
                     str = "Q";
                 else if (System.in.available() > 0)
-                    str = in.readLine();
+                    str = BoundedLineReader.readLine(in, 5_000_000);
 
                 if (str == null || str.equals("q") || str.equals("Q")) {
                     timer.cancel();

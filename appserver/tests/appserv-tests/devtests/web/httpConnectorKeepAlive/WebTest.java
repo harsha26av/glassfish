@@ -38,6 +38,7 @@
  * holder.
  */
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -76,7 +77,7 @@ public class WebTest {
             InputStream is = s.getInputStream();
             BufferedReader bis = new BufferedReader(new InputStreamReader(is));
             String line;
-            while ((line = bis.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(bis, 5_000_000)) != null) {
                 int index = line.indexOf("Connection:");
                 System.out.println("--" + line);
                 if (index >= 0 && line.contains("closed")) {

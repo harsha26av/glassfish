@@ -44,6 +44,7 @@ import com.sun.enterprise.admin.mbeanapi.common.*;
 import com.sun.appserv.management.util.misc.ExceptionUtil;
 import com.sun.appserv.management.config.PropertiesAccess;
 import com.sun.appserv.management.config.ServerConfigKeys;
+import io.github.pixee.security.BoundedLineReader;
 
 
 import java.io.*;
@@ -284,7 +285,7 @@ public class StandaloneInstanceTest {
         String line;
         final StringBuffer sb = new StringBuffer();
         try {
-            while ((line = br.readLine()) != null)
+            while ((line = BoundedLineReader.readLine(br, 5_000_000)) != null)
             {
                 sb.append(line);
                 sb.append(" ");

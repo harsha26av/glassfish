@@ -40,6 +40,7 @@
 
 package com.sun.enterprise.admin.cli;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.Writer;
 import java.io.Reader;
 import java.io.OutputStreamWriter;
@@ -89,7 +90,7 @@ public class More {
         out.write(prompt);
         out.newLine();
         out.flush();
-        String line = in.readLine();
+        String line = BoundedLineReader.readLine(in, 5_000_000);
         return line != null && !line.startsWith(quit);
     }
 }

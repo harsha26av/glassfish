@@ -39,6 +39,7 @@
  */
 
 package test.jdbc.jdbcusertx;
+import io.github.pixee.security.BoundedLineReader;
 import org.testng.annotations.Configuration;
 import org.testng.annotations.ExpectedExceptions;
 import org.testng.annotations.Test;
@@ -93,7 +94,7 @@ public class JdbcUserTxTestNG {
 	  String testLine = null;        
 	  String EXPECTED_RESPONSE ="user-tx-commit:true";
 	  String EXPECTED_RESPONSE2 ="user-tx-rollback:true";
-	  while ((line = input.readLine()) != null) {
+	  while ((line = BoundedLineReader.readLine(input, 5_000_000)) != null) {
 	    // echo(line);
             if(line.indexOf(EXPECTED_RESPONSE)!=-1 &&
                line.indexOf(EXPECTED_RESPONSE2)!=-1){
@@ -133,7 +134,7 @@ public class JdbcUserTxTestNG {
 	  boolean result=false;
 	  String testLine = null;        
 	  String EXPECTED_RESPONSE ="no-leak-test:true";
-	  while ((line = input.readLine()) != null) {
+	  while ((line = BoundedLineReader.readLine(input, 5_000_000)) != null) {
 	    // echo(line);
    	    if(line.indexOf(EXPECTED_RESPONSE)!=-1){
 	      testLine = line;

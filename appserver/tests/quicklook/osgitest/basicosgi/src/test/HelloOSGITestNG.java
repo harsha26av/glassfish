@@ -41,6 +41,7 @@
 package test.osgi.hello;
 
 import com.sun.appserv.test.AdminBaseDevTest;
+import io.github.pixee.security.BoundedLineReader;
 import org.testng.annotations.Configuration;
 import org.testng.annotations.ExpectedExceptions;
 import org.testng.annotations.Test;
@@ -103,7 +104,7 @@ public class HelloOSGITestNG extends AdminBaseDevTest{
         boolean result=false;
         String testLine = null;
 	    String EXPECTED_RESPONSE ="JSP Test Page";
-        while ((line = input.readLine()) != null) {
+        while ((line = BoundedLineReader.readLine(input, 5_000_000)) != null) {
             if(line.indexOf(EXPECTED_RESPONSE)!=-1){
                 result=true;
              testLine = line;
@@ -131,7 +132,7 @@ public class HelloOSGITestNG extends AdminBaseDevTest{
         String line = null;
         boolean result=false;
         String testLine = null;
-        while ((line = input.readLine()) != null) {
+        while ((line = BoundedLineReader.readLine(input, 5_000_000)) != null) {
             if(line.indexOf("Sample Application Servlet")!=-1){
                 result=true;
              testLine = line;

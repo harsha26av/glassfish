@@ -40,6 +40,7 @@
 
 package test.weld.osgi;
 
+import io.github.pixee.security.BoundedLineReader;
 import org.testng.annotations.*;
 import org.testng.Assert;
 import java.io.*;
@@ -106,7 +107,7 @@ public class OsgiWeldTestNG {
 
         InputStream is = conn.getInputStream();
         BufferedReader input = new BufferedReader(new InputStreamReader(is));
-        String line = input.readLine();
+        String line = BoundedLineReader.readLine(input, 5_000_000);
         if (line.equals("ERROR")) {
             return false;
         }
@@ -130,7 +131,7 @@ public class OsgiWeldTestNG {
         String line = null;
         boolean result = false;
         String testLine = null;
-        while ((line = input.readLine()) != null) {
+        while ((line = BoundedLineReader.readLine(input, 5_000_000)) != null) {
             //System.out.println("line:" + line);
             if (line.indexOf(str) != -1) {
                 result = true;

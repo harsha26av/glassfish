@@ -40,6 +40,7 @@
 
 package com.sun.appserv.test.util.results;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -146,7 +147,7 @@ public class ReportHandler {
             BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
             try {
                 while (reader.ready()) {
-                    builder.append(reader.readLine() + "\n");
+                    builder.append(BoundedLineReader.readLine(reader, 5_000_000) + "\n");
                 }
             } finally {
                 reader.close();

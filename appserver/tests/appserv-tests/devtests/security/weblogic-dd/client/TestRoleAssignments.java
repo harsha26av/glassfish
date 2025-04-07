@@ -39,6 +39,7 @@
  */
 
 import com.sun.ejte.ccl.reporter.SimpleReporterAdapter;
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -76,7 +77,7 @@ class TestRoleAssignment {
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(
                     uconn.getInputStream()));
-            while (reader.readLine() != null) {
+            while (BoundedLineReader.readLine(reader, 5_000_000) != null) {
             }
         } catch (Exception e) {
             e.printStackTrace();

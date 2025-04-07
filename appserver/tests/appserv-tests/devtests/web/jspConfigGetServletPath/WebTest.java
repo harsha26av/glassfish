@@ -38,6 +38,7 @@
  * holder.
  */
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.*;
 import java.net.*;
 import com.sun.ejte.ccl.reporter.*;
@@ -91,7 +92,7 @@ public class WebTest {
             } else {
                 is = conn.getInputStream();
                 input = new BufferedReader(new InputStreamReader(is));
-                String line = input.readLine();
+                String line = BoundedLineReader.readLine(input, 5_000_000);
                 if (!SERVLET_PATH.equals(line)) {
                     System.err.println("Wrong response. Expected: "
                                        + SERVLET_PATH

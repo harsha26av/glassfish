@@ -40,6 +40,7 @@
 
 package util;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.*;
 import java.net.*;
 import java.util.*;
@@ -109,7 +110,7 @@ public class WebTestUtil {
             InputStream is = conn.getInputStream();
             BufferedReader input = new BufferedReader(new InputStreamReader(is));
 	    String line = null;
-	    while ((line = input.readLine()) != null) {
+	    while ((line = BoundedLineReader.readLine(input, 5_000_000)) != null) {
               // System.out.println("line="+line);
 	      if (line.contains(EXPECTED_RESPONSE)) {
 		stat.addStatus(TEST_CASE, stat.PASS);

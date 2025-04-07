@@ -40,6 +40,7 @@
 
 package wrongtransport;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -184,7 +185,7 @@ public class WrongTransportSSL extends BaseDevTest {
     private void parseResponse(HttpURLConnection connection) throws Exception {
         BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
         try {
-            while (in.readLine() != null) {
+            while (BoundedLineReader.readLine(in, 5_000_000) != null) {
             }
         } finally {
             in.close();

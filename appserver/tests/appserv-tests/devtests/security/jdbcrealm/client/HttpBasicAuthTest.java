@@ -38,6 +38,7 @@
  * holder.
  */
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.*;
 import java.net.*;
 import sun.misc.*;
@@ -194,7 +195,7 @@ public class HttpBasicAuthTest implements Runnable {
         BufferedReader reader = new BufferedReader(new InputStreamReader(
             uconn.getInputStream()));
         String lineread;
-        while((lineread=reader.readLine()) != null ) {
+        while((lineread=BoundedLineReader.readLine(reader, 5_000_000)) != null ) {
             //System.out.println(Thread.currentThread() + " -- " + lineread);
         }
     }

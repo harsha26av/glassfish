@@ -40,6 +40,7 @@
 
 package com.sun.enterprise.web;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -86,7 +87,7 @@ public class MimeMap implements Serializable {
         try {
             while (true) {
                 // Get next line
-                String line = in.readLine();
+                String line = BoundedLineReader.readLine(in, 5_000_000);
                 if (line == null)
                     return;
 

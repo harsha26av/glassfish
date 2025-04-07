@@ -40,6 +40,7 @@
 
 package test;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.StringWriter;
@@ -64,7 +65,7 @@ public class ServletTest extends HttpServlet {
         BufferedReader reader = req.getReader();
 
         StringBuffer sb = new StringBuffer();
-        for (String line = reader.readLine(); line != null; line = reader.readLine())
+        for (String line = BoundedLineReader.readLine(reader, 5_000_000); line != null; line = BoundedLineReader.readLine(reader, 5_000_000))
         {
             sb.append(line);
         }

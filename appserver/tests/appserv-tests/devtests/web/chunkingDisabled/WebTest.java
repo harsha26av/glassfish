@@ -38,6 +38,7 @@
  * holder.
  */
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.*;
 import java.net.*;
 import com.sun.ejte.ccl.reporter.*;
@@ -107,7 +108,7 @@ public class WebTest {
         boolean responseOK = false;
         boolean contentLenFound = false;
         String line = null;
-        while ((line = bis.readLine()) != null) {
+        while ((line = BoundedLineReader.readLine(bis, 5_000_000)) != null) {
             if (line.indexOf("HTTP/1.1 200 OK") != -1) {
                 responseOK = true;
             } else if (line.toLowerCase().indexOf("content-length:") != -1) {

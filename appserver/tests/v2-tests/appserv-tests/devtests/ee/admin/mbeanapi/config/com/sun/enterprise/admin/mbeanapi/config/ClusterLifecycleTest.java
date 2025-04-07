@@ -47,6 +47,7 @@ import com.sun.appserv.management.util.misc.ExceptionUtil;
 import com.sun.appserv.management.config.ClusterConfig;
 import com.sun.appserv.management.config.ServerConfigKeys;
 import com.sun.appserv.management.config.PropertiesAccess;
+import io.github.pixee.security.BoundedLineReader;
 
 import java.util.*;
 import java.io.IOException;
@@ -396,7 +397,7 @@ public class ClusterLifecycleTest {
         String line;
         final StringBuffer sb = new StringBuffer();
         try {
-            while ((line = br.readLine()) != null)
+            while ((line = BoundedLineReader.readLine(br, 5_000_000)) != null)
             {
                 sb.append(line);
                 sb.append(" ");

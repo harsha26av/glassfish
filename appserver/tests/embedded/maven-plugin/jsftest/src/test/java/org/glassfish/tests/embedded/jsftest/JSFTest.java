@@ -40,6 +40,7 @@
 
 package org.glassfish.tests.embedded.jsftest;
 
+import io.github.pixee.security.BoundedLineReader;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -86,7 +87,7 @@ public class JSFTest {
             boolean[] found = new boolean[match.length];
 
             int count = 0;
-            while ((line = in.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(in, 5_000_000)) != null) {
                 System.out.println(line);
                 for (String m : match) {
                     int index = line.indexOf(m);

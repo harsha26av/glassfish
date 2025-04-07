@@ -38,6 +38,7 @@
  * holder.
  */
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.*;
 import java.net.*;
 
@@ -99,7 +100,7 @@ public class WebTest {
             String sessionId = null;
             
             //get session id and JSF view id
-            while ((line = br.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(br, 5_000_000)) != null) {
                 if(line.startsWith("Set-Cookie")) {
                     sessionId = line.split(";")[0].split("=")[1];
                     continue;
@@ -153,7 +154,7 @@ public class WebTest {
             os.write(postHeader.toString().getBytes());
             os.write(data);
             
-            while ((line = br.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(br, 5_000_000)) != null) {
                 if (line.contains(EXPECTED_RESPONSE)) {
                     stat.addStatus(TEST_NAME, stat.PASS);
                     return;

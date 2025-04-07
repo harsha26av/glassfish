@@ -38,6 +38,7 @@
  * holder.
  */
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.*;
 import java.net.*;
 import com.sun.ejte.ccl.reporter.*;
@@ -110,7 +111,7 @@ public class WebTest {
         try {
             is = sock.getInputStream();
             bis = new BufferedReader(new InputStreamReader(is));
-            while ((line = bis.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(bis, 5_000_000)) != null) {
                 System.out.println(line);
                 if (line.equals(contextRoot + "/junk")) {
                     break;
@@ -119,18 +120,18 @@ public class WebTest {
             if (line == null) {
                 throw new Exception("Unexpected response");
             }
-            line = bis.readLine();
+            line = BoundedLineReader.readLine(bis, 5_000_000);
             System.out.println(line);
             if (line == null || !line.equals("404")) {
                 throw new Exception("Unexpected response");
             }
-            line = bis.readLine();
+            line = BoundedLineReader.readLine(bis, 5_000_000);
             System.out.println(line);
             if (line == null || !line.equals(
                     contextRoot + "/404handler.jsp")) {
                 throw new Exception("Unexpected response");
             }
-            line = bis.readLine();
+            line = BoundedLineReader.readLine(bis, 5_000_000);
             System.out.println(line);
             if (line == null ||
                     (!line.equals("http://" + host + ":" + port +

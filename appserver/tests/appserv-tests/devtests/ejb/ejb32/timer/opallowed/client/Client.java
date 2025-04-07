@@ -40,6 +40,7 @@
 
 package com.acme.ejb32.timer.opallowed;
 
+import io.github.pixee.security.BoundedLineReader;
 import javax.annotation.Resource;
 import javax.ejb.*;
 import javax.naming.*;
@@ -106,7 +107,7 @@ public class Client {
             BufferedReader input = new BufferedReader(new InputStreamReader(is));
 
             String line = null;
-            while ((line = input.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(input, 5_000_000)) != null) {
                 System.out.println("Processing line: " + line);
                 if (line.indexOf("RESULT: PASS") != -1) {
                     result = line;

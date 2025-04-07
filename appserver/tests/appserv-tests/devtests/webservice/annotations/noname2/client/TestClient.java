@@ -40,6 +40,7 @@
 
 package client;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -85,7 +86,7 @@ public class TestClient {
         BufferedReader input = new BufferedReader (new InputStreamReader(is));
         String line = null;
         //This shows annotation overrides svcname
-        while ((line = input.readLine()) != null) {
+        while ((line = BoundedLineReader.readLine(input, 5_000_000)) != null) {
             log(line);
             if(line.indexOf("So the RESULT OF HELLO SERVICE IS") != -1)
                 found1 = true;

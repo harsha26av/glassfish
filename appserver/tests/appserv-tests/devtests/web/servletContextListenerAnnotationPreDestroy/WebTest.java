@@ -38,6 +38,7 @@
  * holder.
  */
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.*;
 import java.net.*;
 import com.sun.ejte.ccl.reporter.*;
@@ -91,7 +92,7 @@ public class WebTest {
             inFile = new File("/tmp/mytest");
             fis = new FileInputStream(inFile);
             br = new BufferedReader(new InputStreamReader(fis));
-            line = br.readLine();
+            line = BoundedLineReader.readLine(br, 5_000_000);
         } finally {
             inFile.delete();
             try {

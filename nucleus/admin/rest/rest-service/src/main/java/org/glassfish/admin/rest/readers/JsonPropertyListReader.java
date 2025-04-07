@@ -40,6 +40,7 @@
 
 package org.glassfish.admin.rest.readers;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -79,10 +80,10 @@ public class JsonPropertyListReader implements MessageBodyReader<List<Map<String
         try {
             StringBuilder sb = new StringBuilder();
             BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-            String line = reader.readLine();
+            String line = BoundedLineReader.readLine(reader, 5_000_000);
             while (line != null) {
                 sb.append(line);
-                line = reader.readLine();
+                line = BoundedLineReader.readLine(reader, 5_000_000);
             }
 
             return MarshallingUtils.getPropertiesFromJson(sb.toString());

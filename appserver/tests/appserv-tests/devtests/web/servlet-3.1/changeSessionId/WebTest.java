@@ -38,6 +38,7 @@
  * holder.
  */
 
+import io.github.pixee.security.BoundedLineReader;
 import java.lang.*;
 import java.io.*;
 import java.util.*;
@@ -111,7 +112,7 @@ public class WebTest {
             String line = null;
 
             int lineNum=0;
-            while ((line = bis.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(bis, 5_000_000)) != null) {
                 System.out.println(lineNum + ":  " + line);
                 int index = line.indexOf(JSESSIONID);
                 if (index != -1) {

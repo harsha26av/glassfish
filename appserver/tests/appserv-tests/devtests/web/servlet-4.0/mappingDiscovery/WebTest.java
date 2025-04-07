@@ -38,6 +38,7 @@
  * holder.
  */
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.*;
 import java.net.*;
 
@@ -143,7 +144,7 @@ public class WebTest {
             
             try {
                 bis = new BufferedReader(new StringReader(httpResponse.getBody()));
-                line = bis.readLine();
+                line = BoundedLineReader.readLine(bis, 5_000_000);
                 System.out.println(line);
                 ok = line.matches(matchRegex);
                 System.out.println("matches: " + ok);

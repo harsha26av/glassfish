@@ -40,6 +40,7 @@
 
 package com.sun.enterprise.util.io;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.*;
 import java.io.File;
 
@@ -130,7 +131,7 @@ public class ServerDirs {
         BufferedReader r = null;
         try {
             r = new BufferedReader(new FileReader(localPasswordFile));
-            localPasswordBuffer = r.readLine();
+            localPasswordBuffer = BoundedLineReader.readLine(r, 5_000_000);
         }
         catch (Exception e) {
             // needs no handling

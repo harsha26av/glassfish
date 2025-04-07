@@ -38,6 +38,7 @@
  * holder.
  */
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.*;
 import java.net.*;
 import com.sun.ejte.ccl.reporter.*;
@@ -105,7 +106,7 @@ public class WebTest {
                 bis = new BufferedReader(
                     new InputStreamReader(conn.getInputStream()));
 
-                if (bis.readLine() == null) {
+                if (BoundedLineReader.readLine(bis, 5_000_000) == null) {
                     stat.addStatus(TEST_NAME, stat.PASS);
                 } else {
                     System.err.println("Wrong response, expected empty body");

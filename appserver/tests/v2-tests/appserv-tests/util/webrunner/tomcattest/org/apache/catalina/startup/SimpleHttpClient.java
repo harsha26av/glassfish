@@ -40,6 +40,7 @@
 
 package org.apache.catalina.startup;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -240,7 +241,7 @@ public abstract class SimpleHttpClient {
     }
 
     public String readLine() throws IOException {
-        String line = reader.readLine();
+        String line = BoundedLineReader.readLine(reader, 5_000_000);
         if (line != null) {
             debug(line);
         }

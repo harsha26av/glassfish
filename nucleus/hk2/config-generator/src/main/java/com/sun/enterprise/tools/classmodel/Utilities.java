@@ -40,6 +40,7 @@
 
 package com.sun.enterprise.tools.classmodel;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -69,7 +70,7 @@ public class Utilities {
     BufferedReader reader = new BufferedReader(new InputStreamReader(new ByteArrayInputStream(in.getBytes())));
     String line;
     try {
-      while (null != (line = reader.readLine())) {
+      while (null != (line = BoundedLineReader.readLine(reader, 5_000_000))) {
         if (!line.startsWith("#") && !line.isEmpty()) {
           lines.add(innerSort ? innerSort(line) : line);
         }

@@ -38,6 +38,7 @@
  * holder.
  */
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.*;
 import java.net.*;
 import com.sun.ejte.ccl.reporter.*;
@@ -127,7 +128,7 @@ public class WebTest {
             is = sock.getInputStream();
             br = new BufferedReader(new InputStreamReader(is));
 
-            while ((line = br.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(br, 5_000_000)) != null) {
                 System.out.println(line);
                 if (line.startsWith("Set-Cookie:")
                         || line.startsWith("Set-cookie:")) {
@@ -175,7 +176,7 @@ public class WebTest {
             is = sock.getInputStream();
             br = new BufferedReader(new InputStreamReader(is));
 
-            while ((line = br.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(br, 5_000_000)) != null) {
                 System.out.println(line);
                 if (line.startsWith("Location:")) {
                     break;
@@ -224,7 +225,7 @@ public class WebTest {
             br = new BufferedReader(new InputStreamReader(is));
 
             String line = null;
-            while ((line = br.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(br, 5_000_000)) != null) {
                 System.out.println(line);
                 if (line.startsWith("Set-Cookie:")
                         || line.startsWith("Set-cookie:")) {
@@ -276,7 +277,7 @@ public class WebTest {
             br = new BufferedReader(new InputStreamReader(is));
 
             String line = null;
-            while ((line = br.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(br, 5_000_000)) != null) {
                 System.out.println(line);
                 if (line.contains("j_security_check")) {
                     jSecurityCheckFound = true;

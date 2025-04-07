@@ -38,6 +38,7 @@
  * holder.
  */
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.*;
 import java.net.*;
 import com.sun.ejte.ccl.reporter.*;
@@ -109,7 +110,7 @@ public class WebTest {
             input = new BufferedReader(new InputStreamReader(is));
             int count = 0;
             String response = null;
-            while ((response = input.readLine()) != null) {
+            while ((response = BoundedLineReader.readLine(input, 5_000_000)) != null) {
                 System.out.println(response);
                 if (expectedResponse.equals(response)) {
                     count++;

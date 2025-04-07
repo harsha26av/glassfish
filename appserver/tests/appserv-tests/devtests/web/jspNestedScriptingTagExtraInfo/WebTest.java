@@ -38,6 +38,7 @@
  * holder.
  */
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.*;
 import java.net.*;
 import com.sun.ejte.ccl.reporter.*;
@@ -92,7 +93,7 @@ public class WebTest {
                 boolean foundInner = false;
                 boolean foundOuter = false;
                 boolean fail = false;
-                while ((line = bis.readLine()) != null) {
+                while ((line = BoundedLineReader.readLine(bis, 5_000_000)) != null) {
                     if (line.startsWith("  Outer")) {
                         if (foundOuter) {
                             // "Outer:" must occur only once

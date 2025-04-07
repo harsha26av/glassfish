@@ -40,6 +40,7 @@
 
 package org.glassfish.apf.factory;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Level;
@@ -90,7 +91,7 @@ public abstract class Factory {
                 }
                 bf = new BufferedReader(new InputStreamReader(is));
                 String className;
-                while ( (className = bf.readLine()) != null ) {
+                while ( (className = BoundedLineReader.readLine(bf, 5_000_000)) != null ) {
                     skipAnnotationClassList.add(className.trim());
                 }
             } catch (IOException ioe) {

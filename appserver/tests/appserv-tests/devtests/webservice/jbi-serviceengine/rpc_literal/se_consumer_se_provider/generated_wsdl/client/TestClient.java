@@ -40,6 +40,7 @@
 
 package client;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -84,7 +85,7 @@ public class TestClient {
 		StringBuffer buffer = new StringBuffer();
         String line = null;
 		boolean found = false;
-        while ((line = input.readLine()) != null) {
+        while ((line = BoundedLineReader.readLine(input, 5_000_000)) != null) {
 			if(line.indexOf("SUCCESS") != -1) found = true;	
 			buffer.append(line + "\n");
         }

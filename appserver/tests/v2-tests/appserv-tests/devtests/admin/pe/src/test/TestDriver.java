@@ -42,6 +42,7 @@ package test;
 
 import com.sun.ejte.ccl.reporter.SimpleReporterAdapter;
 import com.sun.enterprise.util.*;
+import io.github.pixee.security.BoundedLineReader;
 //import com.sun.enterprise.util.*;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -101,7 +102,7 @@ public class TestDriver {
         try {
             br = new BufferedReader(new FileReader(testFile));
             String line = null;
-            while ((line = br.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(br, 5_000_000)) != null) {
                 if (line.startsWith(SCRIPT_COMMENT))
                     continue;
                 System.out.println(line);

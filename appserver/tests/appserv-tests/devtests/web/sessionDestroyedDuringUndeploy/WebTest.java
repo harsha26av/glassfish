@@ -38,6 +38,7 @@
  * holder.
  */
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.*;
 import java.net.*;
 import com.sun.ejte.ccl.reporter.*;
@@ -125,7 +126,7 @@ public class WebTest {
         try {
             fis = new FileInputStream(JSESSIONIDSSO);
             br = new BufferedReader(new InputStreamReader(fis));
-            accessIndexDotJsp(br.readLine());
+            accessIndexDotJsp(BoundedLineReader.readLine(br, 5_000_000));
             new File(JSESSIONIDSSO).delete();
         } finally {
             close(fis);
@@ -188,7 +189,7 @@ public class WebTest {
             is = sock.getInputStream();
             br = new BufferedReader(new InputStreamReader(is));
 
-            while ((line = br.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(br, 5_000_000)) != null) {
                 System.out.println(line);
                 if (line.startsWith("Location:")) {
                     break;
@@ -237,7 +238,7 @@ public class WebTest {
             br = new BufferedReader(new InputStreamReader(is));
 
             String line = null;
-            while ((line = br.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(br, 5_000_000)) != null) {
                 System.out.println(line);
                 if (line.startsWith("Set-Cookie:")
                         || line.startsWith("Set-cookie:")) {
@@ -302,7 +303,7 @@ public class WebTest {
             String line = null;
             String redirectUrl = "Location: http://" + host + ":" + port
                 + contextRoot + "/login.jsp"; 
-            while ((line = br.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(br, 5_000_000)) != null) {
                 System.out.println(line);
                 if (line.equals(redirectUrl)
                         || line.contains("j_security_check")) {

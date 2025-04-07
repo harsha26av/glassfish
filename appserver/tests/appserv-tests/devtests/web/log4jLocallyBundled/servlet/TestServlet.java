@@ -38,6 +38,7 @@
  * holder.
  */
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.*;
 import java.util.*;
 import javax.servlet.*;
@@ -64,7 +65,7 @@ public class TestServlet extends HttpServlet {
         FileInputStream fis = new FileInputStream(logFile);
         try {
             BufferedReader br = new BufferedReader(new InputStreamReader(fis));
-            res.getWriter().println(br.readLine());
+            res.getWriter().println(BoundedLineReader.readLine(br, 5_000_000));
         } finally {
             if (fis != null) {
                 fis.close();

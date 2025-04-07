@@ -38,6 +38,7 @@
  * holder.
  */
 
+import io.github.pixee.security.BoundedLineReader;
 import java.lang.*;
 import java.io.*;
 import java.net.*;
@@ -121,7 +122,7 @@ public class WebTest
             br = new BufferedReader(new InputStreamReader(is));
 
             String line = null;
-            while ((line = br.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(br, 5_000_000)) != null) {
                 System.out.println(line);
                 if (line.startsWith("Location:")) {
                     location = line;
@@ -170,7 +171,7 @@ public class WebTest
             br = new BufferedReader(new InputStreamReader(is));
 
             String line = null;
-            while ((line = br.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(br, 5_000_000)) != null) {
                 System.out.println(line);
                 if (line.startsWith("Location:")) {
                     location = line;
@@ -220,7 +221,7 @@ public class WebTest
             boolean isFilterRequestOK = false;
             boolean isFilterForwardOK = false;
             boolean isFilterIncludeOK = false;
-            while ((line = br.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(br, 5_000_000)) != null) {
                 System.out.println(line);
                 if (line.startsWith(FILTER_REQUEST)) {
                     isFilterRequestOK = PASS.equals(

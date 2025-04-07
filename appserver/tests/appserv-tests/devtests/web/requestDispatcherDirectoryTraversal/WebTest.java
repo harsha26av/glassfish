@@ -38,6 +38,7 @@
  * holder.
  */
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.*;
 import java.net.*;
 import com.sun.ejte.ccl.reporter.*;
@@ -121,7 +122,7 @@ public class WebTest {
             bis = new BufferedReader(new InputStreamReader(is));
             String line = null;
             boolean isExpected = false;
-            while ((line = bis.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(bis, 5_000_000)) != null) {
                 System.out.println(line);
                 if (line.equals(EXPECTED)) {
                     isExpected = true;
@@ -172,7 +173,7 @@ public class WebTest {
             os.write("\n".getBytes());
             is = sock.getInputStream();
             bis = new BufferedReader(new InputStreamReader(is));
-            String line = bis.readLine();
+            String line = BoundedLineReader.readLine(bis, 5_000_000);
             if (line != null && line.contains("200")) {
                 stat.addStatus(TEST_NAME2, stat.FAIL);
             } else {
@@ -212,7 +213,7 @@ public class WebTest {
             os.write("\n".getBytes());
             is = sock.getInputStream();
             bis = new BufferedReader(new InputStreamReader(is));
-            String line = bis.readLine();
+            String line = BoundedLineReader.readLine(bis, 5_000_000);
             if (line != null && line.contains("200")) {
                 stat.addStatus(TEST_NAME3, stat.FAIL);
             } else {

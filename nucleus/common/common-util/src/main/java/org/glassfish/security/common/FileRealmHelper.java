@@ -42,6 +42,7 @@ package org.glassfish.security.common;
 
 import com.sun.enterprise.util.Utility;
 import com.sun.enterprise.util.i18n.StringManager;
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -631,7 +632,7 @@ public final class FileRealmHelper
             input = new BufferedReader(new FileReader(keyfile));
             while (input.ready()) {
                 
-                String line = input.readLine();
+                String line = BoundedLineReader.readLine(input, 5_000_000);
                 if (line != null &&
                         !line.startsWith(COMMENT) &&
                         line.indexOf(FIELD_SEP) >= 0) {

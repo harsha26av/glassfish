@@ -40,6 +40,7 @@
 
 package org.glassfish.jacc.test.mr8;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.net.*;
 import java.io.*;
 import java.util.Enumeration;
@@ -513,7 +514,7 @@ public class Client {
 			try {
 				is = c1.getInputStream();
 				input = new BufferedReader(new InputStreamReader(is));
-				while ((line = input.readLine()) != null) {
+				while ((line = BoundedLineReader.readLine(input, 5_000_000)) != null) {
 					output.append(line);
 					System.out.println(line);
 				}

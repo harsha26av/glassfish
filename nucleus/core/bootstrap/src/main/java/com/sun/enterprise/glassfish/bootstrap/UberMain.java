@@ -40,6 +40,7 @@
 
 package com.sun.enterprise.glassfish.bootstrap;
 
+import io.github.pixee.security.BoundedLineReader;
 import org.glassfish.embeddable.CommandResult;
 import org.glassfish.embeddable.CommandRunner;
 import org.glassfish.embeddable.GlassFish;
@@ -83,7 +84,7 @@ public class UberMain {
             System.out.print("\n\nGlassFish $ ");
             String str = null;
             try {
-                str = new BufferedReader(new InputStreamReader(System.in)).readLine();
+                str = BoundedLineReader.readLine(new BufferedReader(new InputStreamReader(System.in)), 5_000_000);
             } catch (Exception e) {
                 e.printStackTrace();
             }

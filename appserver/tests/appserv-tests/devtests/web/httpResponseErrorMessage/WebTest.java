@@ -38,6 +38,7 @@
  * holder.
  */
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.*;
 import java.net.*;
 import java.util.regex.Matcher;
@@ -115,7 +116,7 @@ public class WebTest {
             is = sock.getInputStream();
             bis = new BufferedReader(new InputStreamReader(is));
             String line = null;
-            while ((line = bis.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(bis, 5_000_000)) != null) {
                 System.out.println(line);
                 Matcher m = PATTERN.matcher(line);
                 if (m.matches()) {

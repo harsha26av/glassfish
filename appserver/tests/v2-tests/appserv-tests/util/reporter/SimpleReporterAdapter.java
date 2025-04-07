@@ -40,6 +40,7 @@
 
 package com.sun.ejte.ccl.reporter;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Properties;
@@ -250,7 +251,7 @@ public class SimpleReporterAdapter implements Serializable {
         BufferedReader br = 
             new BufferedReader(new InputStreamReader(p.getInputStream()));
         String line;
-        while( (line = br.readLine()) != null ) {
+        while( (line = BoundedLineReader.readLine(br, 5_000_000)) != null ) {
             int idx = line.indexOf( '=' );
             String key = line.substring( 0, idx );
             String value = line.substring( idx+1 );

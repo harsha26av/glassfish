@@ -38,6 +38,7 @@
  * holder.
  */
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.*;
 import java.net.*;
 import com.sun.ejte.ccl.reporter.*;
@@ -103,7 +104,7 @@ public class WebTest {
             br = new BufferedReader(new InputStreamReader(
                 conn.getInputStream()));
             String line = null;
-            while ((line = br.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(br, 5_000_000)) != null) {
                 if (line.startsWith("<OBJECT")) {
                     break;
                 }
@@ -148,7 +149,7 @@ public class WebTest {
         try {
             br = new BufferedReader(new InputStreamReader(
                 conn.getInputStream()));
-            String line = br.readLine();
+            String line = BoundedLineReader.readLine(br, 5_000_000);
             if (!INCLUDED_RESPONSE.equals(line)) {
                 throw new Exception("Wrong response. Expected: " +
                     INCLUDED_RESPONSE + ", received: " + filter(line));

@@ -47,6 +47,7 @@
 package admin;
 
 import com.sun.appserv.test.BaseDevTest;
+import io.github.pixee.security.BoundedLineReader;
 import java.io.*;
 import java.io.BufferedReader;
 import java.io.File;
@@ -286,7 +287,7 @@ public abstract class AdminBaseDevTest extends BaseDevTest implements Runnable {
                     "ISO-8859-1"));
             StringWriter ow = new StringWriter();
             String line;
-            while ((line = ir.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(ir, 5_000_000)) != null) {
                 ow.write(line);
                 ow.write("\n");
             }
@@ -547,7 +548,7 @@ public abstract class AdminBaseDevTest extends BaseDevTest implements Runnable {
 
             String currentLine;
 
-            while ((currentLine = reader.readLine()) != null && !currentLine.trim().isEmpty()) {
+            while ((currentLine = BoundedLineReader.readLine(reader, 5_000_000)) != null && !currentLine.trim().isEmpty()) {
                 if (currentLine.trim().startsWith("AS_ADMIN_" + id)) {
                     continue;
                 }
