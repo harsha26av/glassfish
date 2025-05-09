@@ -40,6 +40,8 @@
 
 package com.sun.ejte.ccl.webrunner.proxy;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.net.*;
 import java.io.*;
 import java.text.*;
@@ -280,7 +282,7 @@ public class httpd implements Runnable,LogMessage
                     else if(server_response.statusCode==302 || server_response.statusCode==307) {
                         System.out.println("Inside Redirection******************************");
                         String Host=server_response.mh.get("Location");
-                        URL newurl=new URL(Host);
+                        URL newurl=Urls.create(Host, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
                         String actualhost=newurl.getHost();
                         Socket serversocket=new Socket(actualhost,80);
                         start=Host.indexOf("://")+3;
@@ -351,7 +353,7 @@ public class httpd implements Runnable,LogMessage
                         String Host=server_response.mh.get("Location");
                         //System.out.println("New host is"+Host);
                         
-                        URL newurl=new URL(Host);
+                        URL newurl=Urls.create(Host, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
                         String actualhost=newurl.getHost();
                         Socket serversocket=new Socket(actualhost,80);
                         start=Host.indexOf("://")+3;

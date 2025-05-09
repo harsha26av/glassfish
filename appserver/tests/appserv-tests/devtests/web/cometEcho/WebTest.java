@@ -38,6 +38,8 @@
  * holder.
  */
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -134,7 +136,7 @@ public class WebTest {
         String line = null;
 
         try{
-            URL url = new URL(urlStr);
+            URL url = Urls.create(urlStr, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
             String data = "msg=" + URLEncoder.encode(message);
             HttpURLConnection urlConnection =  (HttpURLConnection)url.openConnection();
             urlConnection.setRequestMethod("POST");
@@ -188,7 +190,7 @@ public class WebTest {
             BufferedReader br = null;
 
             try {
-                URL url = new URL(urlStr);
+                URL url = Urls.create(urlStr, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
                 HttpURLConnection urlConnection =  (HttpURLConnection)url.openConnection();
                 urlConnection.setRequestMethod("GET");
                 urlConnection.connect();

@@ -40,6 +40,8 @@
 
 package org.glassfish.tests.embedded.cdi_ejb_jpa;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import junit.framework.Assert;
 import org.glassfish.embeddable.Deployer;
 import org.glassfish.embeddable.GlassFish;
@@ -108,7 +110,7 @@ public class BasicCDITest{
     }
 
     private void get(String urlStr, String result) throws Exception {
-        URL url = new URL(urlStr);
+        URL url = Urls.create(urlStr, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
         URLConnection yc = url.openConnection();
         System.out.println("\nURLConnection [" + yc + "] : ");
         BufferedReader in = new BufferedReader(new InputStreamReader(

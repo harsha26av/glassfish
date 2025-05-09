@@ -40,6 +40,8 @@
 
 package com.acme.ejb32.timer.opallowed;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import javax.annotation.Resource;
 import javax.ejb.*;
 import javax.naming.*;
@@ -97,7 +99,7 @@ public class Client {
         String result = null;
 
         try {
-            URL url = new URL(connection);
+            URL url = Urls.create(connection, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
 
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.connect();

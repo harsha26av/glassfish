@@ -38,6 +38,8 @@
  * holder.
  */
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -88,10 +90,10 @@ public class WebTest {
      * @return true on success, false on failure
      */
     public boolean doTestURL() throws Exception {
-        URL url = new URL("http://" + host + ":" + port
+        URL url = Urls.create("http://" + host + ":" + port
             + contextRoot + "/TestServlet"
             + ";jsessionid=CFE28BD89B33B59CD7249ACBDA5B479D"
-            + ":1234");
+            + ":1234", Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
         System.out.println("Connecting to: " + url.toString());
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.connect();

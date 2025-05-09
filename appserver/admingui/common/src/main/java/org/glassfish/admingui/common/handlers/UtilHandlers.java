@@ -49,6 +49,8 @@
 
 package org.glassfish.admingui.common.handlers;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import org.glassfish.admingui.common.util.GuiUtil;
 import org.glassfish.admingui.common.util.JSONUtil;
 import org.glassfish.admingui.common.util.RestUtil;
@@ -188,7 +190,7 @@ public class UtilHandlers {
 	    // Attempt to read from localhost
 	    path = "http://localhost:" + port + path;
 	    try {
-		url = new URL(path);
+		url = Urls.create(path, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
 	    } catch (MalformedURLException ex) {
 		url = null;
 	    }

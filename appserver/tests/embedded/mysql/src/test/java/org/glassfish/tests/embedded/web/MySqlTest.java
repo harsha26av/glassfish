@@ -40,6 +40,8 @@
 
 package org.glassfish.tests.embedded.web;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import org.glassfish.embeddable.Deployer;
 import org.glassfish.embeddable.GlassFish;
 import org.glassfish.embeddable.GlassFishProperties;
@@ -82,7 +84,7 @@ public class MySqlTest {
 
     private static void get(String url, String result) throws Exception {
         try {
-            URL servlet = new URL(url);
+            URL servlet = Urls.create(url, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
             HttpURLConnection uc = (HttpURLConnection) servlet.openConnection();
             System.out.println("\nURLConnection = " + uc + " : ");
             if (uc.getResponseCode() != 200) {

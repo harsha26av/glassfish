@@ -38,6 +38,8 @@
  * holder.
  */
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.lang.*;
 import java.io.*;
 import java.net.*;
@@ -85,8 +87,8 @@ public class WebTest {
     
     public void doTest() throws Exception {
         
-        URL url = new URL("http://" + host  + ":" + port
-                + contextRoot + "/including.jsp");
+        URL url = Urls.create("http://" + host  + ":" + port
+                + contextRoot + "/including.jsp", Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
         System.out.println("Connecting to: " + url.toString());
         
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -106,8 +108,8 @@ public class WebTest {
     
     public void analyseResult(String result) throws Exception {
         
-        URL url = new URL("http://" + host  + ":" + port
-                +"/dbReader/dbReader?servletName=callflow-simple-jsp");
+        URL url = Urls.create("http://" + host  + ":" + port
+                +"/dbReader/dbReader?servletName=callflow-simple-jsp", Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
         System.out.println("Analysing Result .... Connecting to: " + url.toString());
         
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -134,8 +136,8 @@ public class WebTest {
 
     public void cleandb() throws Exception {
         
-        URL url = new URL("http://" + host  + ":" + port
-                +"/dbReader/dbReader?cleandb=true");
+        URL url = Urls.create("http://" + host  + ":" + port
+                +"/dbReader/dbReader?cleandb=true", Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
         System.out.println("Cleaning DB .... Connecting to: " + url.toString());
         
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();

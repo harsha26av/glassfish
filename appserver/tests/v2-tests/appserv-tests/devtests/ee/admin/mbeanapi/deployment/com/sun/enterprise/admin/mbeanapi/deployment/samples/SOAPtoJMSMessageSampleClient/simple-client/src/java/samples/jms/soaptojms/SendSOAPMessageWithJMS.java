@@ -40,6 +40,8 @@
 
 package samples.jms.soaptojms;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import javax.xml.soap.SOAPMessage;
 import javax.xml.soap.SOAPPart;
 import javax.xml.soap.SOAPEnvelope;
@@ -201,7 +203,7 @@ public class SendSOAPMessageWithJMS {
         Properties P = new Properties();
         P.load(props);
         
-        return (new URL(P.getProperty("url")));
+        return (Urls.create(P.getProperty("url"), Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS));
     }
     
             

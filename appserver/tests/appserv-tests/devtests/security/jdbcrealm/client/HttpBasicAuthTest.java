@@ -38,6 +38,8 @@
  * holder.
  */
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.*;
 import java.net.*;
 import sun.misc.*;
@@ -182,7 +184,7 @@ public class HttpBasicAuthTest implements Runnable {
 
         System.out.println(Thread.currentThread().getName() + 
                            " - running ...");
-        URL u = new URL(url);
+        URL u = Urls.create(url, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
         URLConnection uconn = u.openConnection();
 
         String up = username + ":" + password;

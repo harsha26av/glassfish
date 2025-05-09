@@ -38,6 +38,8 @@
  * holder.
  */
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.*;
 import java.net.*;
 import java.security.*;
@@ -81,8 +83,8 @@ public class WebTest {
 
         try {
 
-            url = new URL("http://" + host  + ":" + port + contextRoot
-                    + "/jsp/test.jsp");
+            url = Urls.create("http://" + host  + ":" + port + contextRoot
+                    + "/jsp/test.jsp", Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
             System.out.println("Connecting to: " + url.toString());
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.connect();
@@ -91,7 +93,7 @@ public class WebTest {
             if (responseCode != HttpURLConnection.HTTP_MOVED_TEMP) {
                 fail = true;
             } else {
-                url = new URL(conn.getHeaderField("Location"));
+                url = Urls.create(conn.getHeaderField("Location"), Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
                 System.out.println("Redirected to: " + url.toString());
                 SSLContext ctx = SSLContext.getInstance("TLS"); 
                 ctx.init(null, getTrustManagers(trustStorePath), null);

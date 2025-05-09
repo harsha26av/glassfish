@@ -42,6 +42,8 @@ package org.glassfish.admingui.devtests;
 import com.google.common.base.Function;
 import com.thoughtworks.selenium.Selenium;
 import com.thoughtworks.selenium.SeleniumException;
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import org.junit.*;
 import org.openqa.selenium.*;
 
@@ -133,7 +135,7 @@ public class BaseSeleniumTestClass {
 
             if (!currentTestClass.isEmpty() && !DEBUG) {
                 String hostName = InetAddress.getLocalHost().getCanonicalHostName();
-                URL url = new URL("http://" + hostName + ":" + SeleniumHelper.getParameter("admin.port", "4848") + "/management/domain/view-log");
+                URL url = Urls.create("http://" + hostName + ":" + SeleniumHelper.getParameter("admin.port", "4848") + "/management/domain/view-log", Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
                 InputStream is = url.openStream();
                 PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("target/surefire-reports/" + currentTestClass + "-server.log")));
                 BufferedReader in = new BufferedReader(new InputStreamReader(is));
