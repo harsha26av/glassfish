@@ -52,6 +52,7 @@ import java.net.CookieStore;
 import java.net.URISyntaxException;
 import java.net.HttpCookie;
 import java.net.URI;
+import java.nio.file.Files;
 import java.util.List;
 
 /* 
@@ -179,8 +180,7 @@ public class ClientCookieStore implements CookieStore {
             throw new IOException("Unable to create directory: " + cookieStoreFile.toString());
         }
 
-        out = new PrintWriter(new BufferedWriter(
-                              new FileWriter(cookieStoreFile)));
+        out = new PrintWriter(Files.newBufferedWriter(cookieStoreFile.toPath()));
 
         // Write comment at top of cache file.
         out.println(CACHE_COMMENT);

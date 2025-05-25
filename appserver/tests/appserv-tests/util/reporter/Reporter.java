@@ -56,6 +56,7 @@ package com.sun.ejte.ccl.reporter;
  */
 
 
+import java.nio.file.Files;
 import java.util.Hashtable;
 import java.util.Vector;
 import java.util.Enumeration;
@@ -896,7 +897,7 @@ ong with expected and actual result. This is optional as in some case
     private boolean writeXMLFile(StringBuffer xmlStringBuffer){
         PrintWriter writer = null;
         try{
-            writer = new PrintWriter(new BufferedWriter(new FileWriter(resultFile)));
+            writer = new PrintWriter(Files.newBufferedWriter(resultFile.toPath()));
             writer.println( xmlStringBuffer.toString() );
             writer.flush();
         } catch(java.io.IOException ex){

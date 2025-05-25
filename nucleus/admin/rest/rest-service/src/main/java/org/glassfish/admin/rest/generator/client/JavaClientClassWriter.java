@@ -44,6 +44,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Collection;
 import java.util.Locale;
 import java.util.logging.Level;
@@ -143,7 +144,7 @@ public class JavaClientClassWriter implements ClientClassWriter {
                RestLogging.restLogger.log(Level.SEVERE, RestLogging.FILE_CREATION_FAILED, classFile.getName());
             }
             classFile.deleteOnExit();
-            source = new BufferedWriter(new FileWriter(classFile));
+            source = Files.newBufferedWriter(classFile.toPath());
         } catch (IOException ioe) {
             throw new RuntimeException(ioe);
         }

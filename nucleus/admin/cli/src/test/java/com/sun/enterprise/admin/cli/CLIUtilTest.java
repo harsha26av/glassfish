@@ -40,6 +40,7 @@
 
 package com.sun.enterprise.admin.cli;
 
+import java.nio.file.Files;
 import static org.junit.Assert.*;
 import org.junit.Test;
 import org.junit.Before;
@@ -64,7 +65,7 @@ public class CLIUtilTest {
             final File f = File.createTempFile("TestPasswordFile", ".tmp");
             fileName = f.toString();
             f.deleteOnExit();
-            out = new BufferedWriter(new FileWriter(f));
+            out = Files.newBufferedWriter(f.toPath());
             out.write("AS_ADMIN_PASSWORD=adminadmin\n");
             out.write("AS_ADMIN_MASTERPASSWORD=changeit\n");
         }

@@ -48,6 +48,7 @@ import com.sun.enterprise.util.Utility;
 import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.file.Files;
 import java.util.*;
 
 /** A {@link LoginInfoStore} that reads the information from the default file ".gfclient/pass"
@@ -78,7 +79,7 @@ public class MemoryHashLoginInfoStore implements LoginInfoStore {
             store = new File(dir, DEFAULT_STORE_NAME);
 
             if (store.createNewFile()) {
-                bw = new BufferedWriter(new FileWriter(store));
+                bw = Files.newBufferedWriter(store.toPath());
                 FileMapTransform.writePreamble(bw);
                 state = new HashMap<HostPortKey, LoginInfo> ();
             }
@@ -168,14 +169,14 @@ public class MemoryHashLoginInfoStore implements LoginInfoStore {
         BufferedWriter writer = null;
         try {
             //System.out.println("before commit");
-            writer = new BufferedWriter(new FileWriter(store));
+            writer = Files.newBufferedWriter(store.toPath());
             FileMapTransform.writeAll(state.values(), writer);
         }
         catch(final Exception e) {
             state.put(key, old); //try to roll back, first memory
             try { // then disk, if the old value is not null
                 if (old != null) {
-                    writer = new BufferedWriter(new FileWriter(store));
+                    writer = Files.newBufferedWriter(store.toPath());
                     FileMapTransform.writeAll(state.values(), writer);
                 }
             }

@@ -51,6 +51,7 @@ import java.io.OutputStreamWriter;
 import java.nio.charset.Charset;
 
 import java.io.*;
+import java.nio.file.Files;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -128,7 +129,7 @@ public final class LineTokenReplacer {
                     Charset charset = Charset.forName(charsetName);
                     writer = new BufferedWriter(new OutputStreamWriter(outputStream, charset));
                 } else {
-                    writer = new BufferedWriter(new FileWriter(outputFile));
+                    writer = Files.newBufferedWriter(outputFile.toPath());
                 }
                 String lineContents;
                 while ((lineContents = reader.readLine()) != null) {
