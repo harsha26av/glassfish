@@ -42,6 +42,7 @@ package com.sun.enterprise.admin.mbeanapi.config;
 
 import com.sun.appserv.management.config.*;
 import com.sun.enterprise.admin.mbeanapi.common.AMXConnector;
+import io.github.pixee.security.SystemCommand;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -237,7 +238,7 @@ public class IIOPListenerTests {
     private String runCommand(final String command) {
         String sb = null;
         try {
-            final Process p = Runtime.getRuntime().exec(command);
+            final Process p = SystemCommand.runCommand(Runtime.getRuntime(), command);
             sb = convertToString(p.getInputStream());
             System.out.println("Received Process Output String: |" +sb+"|");
             if(sb.length() == 0 ){

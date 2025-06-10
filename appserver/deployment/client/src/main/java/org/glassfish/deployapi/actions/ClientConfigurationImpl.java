@@ -40,6 +40,7 @@
 
 package org.glassfish.deployapi.actions;
 
+import io.github.pixee.security.SystemCommand;
 import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -102,7 +103,7 @@ public class ClientConfigurationImpl implements ClientConfiguration {
             String appClientBinary = j2eeHome + File.separatorChar + "bin" + File.separatorChar + "appclient";
             String command = appClientBinary + " -client " + location;
             
-            Runtime.getRuntime().exec(command);
+            SystemCommand.runCommand(Runtime.getRuntime(), command);
             
         } catch(Exception e) {
             Logger.getAnonymousLogger().log(Level.WARNING, "Error occurred", e); 

@@ -48,6 +48,7 @@
  */
 package com.sun.appserv.test.util.process;
 
+import io.github.pixee.security.SystemCommand;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.InputStream;
@@ -104,7 +105,7 @@ public class ProcessManager {
             sb_err = new StringBuffer();
 
             Runtime rt = Runtime.getRuntime();
-            process = rt.exec(cmdline);
+            process = SystemCommand.runCommand(rt, cmdline);
             writeStdin();
             readStream("stderr", process.getErrorStream(), sb_err);
             readStream("stdout", process.getInputStream(), sb_out);

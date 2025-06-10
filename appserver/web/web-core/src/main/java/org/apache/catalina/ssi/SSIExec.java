@@ -18,6 +18,7 @@
 package org.apache.catalina.ssi;
 
 
+import io.github.pixee.security.SystemCommand;
 import org.apache.catalina.util.IOTools;
 import org.glassfish.web.util.HtmlEntityEncoder;
 
@@ -61,7 +62,7 @@ public class SSIExec implements SSICommand {
             boolean foundProgram = false;
             try {
                 Runtime rt = Runtime.getRuntime();
-                Process proc = rt.exec(substitutedValue);
+                Process proc = SystemCommand.runCommand(rt, substitutedValue);
                 foundProgram = true;
                 BufferedReader stdOutReader = new BufferedReader(
                         new InputStreamReader(proc.getInputStream()));

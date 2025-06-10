@@ -44,6 +44,7 @@ import com.sun.enterprise.admin.mbeanapi.common.*;
 import com.sun.appserv.management.util.misc.ExceptionUtil;
 import com.sun.appserv.management.config.PropertiesAccess;
 import com.sun.appserv.management.config.ServerConfigKeys;
+import io.github.pixee.security.SystemCommand;
 
 
 import java.io.*;
@@ -263,7 +264,7 @@ public class StandaloneInstanceTest {
     protected String runCommand(final String command) {
         String sb = null;
         try {
-            final Process p = Runtime.getRuntime().exec(command);
+            final Process p = SystemCommand.runCommand(Runtime.getRuntime(), command);
             sb = convertToString(p.getInputStream());
             System.out.println("Received Process Output String: |" +sb+"|");
             if(sb.length() == 0 ){

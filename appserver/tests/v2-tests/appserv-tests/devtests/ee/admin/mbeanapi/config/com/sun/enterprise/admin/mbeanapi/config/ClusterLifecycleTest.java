@@ -47,6 +47,7 @@ import com.sun.appserv.management.util.misc.ExceptionUtil;
 import com.sun.appserv.management.config.ClusterConfig;
 import com.sun.appserv.management.config.ServerConfigKeys;
 import com.sun.appserv.management.config.PropertiesAccess;
+import io.github.pixee.security.SystemCommand;
 
 import java.util.*;
 import java.io.IOException;
@@ -375,7 +376,7 @@ public class ClusterLifecycleTest {
     protected String runCommand(final String command) {
         String sb = null;
         try {
-            final Process p = Runtime.getRuntime().exec(command);
+            final Process p = SystemCommand.runCommand(Runtime.getRuntime(), command);
             sb = convertToString(p.getInputStream());
             System.out.println("Received Process Output String: |" +sb+"|");
             if(sb.length() == 0 ){
