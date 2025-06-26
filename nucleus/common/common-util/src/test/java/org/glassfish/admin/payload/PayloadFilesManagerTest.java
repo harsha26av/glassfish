@@ -53,6 +53,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.net.URI;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -127,7 +128,7 @@ public class PayloadFilesManagerTest {
     public void testBraces() throws Exception {
         ////System.out.println("testBraces");
 
-        final File tmpDir = File.createTempFile("gfpayl{braces}", "tmp");
+        final File tmpDir = Files.createTempFile("gfpayl{braces}", "tmp").toFile();
         tmpDir.delete();
         tmpDir.mkdir();
 
@@ -289,7 +290,7 @@ public class PayloadFilesManagerTest {
         /*
          * Create a directory into which we'll transfer some small files.
          */
-        final File origDir = File.createTempFile("pfm", "");
+        final File origDir = Files.createTempFile("pfm", "").toFile();
         origDir.delete();
 
         File targetDir = null;
@@ -300,7 +301,7 @@ public class PayloadFilesManagerTest {
              * deliver the files.
              */
 
-            targetDir = File.createTempFile("tgt", "");
+            targetDir = Files.createTempFile("tgt", "").toFile();
             targetDir.delete();
             targetDir.mkdir();
 
@@ -386,7 +387,7 @@ public class PayloadFilesManagerTest {
         /*
          * Create a directory into which we'll transfer some small files.
          */
-        final File origDir = File.createTempFile("pfm", "");
+        final File origDir = Files.createTempFile("pfm", "").toFile();
         origDir.delete();
 
         File targetDir = null;
@@ -397,7 +398,7 @@ public class PayloadFilesManagerTest {
              * deliver the files.
              */
 
-            targetDir = File.createTempFile("tgt", "");
+            targetDir = Files.createTempFile("tgt", "").toFile();
             targetDir.delete();
             targetDir.mkdir();
 
@@ -526,7 +527,7 @@ public class PayloadFilesManagerTest {
         /*
          * Create a directory into which we'll copy some small files.
          */
-        final File origDir = File.createTempFile("pfm", "");
+        final File origDir = Files.createTempFile("pfm", "").toFile();
         origDir.delete();
         origDir.mkdir();
 
@@ -545,7 +546,7 @@ public class PayloadFilesManagerTest {
              * deliver the files.
              */
 
-            targetDir = File.createTempFile("tgt", "");
+            targetDir = Files.createTempFile("tgt", "").toFile();
             targetDir.delete();
             targetDir.mkdir();
 
@@ -657,7 +658,7 @@ public class PayloadFilesManagerTest {
         final Set<File> desiredAbsent = new HashSet<File>();
         final Set<File> desiredPresent = new HashSet<File>();
 
-        final File targetDir = File.createTempFile("tgt", "");
+        final File targetDir = Files.createTempFile("tgt", "").toFile();
         targetDir.delete();
         targetDir.mkdir();
 
@@ -667,7 +668,7 @@ public class PayloadFilesManagerTest {
         final File fileA = new File(dir, FILE_A_NAME);
         writeFile(fileA, "This is FileA", "with two lines of content");
 
-        final File origDir = File.createTempFile("pfm", "");
+        final File origDir = Files.createTempFile("pfm", "").toFile();
         origDir.delete();
         origDir.mkdir();
 
@@ -781,7 +782,7 @@ public class PayloadFilesManagerTest {
         /*
          * Create a directory into which we'll transfer some small files.
          */
-        final File origDir = File.createTempFile("pfm", "");
+        final File origDir = Files.createTempFile("pfm", "").toFile();
         origDir.delete();
 
         File targetDir = null;
@@ -792,7 +793,7 @@ public class PayloadFilesManagerTest {
              * deliver the files.
              */
 
-            targetDir = File.createTempFile("tgt", "");
+            targetDir = Files.createTempFile("tgt", "").toFile();
             targetDir.delete();
             targetDir.mkdir();
 
@@ -885,7 +886,7 @@ public class PayloadFilesManagerTest {
         /*
          * Create a directory into which we'll copy some small files.
          */
-        final File origDir = File.createTempFile("pfm", "");
+        final File origDir = Files.createTempFile("pfm", "").toFile();
         origDir.delete();
         origDir.mkdir();
 
@@ -910,7 +911,7 @@ public class PayloadFilesManagerTest {
              * deliver the files.
              */
 
-            targetDir = File.createTempFile("tgt", "");
+            targetDir = Files.createTempFile("tgt", "").toFile();
             targetDir.delete();
             targetDir.mkdir();
 
@@ -987,7 +988,7 @@ public class PayloadFilesManagerTest {
         /*
          * Create a directory into which we'll copy some small files.
          */
-        final File origDir = File.createTempFile("pfm", "");
+        final File origDir = Files.createTempFile("pfm", "").toFile();
         origDir.delete();
         origDir.mkdir();
 
@@ -1006,7 +1007,7 @@ public class PayloadFilesManagerTest {
              * deliver the files.
              */
 
-            targetDir = File.createTempFile("tgt", "");
+            targetDir = Files.createTempFile("tgt", "").toFile();
             targetDir.delete();
             targetDir.mkdir();
 
@@ -1084,7 +1085,7 @@ public class PayloadFilesManagerTest {
         /*
          * Create a directory into which we'll copy some small files.
          */
-        final File origDir = File.createTempFile("pfm", "");
+        final File origDir = Files.createTempFile("pfm", "").toFile();
         origDir.delete();
         origDir.mkdir();
 
@@ -1103,7 +1104,7 @@ public class PayloadFilesManagerTest {
              * deliver the files.
              */
 
-            targetDir = File.createTempFile("tgt", "");
+            targetDir = Files.createTempFile("tgt", "").toFile();
             targetDir.delete();
             targetDir.mkdir();
 
@@ -1248,7 +1249,7 @@ public class PayloadFilesManagerTest {
 
 
             try {
-                tempZipFile = File.createTempFile("testzip", ".zip");
+                tempZipFile = Files.createTempFile("testzip", ".zip").toFile();
                 Payload.Outbound ob = PayloadImpl.Outbound.newInstance();
 
                 addParts(ob, instance());

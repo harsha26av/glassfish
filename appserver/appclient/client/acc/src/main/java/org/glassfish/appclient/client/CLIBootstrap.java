@@ -47,6 +47,7 @@ import com.sun.enterprise.util.OS;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -1056,7 +1057,7 @@ public class CLIBootstrap {
     }
     
     private File fileContainingAgentArgs() throws IOException {
-        final File argsFile = File.createTempFile("acc", ".dat");
+        final File argsFile = Files.createTempFile("acc", ".dat").toFile();
         final PrintStream ps = new PrintStream(argsFile);
         ps.println(agentArgs.toString());
         ps.close();

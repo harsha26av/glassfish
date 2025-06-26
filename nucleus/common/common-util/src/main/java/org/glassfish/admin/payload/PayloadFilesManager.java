@@ -51,6 +51,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -702,7 +703,7 @@ public abstract class PayloadFilesManager {
      * @throws java.io.IOException
      */
     private static File createTempFolder(final File parent, final String prefix, final Logger logger) throws IOException {
-        File result = File.createTempFile(prefix, "", parent);
+        File result = Files.createTempFile(parent.toPath(), prefix, "").toFile();
         try {
             if ( ! result.delete()) {
                 throw new IOException(

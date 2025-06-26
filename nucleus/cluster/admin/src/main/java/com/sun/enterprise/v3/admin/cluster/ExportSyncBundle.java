@@ -45,6 +45,7 @@ import com.sun.enterprise.universal.io.SmartFile;
 import com.sun.enterprise.util.cluster.SyncRequest;
 import java.io.*;
 import java.net.*;
+import java.nio.file.Files;
 import java.util.*;
 import java.util.logging.*;
 import javax.inject.Inject;
@@ -251,7 +252,7 @@ public class ExportSyncBundle implements AdminCommand {
     private boolean setSyncBundleExportFile() {
         if (isRetrieve) {
             try {
-                syncBundleExport = File.createTempFile("GlassFishSyncBundle", ".zip");
+                syncBundleExport = Files.createTempFile("GlassFishSyncBundle", ".zip").toFile();
                 syncBundleExport.deleteOnExit();
             } catch (Exception ex) {
                 syncBundleExport = null;

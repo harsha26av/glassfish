@@ -56,6 +56,7 @@ import java.io.BufferedOutputStream;
 import java.io.PrintWriter;
 import java.io.FileReader;
 import java.io.BufferedReader;
+import java.nio.file.Files;
 
 //@olsen:
 //import java.util.*;
@@ -697,7 +698,7 @@ public class Main
         OutputStream out = null;
         try
         {
-            File temp = File.createTempFile ("enhancer", ".class");
+            File temp = Files.createTempFile("enhancer", ".class").toFile();
             out = new BufferedOutputStream (new FileOutputStream (temp));
 
             //enhance
@@ -732,7 +733,7 @@ public class Main
         ZipOutputStream out = null;
         try
         {
-            File temp = File.createTempFile ("enhancer", ".zip");
+            File temp = Files.createTempFile("enhancer", ".zip").toFile();
             in = new ZipInputStream (new BufferedInputStream (new FileInputStream (new File (filename))));
             out = new ZipOutputStream (new BufferedOutputStream (new FileOutputStream (temp)));
 

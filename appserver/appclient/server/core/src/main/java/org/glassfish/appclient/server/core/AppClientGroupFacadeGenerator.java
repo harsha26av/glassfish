@@ -42,6 +42,7 @@ package org.glassfish.appclient.server.core;
 
 import com.sun.enterprise.deployment.Application;
 import com.sun.enterprise.deployment.BundleDescriptor;
+import java.nio.file.Files;
 import org.glassfish.deployment.common.ModuleDescriptor;
 import java.io.*;
 import java.util.Collection;
@@ -213,7 +214,7 @@ public class AppClientGroupFacadeGenerator {
 
 
         //Now manifest is ready to be written.
-        final File manifestFile = File.createTempFile("groupMF", ".MF");
+        final File manifestFile = Files.createTempFile("groupMF", ".MF").toFile();
         final OutputStream manifestOutputStream = new BufferedOutputStream(new FileOutputStream(manifestFile)); //facadeArchive.putNextEntry(JarFile.MANIFEST_NAME);
         try {
           manifest.write(manifestOutputStream);
@@ -258,7 +259,7 @@ public class AppClientGroupFacadeGenerator {
         final File mainClassJAR = new File(
                 AppClientDeployerHelper.getModulesDir(serviceLocator), 
                 AppClientDeployerHelper.GF_CLIENT_MODULE_PATH);
-        final File mainClassFile = File.createTempFile("main", ".class");
+        final File mainClassFile = Files.createTempFile("main", ".class").toFile();
         final OutputStream os = new BufferedOutputStream(new FileOutputStream(mainClassFile));
         InputStream is = null;
         JarFile jf = null;

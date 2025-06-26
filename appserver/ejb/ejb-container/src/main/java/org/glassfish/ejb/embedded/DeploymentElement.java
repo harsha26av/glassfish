@@ -44,6 +44,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URI;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -201,7 +202,7 @@ public class DeploymentElement {
 
             // Create a temp dir by creating a temp file first, then
             // delete the file and create a directory in its place.
-            File resultFile = File.createTempFile("ejb-app", "");
+            File resultFile = Files.createTempFile("ejb-app", "").toFile();
             File lib = null;
             if (resultFile.delete() && resultFile.mkdirs()) {
                 if (_logger.isLoggable(Level.FINE)) {

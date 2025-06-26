@@ -46,6 +46,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -283,7 +284,7 @@ public class ArchiveEntryWrapperImpl implements ArchiveEntryWrapper {
         try {
             String jarEntryName = null;
             jarFile = new File(_jar.getName());
-            tempJarFile = File.createTempFile("helper", ".jar", jarFile.getParentFile());
+            tempJarFile = Files.createTempFile(jarFile.getParentFile().toPath(), "helper", ".jar").toFile();
             fos = new FileOutputStream(tempJarFile);
             jos = new JarOutputStream(fos);
             InputStream is = null;

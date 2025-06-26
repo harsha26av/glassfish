@@ -47,6 +47,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.file.Files;
 
 /**
  *
@@ -87,7 +88,7 @@ public class WebTest extends BaseDevTest {
 		if(!tmp.exists()) {
 			tmp = new File(System.getProperty("java.io.tmpdir"));
 		}
-		File file = File.createTempFile("webservices-osgi", ".jar", tmp);
+		File file = Files.createTempFile(tmp.toPath(), "webservices-osgi", ".jar").toFile();
 		file.deleteOnExit();
 		FileOutputStream fos = new FileOutputStream(file);
 

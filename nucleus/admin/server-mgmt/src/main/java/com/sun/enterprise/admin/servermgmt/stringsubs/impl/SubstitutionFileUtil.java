@@ -42,6 +42,7 @@ package com.sun.enterprise.admin.servermgmt.stringsubs.impl;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -100,7 +101,7 @@ public class SubstitutionFileUtil
             _logger.log(Level.WARNING, SLogger.DIR_CREATION_ERROR,
                     extractBaseFile.getAbsolutePath());
         }
-        extractDir = File.createTempFile(prefix, null, extractBaseFile);
+        extractDir = Files.createTempFile(extractBaseFile.toPath(), prefix, null).toFile();
         // ensure it's a directory
         if (extractDir.delete()) {
         	if (_logger.isLoggable(Level.FINE)) {

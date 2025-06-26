@@ -41,6 +41,7 @@
 package org.glassfish.webservices.codegen;
 
 import com.sun.enterprise.deployment.util.DOLUtils;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -668,8 +669,7 @@ public class JaxRpcRICodegen extends ModuleContentLinker
         int jaxrpcCnt = 0;
 
         if( dummyConfigFile == null ) {
-            dummyConfigFile = File.createTempFile("dummy_wscompile_config",
-                    "config");
+            dummyConfigFile = Files.createTempFile("dummy_wscompile_config", "config").toFile();
             dummyConfigFile.deleteOnExit();
         }
 

@@ -43,6 +43,7 @@ package com.sun.enterprise.admin.cli.cluster;
 import com.sun.enterprise.admin.cli.remote.RemoteCLICommand;
 import java.io.*;
 import java.net.ConnectException;
+import java.nio.file.Files;
 import java.text.DateFormat;
 import java.util.*;
 import java.util.logging.*;
@@ -393,7 +394,7 @@ public class SynchronizeInstanceCommand extends LocalInstanceCommand {
                                 throws CommandException, ConnectException {
         File tempFile = null;
         try {
-            tempFile = File.createTempFile("mt.", ".xml");
+            tempFile = Files.createTempFile("mt.", ".xml").toFile();
             tempFile.deleteOnExit();
 
             JAXBContext context = JAXBContext.newInstance(SyncRequest.class);

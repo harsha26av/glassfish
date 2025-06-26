@@ -44,6 +44,7 @@ import admin.util.ProcessUtils;
 import com.sun.appserv.test.BaseDevTest;
 import com.sun.appserv.test.BaseDevTest.AsadminReturn;
 import java.io.*;
+import java.nio.file.Files;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -79,7 +80,7 @@ final class TestUtils {
     }
 
     static File createPasswordFile() throws IOException {
-        File f = File.createTempFile("password_junk", ".txt");
+        File f = Files.createTempFile("password_junk", ".txt").toFile();
         //f.deleteOnExit();   // just in case
         PrintStream pwfile = new PrintStream(f);
         pwfile.println("AS_ADMIN_PASSWORD=admin123");

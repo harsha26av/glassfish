@@ -53,6 +53,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.nio.file.Files;
 import java.util.*;
 import java.util.concurrent.*;
 import java.util.logging.Level;
@@ -1969,7 +1970,7 @@ public class ApplicationLifecycle implements Deployment, PostConstruct {
     }
 
     private File createGeneratedContentZip() throws IOException {
-        final File tempFile = File.createTempFile("gendContent", ".zip");
+        final File tempFile = Files.createTempFile("gendContent", ".zip").toFile();
         tempFile.deleteOnExit();
         return tempFile;
     }

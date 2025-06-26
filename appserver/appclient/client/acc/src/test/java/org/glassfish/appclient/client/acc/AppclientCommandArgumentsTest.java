@@ -41,6 +41,7 @@
 package org.glassfish.appclient.client.acc;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Properties;
 import java.io.File;
 import com.sun.enterprise.transaction.JavaEETransactionManagerSimplified;
@@ -199,7 +200,7 @@ public class AppclientCommandArgumentsTest {
     }
     
     private File createTempPWFile(final Properties props) throws IOException {
-        final File tempFile = File.createTempFile("accpw", ".txt");
+        final File tempFile = Files.createTempFile("accpw", ".txt").toFile();
         props.store(new FileWriter(tempFile), "temp file for acc unit test");
         tempFile.deleteOnExit();
         return tempFile;

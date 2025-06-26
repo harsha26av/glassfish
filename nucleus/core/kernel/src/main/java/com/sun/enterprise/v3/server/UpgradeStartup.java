@@ -51,6 +51,7 @@ import com.sun.enterprise.config.serverbeans.Domain;
 import com.sun.enterprise.util.io.FileUtils;
 import com.sun.enterprise.util.StringUtils;
 import com.sun.enterprise.deploy.shared.ArchiveFactory;
+import java.nio.file.Files;
 import org.glassfish.hk2.api.IterableProvider;
 import org.jvnet.hk2.annotations.Optional;
 import org.jvnet.hk2.annotations.Service;
@@ -371,7 +372,7 @@ public class UpgradeStartup implements ModuleStartup {
         File repositoryDir = new File(uri);
 
         // get temporary file directory of the system and set targetDir to it
-        File tmp = File.createTempFile("upgrade", null);
+        File tmp = Files.createTempFile("upgrade", null).toFile();
         String targetParentDir = tmp.getParent();
         boolean isDeleted = tmp.delete();
         if (!isDeleted) {
