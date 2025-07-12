@@ -38,6 +38,7 @@
  * holder.
  */
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.*;
 import java.net.*;
 import com.sun.ejte.ccl.reporter.*;
@@ -93,7 +94,7 @@ public class WebTest {
             conn = getHttpURLConnection("/TestServlet?result=1");
             is = conn.getInputStream();
             input = new BufferedReader(new InputStreamReader(is));
-            String response = input.readLine();
+            String response = BoundedLineReader.readLine(input, 5_000_000);
             if (!EXPECTED_RESPONSE.equals(response)) {
                 throw new Exception("Missing or wrong response. Expected: " +
                     EXPECTED_RESPONSE + ", received: " + response);

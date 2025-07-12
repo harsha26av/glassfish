@@ -40,6 +40,7 @@
 
 package com.sun.ejte.ccl.filediff;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.*;
 
 public class ModifyReport{
@@ -134,7 +135,7 @@ public class ModifyReport{
             File inputfile = new File(filename);
             BufferedReader in = new BufferedReader(new FileReader(inputfile));
 	    //System.out.println("Reading original file...");
-            while ((fileline = in.readLine()) != null){            
+            while ((fileline = BoundedLineReader.readLine(in, 5_000_000)) != null){            
                 filedata.append(fileline);
             }            
 	    //System.out.println("Finished Reading file. ");

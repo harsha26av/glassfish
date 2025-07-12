@@ -40,6 +40,7 @@
 
 package com.sun.s1asdev.security.jmac.https;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.*;
 import java.util.regex.Pattern;
 import java.net.*;
@@ -90,7 +91,7 @@ public class WebSSLClient {
             String matched = null;
             try {
                 Pattern p = Pattern.compile(EXPECTED_RESPONSE_PATTERN);
-                while ((line = in.readLine()) != null) {
+                while ((line = BoundedLineReader.readLine(in, 5_000_000)) != null) {
                     if (p.matcher(line).matches()) {
                         stat.addStatus(TEST_NAME, stat.PASS);
                         matched = line;

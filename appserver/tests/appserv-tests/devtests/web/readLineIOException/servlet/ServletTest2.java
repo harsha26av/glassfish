@@ -40,6 +40,7 @@
 
 package test;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.PrintWriter;
@@ -122,7 +123,7 @@ public class ServletTest2 extends HttpServlet {
         try {
             InputStream is = conn.getInputStream();
             BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-            String result = reader.readLine();
+            String result = BoundedLineReader.readLine(reader, 5_000_000);
             is.close();
             return 0;
         }

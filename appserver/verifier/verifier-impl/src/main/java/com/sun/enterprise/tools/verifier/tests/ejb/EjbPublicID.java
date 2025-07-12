@@ -44,6 +44,7 @@ import com.sun.enterprise.deploy.shared.FileArchive;
 import com.sun.enterprise.deployment.io.DescriptorConstants;
 import com.sun.enterprise.tools.verifier.Result;
 import com.sun.enterprise.tools.verifier.tests.ComponentNameConstructor;
+import io.github.pixee.security.BoundedLineReader;
 import org.glassfish.ejb.deployment.descriptor.EjbDescriptor;
 
 import java.io.BufferedReader;
@@ -93,7 +94,7 @@ public class EjbPublicID extends EjbTest implements EjbCheck {
 
 	    if (deploymentEntry != null) {
 		BufferedReader in = new BufferedReader(new InputStreamReader(deploymentEntry));
-		String s = in.readLine();
+		String s = BoundedLineReader.readLine(in, 5_000_000);
 		boolean foundDOCTYPE = false, foundPubid = false, foundURL = false;
 
 		while(s != null) {
@@ -133,7 +134,7 @@ public class EjbPublicID extends EjbTest implements EjbCheck {
 			result.setStatus(Result.PASSED);
 			break;
 		    } else if(foundDOCTYPE && s.endsWith(">")) break; // DOCTYPE doesn't have any more lines to check
-		    s = in.readLine();
+		    s = BoundedLineReader.readLine(in, 5_000_000);
 		}
 
 		if(!foundDOCTYPE){

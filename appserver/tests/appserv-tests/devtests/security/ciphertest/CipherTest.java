@@ -38,6 +38,7 @@
  * holder.
  */
 
+import io.github.pixee.security.BoundedLineReader;
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.SSLServerSocketFactory;
@@ -200,7 +201,7 @@ public class CipherTest {
             System.out.println();
             System.out.print(
                 "Enter number of cipher or cipher-name to enable on this client: ");
-            String s = reader.readLine();
+            String s = BoundedLineReader.readLine(reader, 5_000_000);
             CipherTest ct = null;
             try {
                 int num = Integer.parseInt(s);
@@ -353,7 +354,7 @@ public class CipherTest {
         BufferedReader  buffReader = new BufferedReader(
             new InputStreamReader(secureSocket.getInputStream()));
         String readin = null;
-        while( (readin=buffReader.readLine()) != null ) {
+        while( (readin=BoundedLineReader.readLine(buffReader, 5_000_000)) != null ) {
             //System.out.println(readin);
         }
     }

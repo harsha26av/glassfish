@@ -40,6 +40,7 @@
 
 package org.glassfish.tests.embedded.web;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.File;
@@ -132,7 +133,7 @@ public class EmbeddedGetContextsTest {
         BufferedReader in = new BufferedReader(new InputStreamReader(yc.getInputStream()));
         StringBuilder sb = new StringBuilder();
         String inputLine;
-        while ((inputLine = in.readLine()) != null){
+        while ((inputLine = BoundedLineReader.readLine(in, 5_000_000)) != null){
             sb.append(inputLine);
         }
         in.close();

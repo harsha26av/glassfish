@@ -40,6 +40,7 @@
 
 package fromjava.client;
 
+import io.github.pixee.security.BoundedLineReader;
 import org.testng.annotations.*;
 import org.testng.Assert;
 
@@ -110,7 +111,7 @@ public class CheckTesterUITestNG {
             StringBuilder response = new StringBuilder();
 
             String inputLine;
-            while ((inputLine = in.readLine()) != null) {
+            while ((inputLine = BoundedLineReader.readLine(in, 5_000_000)) != null) {
                 response.append(inputLine);
             }
 

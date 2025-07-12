@@ -40,6 +40,7 @@
 
 package appmgttest;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -150,7 +151,7 @@ public class TestClient {
             BufferedReader br = new BufferedReader(new InputStreamReader(c1.getInputStream()));
             String line;
             System.out.println("From servlet:");
-            while ((line = br.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(br, 5_000_000)) != null) {
                 System.out.println("  " + line);
                 if (line.startsWith("-env")) {
                     final EnvEntryInfo env = EnvEntryInfo.parseBrief(line.substring("-env".length() + 1));

@@ -38,6 +38,7 @@
  * holder.
  */
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.*;
 import java.net.*;
 import com.sun.ejte.ccl.reporter.*;
@@ -104,7 +105,7 @@ public class WebTest {
             boolean found1 = false;
             boolean found2 = false;
 
-            while ((line = input.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(input, 5_000_000)) != null) {
                 if (line.equals("${4+3}")) {
                     found1 = true;
                 } else if (line.equals("${2+2}")) {

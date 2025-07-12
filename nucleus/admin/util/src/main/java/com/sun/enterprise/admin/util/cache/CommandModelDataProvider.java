@@ -43,6 +43,7 @@ package com.sun.enterprise.admin.util.cache;
 import com.sun.enterprise.admin.util.CachedCommandModel;
 import com.sun.enterprise.admin.util.CommandModelData;
 import com.sun.enterprise.admin.util.CommandModelData.ParamModelData;
+import io.github.pixee.security.BoundedLineReader;
 import java.io.*;
 import java.nio.charset.Charset;
 import javax.xml.stream.*;
@@ -295,7 +296,7 @@ public class CommandModelDataProvider implements DataProvider {
             isr = new InputStreamReader(stream, charset);
             r = new BufferedReader(isr);
             String line;
-            while ((line = r.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(r, 5_000_000)) != null) {
                 int ind = line.indexOf(':');
                 if (ind <= 0) {
                     continue;

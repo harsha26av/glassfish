@@ -38,6 +38,7 @@
  * holder.
  */
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
@@ -380,7 +381,7 @@ public class WebTest {
         StringBuffer responseContent = new StringBuffer();
         String lineSeparator = System.getProperty("line.separator");
         String inputLine = null;
-        while ( ( inputLine = responseReader.readLine() ) != null) {
+        while ( ( inputLine = BoundedLineReader.readLine(responseReader, 5_000_000) ) != null) {
             responseContent.append(inputLine + lineSeparator);
         }
         result.put( RESPONSE_CONTENT, responseContent.toString() );
@@ -490,7 +491,7 @@ public class WebTest {
         StringBuffer responseContent = new StringBuffer();
         String lineSeparator = System.getProperty("line.separator");
         String inputLine = null;
-        while ( ( inputLine = responseReader.readLine() ) != null) {
+        while ( ( inputLine = BoundedLineReader.readLine(responseReader, 5_000_000) ) != null) {
             responseContent.append(inputLine + lineSeparator);
         }
         result.put( RESPONSE_CONTENT, responseContent.toString() );

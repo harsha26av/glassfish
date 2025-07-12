@@ -40,6 +40,7 @@
 
 package org.glassfish.distributions.test;
 
+import io.github.pixee.security.BoundedLineReader;
 import org.glassfish.distributions.test.ejb.SampleEjb;
 import org.glassfish.embeddable.CommandResult;
 import org.glassfish.embeddable.CommandRunner;
@@ -180,7 +181,7 @@ public class EmbeddedTest {
             BufferedReader in = new BufferedReader(
                     new InputStreamReader(
                             yc.getInputStream()));
-            String inputLine = in.readLine();
+            String inputLine = BoundedLineReader.readLine(in, 5_000_000);
             if (inputLine != null) {
                 System.out.println(inputLine);
             }

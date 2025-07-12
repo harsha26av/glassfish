@@ -40,6 +40,7 @@
 
 package com.sun.enterprise.server.logging.parser;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.HashMap;
@@ -95,7 +96,7 @@ final class UniformLogParser implements LogParser {
             String line = null;
             StringBuffer buffer = new StringBuffer();
             long position = 0L;
-            while ((line = reader.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(reader, 5_000_000)) != null) {
                 if (line.startsWith(LOG_RECORD_BEGIN_MARKER)) {
                     // Construct a parsed log record from the prior content
                     String logRecord = buffer.toString();

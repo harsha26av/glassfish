@@ -40,6 +40,7 @@
 
 package wrongtransporttarget;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -140,7 +141,7 @@ public class WrongTransport extends BaseDevTest {
         BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
         try {
             String line;
-            while ((line = in.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(in, 5_000_000)) != null) {
                 System.out.println(line);
             }
         } finally {

@@ -40,6 +40,7 @@
 
 package org.glassfish.persistence.common;
 
+import io.github.pixee.security.BoundedLineReader;
 import org.glassfish.persistence.common.database.DBVendorTypeHelper;
 
 import com.sun.enterprise.deployment.Application;
@@ -303,7 +304,7 @@ public class Java2DBProcessorHelper {
         try {
             reader = new BufferedReader(new FileReader(f));
             String s;
-            while ((s = reader.readLine()) != null) {
+            while ((s = BoundedLineReader.readLine(reader, 5_000_000)) != null) {
                 try {
                     if (logger.isLoggable(Level.FINE)) {
                         logger.fine(I18NHelper.getMessage(messages, 

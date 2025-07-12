@@ -40,6 +40,7 @@
 
 package org.glassfish.tests.queryString;
 
+import io.github.pixee.security.BoundedLineReader;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -83,7 +84,7 @@ public class WebTest {
             
             String line = null;
             int index;
-            while ((line = in.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(in, 5_000_000)) != null) {
                 index = line.indexOf(result);
                 System.out.println("[Server response]" + line);
 
@@ -98,7 +99,7 @@ public class WebTest {
             servlet = new URL("http://localhost:8080/"+contextPath);
             yc = servlet.openConnection();
             in = new BufferedReader(new InputStreamReader(yc.getInputStream()));
-            while ((line = in.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(in, 5_000_000)) != null) {
                 index = line.indexOf(result);
                 System.out.println("[Redirect response]" + line);
 

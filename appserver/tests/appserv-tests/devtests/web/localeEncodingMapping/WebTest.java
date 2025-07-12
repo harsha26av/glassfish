@@ -38,6 +38,7 @@
  * holder.
  */
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -91,7 +92,7 @@ public class WebTest {
 
             bis = new BufferedReader(new InputStreamReader(s.getInputStream()));
             String line;
-            while ((line = bis.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(bis, 5_000_000)) != null) {
                 System.out.println(i++ + ": " + line);
                 if (line.contains("charset=euc-jp")) {
                     setEncoding = true;

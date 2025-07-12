@@ -40,6 +40,7 @@
 
 package test.bv.servlet.simple;
 
+import io.github.pixee.security.BoundedLineReader;
 import org.testng.annotations.*;
 import org.testng.Assert;
 
@@ -105,7 +106,7 @@ public class SimpleBVServletTestNG {
             Boolean regexesFound[] = new Boolean[len];
 
             StringBuilder rspContent = new StringBuilder();
-            while ((line = input.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(input, 5_000_000)) != null) {
                 rspContent.append(line);
                 rspContent.append("\n ");
 
@@ -182,7 +183,7 @@ public class SimpleBVServletTestNG {
             Boolean regexesFound[] = new Boolean[len];
 
             StringBuilder rspContent = new StringBuilder();
-            while ((line = input.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(input, 5_000_000)) != null) {
                 rspContent.append(line);
                 rspContent.append("\n ");
 

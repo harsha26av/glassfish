@@ -40,6 +40,7 @@
 
 package com.sun.ejte.ccl.webrunner.webtest;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.net.*;
 import java.util.*;
 import java.io.*;
@@ -273,7 +274,7 @@ public class SendRequest {
         String st=null;
         try {
             StringBuffer result=new StringBuffer();
-            st=inStream.readLine();
+            st=BoundedLineReader.readLine(inStream, 5_000_000);
                 /*if(st!=null)
                 System.out.println("*****Server Response Starts *****\n"+st );*/
             
@@ -283,7 +284,7 @@ public class SendRequest {
             int eol=st.indexOf('\n');
             status=Integer.parseInt(st.substring(fsp+1,nsp));
             String line;
-            while((line=inStream.readLine())!=null) {
+            while((line=BoundedLineReader.readLine(inStream, 5_000_000))!=null) {
                 
                 //Trying to parse
                 //Set-Cookie: JSESSIONID=E649A94960EB0304CFA985067EF90893;Path=/bookstore1

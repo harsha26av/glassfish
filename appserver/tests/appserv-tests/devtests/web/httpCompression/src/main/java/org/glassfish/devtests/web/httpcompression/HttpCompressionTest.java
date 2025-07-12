@@ -40,6 +40,7 @@
 
 package org.glassfish.devtests.web.httpcompression;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -114,7 +115,7 @@ public class HttpCompressionTest extends BaseDevTest {
         boolean chunked = false;
         boolean contentLength = false;
         try {
-            while ((line = bis.readLine()) != null && !"".equals(line.trim())) {
+            while ((line = BoundedLineReader.readLine(bis, 5_000_000)) != null && !"".equals(line.trim())) {
                 found |= line.toLowerCase().contains("content-encoding: " + compScheme);
                 if (zipped) {
                    chunked |= line.toLowerCase().contains("transfer-encoding: chunked");

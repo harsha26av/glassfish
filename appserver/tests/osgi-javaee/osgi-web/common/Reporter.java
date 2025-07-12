@@ -38,6 +38,7 @@
  * holder.
  */
 
+    import io.github.pixee.security.BoundedLineReader;
     import java.io.BufferedReader;
     import java.io.BufferedWriter;
     import java.io.File;
@@ -121,7 +122,7 @@
                 BufferedWriter out =
                         new BufferedWriter(new FileWriter(testSummaryFile, true));
                 String line = null;
-                while((line = in.readLine()) != null) {
+                while((line = BoundedLineReader.readLine(in, 5_000_000)) != null) {
                     String testName = (line.split("::"))[0];
                     if(line.contains(statusCode[PASS])) {
                         //Pass.

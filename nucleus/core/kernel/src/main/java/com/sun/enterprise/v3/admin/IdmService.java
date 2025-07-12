@@ -44,6 +44,7 @@ import com.sun.enterprise.glassfish.bootstrap.StartupContextUtil;
 import com.sun.enterprise.module.bootstrap.StartupContext;
 import com.sun.enterprise.security.store.IdentityManagement;
 import com.sun.enterprise.security.store.PasswordAdapter;
+import io.github.pixee.security.BoundedLineReader;
 import org.glassfish.hk2.runlevel.RunLevel;
 import org.glassfish.internal.api.InitRunLevel;
 import org.glassfish.security.common.MasterPassword;
@@ -187,7 +188,7 @@ public class IdmService implements PostConstruct, IdentityManagement {
         String s;
         try {
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-            while ((s = br.readLine()) != null) {
+            while ((s = BoundedLineReader.readLine(br, 5_000_000)) != null) {
                 int ind = s.indexOf(MP_PROPERTY);
                 if (ind == -1) {
                     return false; // this means stdin isn't behaving. That's bad and shouldn't happen.

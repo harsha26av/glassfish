@@ -42,6 +42,7 @@ package org.glassfish.admingui.devtests;
 import com.google.common.base.Function;
 import com.thoughtworks.selenium.Selenium;
 import com.thoughtworks.selenium.SeleniumException;
+import io.github.pixee.security.BoundedLineReader;
 import org.junit.*;
 import org.openqa.selenium.*;
 
@@ -137,10 +138,10 @@ public class BaseSeleniumTestClass {
                 InputStream is = url.openStream();
                 PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("target/surefire-reports/" + currentTestClass + "-server.log")));
                 BufferedReader in = new BufferedReader(new InputStreamReader(is));
-                String line = in.readLine();
+                String line = BoundedLineReader.readLine(in, 5_000_000);
                 while (line != null) {
                     out.write(line + System.getProperty("line.separator"));
-                    line = in.readLine();
+                    line = BoundedLineReader.readLine(in, 5_000_000);
                 }
                 in.close();
                 out.close();

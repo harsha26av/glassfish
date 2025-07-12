@@ -40,6 +40,7 @@
 
 package test.web.extensions;
 
+import io.github.pixee.security.BoundedLineReader;
 import org.testng.annotations.*;
 import org.testng.Assert;
 import java.io.*;
@@ -159,7 +160,7 @@ public class ExtensionsTestNG {
         String line = null;
         boolean result = false;
         String testLine = null;
-        while ((line = input.readLine()) != null) {
+        while ((line = BoundedLineReader.readLine(input, 5_000_000)) != null) {
             if (line.indexOf(str) != -1) {
                 result = true;
                 testLine = line;

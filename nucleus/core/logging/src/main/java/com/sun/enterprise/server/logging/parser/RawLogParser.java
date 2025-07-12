@@ -40,6 +40,7 @@
 
 package com.sun.enterprise.server.logging.parser;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -64,7 +65,7 @@ public class RawLogParser implements LogParser {
         try {
             String line = null;
             long position = 0L;
-            while ((line = reader.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(reader, 5_000_000)) != null) {
                 ParsedLogRecord record = new ParsedLogRecord(line);
                 record.setFieldValue(ParsedLogRecord.LOG_MESSAGE, line);
                 listener.foundLogRecord(position, record);

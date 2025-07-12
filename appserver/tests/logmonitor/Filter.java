@@ -38,6 +38,7 @@
  * holder.
  */
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.*;
 import java.io.BufferedReader;
 import java.io.File;
@@ -95,7 +96,7 @@ public class Filter {
                                     new java.io.FileInputStream(file)));
             String line = null;
 
-            while ((line = rdr.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(rdr, 5_000_000)) != null) {
                 //System.out.println("\n..."+line);
                 if (line.contains(":")
                         && line.contains("=")
@@ -137,7 +138,7 @@ public class Filter {
                                     new java.io.FileInputStream(file)));
             String line = null;
 
-            while ((line = rdr.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(rdr, 5_000_000)) != null) {
                 //System.out.println("\n..."+line);
                 if (line.contains(":")
                         && line.contains("=")
@@ -167,7 +168,7 @@ public class Filter {
                                 new InputStreamReader(
                                         new java.io.FileInputStream(file)));
                 line = null;
-                while ((line = rdr.readLine()) != null) {
+                while ((line = BoundedLineReader.readLine(rdr, 5_000_000)) != null) {
                     if (!line.contains("#")
                             && (line.contains(id + ".diag.cause") || line.contains(id + ".diag.check"))) {
                         idVector.add(id);

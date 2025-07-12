@@ -42,6 +42,7 @@ package com.sun.enterprise.admin.mbeanapi.config;
 
 import com.sun.appserv.management.config.*;
 import com.sun.enterprise.admin.mbeanapi.common.AMXConnector;
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -257,7 +258,7 @@ public class IIOPListenerTests {
         String line;
         final StringBuffer sb = new StringBuffer();
         try {
-            while ((line = br.readLine()) != null)
+            while ((line = BoundedLineReader.readLine(br, 5_000_000)) != null)
             {
                 sb.append(line);
                 sb.append(" ");

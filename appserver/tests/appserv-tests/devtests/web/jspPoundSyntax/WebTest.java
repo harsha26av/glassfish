@@ -38,6 +38,7 @@
  * holder.
  */
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.*;
 import java.net.*;
 import com.sun.ejte.ccl.reporter.*;
@@ -84,14 +85,14 @@ public class WebTest {
     private boolean checkValue(BufferedReader input,
                                String key, String expectedValue) 
             throws Exception {
-        String line = input.readLine();
+        String line = BoundedLineReader.readLine(input, 5_000_000);
         while (line.equals(""))
-            line = input.readLine();
+            line = BoundedLineReader.readLine(input, 5_000_000);
         if (line == null)
             return true;
         if (!line.equals(key))
             return true;
-        line = input.readLine();
+        line = BoundedLineReader.readLine(input, 5_000_000);
         if (line == null)
             return true;
         if (!line.equals(expectedValue)) {

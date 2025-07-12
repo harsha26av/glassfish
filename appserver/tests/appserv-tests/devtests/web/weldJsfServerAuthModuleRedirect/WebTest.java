@@ -38,6 +38,7 @@
  * holder.
  */
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.*;
 import java.net.*;
 import com.sun.ejte.ccl.reporter.*;
@@ -104,7 +105,7 @@ public class WebTest {
 
         String line = null;
         String cookie = null;
-        while ((line = br.readLine()) != null) {
+        while ((line = BoundedLineReader.readLine(br, 5_000_000)) != null) {
             System.out.println(line);
             if (line.startsWith("Set-Cookie:")
                     || line.startsWith("Set-cookie:")) {
@@ -141,7 +142,7 @@ public class WebTest {
         String line = null;
         String cookieHeader = null;
         boolean status = false;
-        while ((line = br.readLine()) != null) {
+        while ((line = BoundedLineReader.readLine(br, 5_000_000)) != null) {
             System.out.println(line);
             if (EXPECTED.equals(line)) {
                 status = true;

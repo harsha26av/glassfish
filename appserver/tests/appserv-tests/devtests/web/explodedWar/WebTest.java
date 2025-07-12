@@ -38,6 +38,7 @@
  * holder.
  */
 
+import io.github.pixee.security.BoundedLineReader;
 import java.lang.*;
 import java.io.*;
 import java.net.*;
@@ -90,7 +91,7 @@ public class WebTest {
             String line = null;
 
             boolean expected = false;
-            while ((line = bis.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(bis, 5_000_000)) != null) {
                 System.out.println(line);
                 if (EXPECTED_RESPONSE.equals(line)) {
                     expected = true;

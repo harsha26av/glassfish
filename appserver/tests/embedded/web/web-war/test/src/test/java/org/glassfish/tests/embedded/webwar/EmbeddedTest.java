@@ -40,6 +40,7 @@
 
 package org.glassfish.tests.embedded.webwar;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.util.*;
 import org.junit.Test;
 import org.junit.Assert;
@@ -144,7 +145,7 @@ public class EmbeddedTest {
                 BufferedReader in = new BufferedReader(
                                         new InputStreamReader(
                                         yc.getInputStream()));
-                String inputLine = in.readLine();
+                String inputLine = BoundedLineReader.readLine(in, 5_000_000);
                 if (inputLine != null)
                     System.out.println(inputLine);
                 Assert.assertEquals(inputLine.trim(), "filterMessage=213");

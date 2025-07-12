@@ -38,6 +38,7 @@
  * holder.
  */
 
+import io.github.pixee.security.BoundedLineReader;
 import java.lang.*;
 import java.io.*;
 import java.net.*;
@@ -98,7 +99,7 @@ public class WebTest {
         String line = null;
 
         int index, lineNum=0;
-        while ((line = bis.readLine()) != null) {
+        while ((line = BoundedLineReader.readLine(bis, 5_000_000)) != null) {
             index = line.indexOf("::");
             System.out.println(lineNum + ":  " + line);
             if (index != -1) {
@@ -145,7 +146,7 @@ public class WebTest {
         line = null;
 
         index=lineNum=0;
-        while ((line = bis.readLine()) != null) {
+        while ((line = BoundedLineReader.readLine(bis, 5_000_000)) != null) {
             index = line.indexOf("::");
             System.out.println(lineNum + ":  " + line);
             if (index != -1) {

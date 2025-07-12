@@ -38,6 +38,7 @@
  * holder.
  */
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.*;
 import java.net.*;
 import com.sun.ejte.ccl.reporter.*;
@@ -105,7 +106,7 @@ public class WebTest {
             is = sock.getInputStream();
             bis = new BufferedReader(new InputStreamReader(is));
             String line = null;
-            while ((line = bis.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(bis, 5_000_000)) != null) {
                 System.out.println(line);
                 if (line.startsWith("HTTP/1.1 500 ") || line.startsWith("HTTP/1.0 500 ")) {
                     statusMatched = true;

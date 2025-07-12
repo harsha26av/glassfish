@@ -40,6 +40,7 @@
 
 package com.sun.s1peqe.jndi.url.ejb;
 
+import io.github.pixee.security.BoundedLineReader;
 import javax.naming.*;
 import javax.ejb.*;
 import java.net.*;
@@ -76,7 +77,7 @@ public class HTMLReaderBean implements SessionBean {
         buffer = new StringBuffer();
         input = connection.getInputStream();
         dataInput = new BufferedReader(new InputStreamReader(input));
-        while ((line = dataInput.readLine()) != null) {
+        while ((line = BoundedLineReader.readLine(dataInput, 5_000_000)) != null) {
            buffer.append(line);
            buffer.append('\n');
         }  

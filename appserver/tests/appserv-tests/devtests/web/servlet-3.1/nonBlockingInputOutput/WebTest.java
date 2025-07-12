@@ -38,6 +38,7 @@
  * holder.
  */
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.*;
 import java.net.*;
 import java.util.List;
@@ -91,7 +92,7 @@ public class WebTest {
                 }
                 input = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                 String line = null;
-                while ((line = input.readLine()) != null) {
+                while ((line = BoundedLineReader.readLine(input, 5_000_000)) != null) {
                     System.out.println(line);
                     int slashInd = line.indexOf("/", 1);
                     expected = line.replace("/", "").equals(EXPECTED_RESPONSE);

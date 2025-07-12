@@ -41,7 +41,8 @@
 package com.sun.jdo.api.persistence.enhancer;
 
 //@olsen:
-//import java.io.*;
+
+import io.github.pixee.security.BoundedLineReader;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.io.File;
@@ -596,7 +597,7 @@ public class Main
             try {
                 BufferedReader input = new BufferedReader(inputFile);
                 String s = null;
-                while ((s = input.readLine()) != null) {
+                while ((s = BoundedLineReader.readLine(input, 5_000_000)) != null) {
                     StringTokenizer parser = new StringTokenizer(s, " \t", false);//NOI18N
                     while (parser.hasMoreElements()) {
                         String token = parser.nextToken();

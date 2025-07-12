@@ -40,6 +40,7 @@
 
 package org.glassfish.ant.tasks;
 
+import io.github.pixee.security.BoundedLineReader;
 import org.apache.tools.ant.Task;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.BuildException;
@@ -131,13 +132,13 @@ public class AdminTask extends Task {
 
             error = new BufferedReader(new InputStreamReader(pr.getErrorStream()));
             String errorLine=null;
-            while((errorLine=error.readLine()) != null) {
+            while((errorLine=BoundedLineReader.readLine(error, 5_000_000)) != null) {
                 log(errorLine);
             }
 
             input = new BufferedReader(new InputStreamReader(pr.getInputStream()));
             String inputLine=null;
-            while((inputLine=input.readLine()) != null) {
+            while((inputLine=BoundedLineReader.readLine(input, 5_000_000)) != null) {
                 log(inputLine);
             }
 

@@ -40,6 +40,7 @@
 
 package org.glassfish.tests.paas.basic;
 
+import io.github.pixee.security.BoundedLineReader;
 import junit.framework.Assert;
 import org.glassfish.embeddable.CommandResult;
 import org.glassfish.embeddable.CommandRunner;
@@ -91,7 +92,7 @@ public class BasicPaaSTest {
 				yc.getInputStream()));
 		String line = null;
 		boolean found = false;
-		while ((line = in.readLine()) != null) {
+		while ((line = BoundedLineReader.readLine(in, 5_000_000)) != null) {
 			System.out.println(line);
 			if (line.indexOf(result) != -1) {
 				found = true;

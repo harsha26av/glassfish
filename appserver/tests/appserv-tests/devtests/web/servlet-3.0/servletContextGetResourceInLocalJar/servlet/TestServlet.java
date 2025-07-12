@@ -38,6 +38,7 @@
  * holder.
  */
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.*;
 import java.net.*;
 import javax.servlet.*;
@@ -55,7 +56,7 @@ public class TestServlet extends HttpServlet {
         BufferedReader in = null;
         try {
             in = new BufferedReader(new InputStreamReader(u.openStream()));
-            if (!"Hello World".equals(in.readLine())) {
+            if (!"Hello World".equals(BoundedLineReader.readLine(in, 5_000_000))) {
                 throw new ServletException("Missing content");
             }
         } finally {

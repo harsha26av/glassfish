@@ -38,6 +38,7 @@
  * holder.
  */
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.*;
 import java.net.*;
 import com.sun.ejte.ccl.reporter.*;
@@ -102,7 +103,7 @@ public class WebTest {
         boolean found2 = false;
         boolean found12 = false;
         String line = null;
-        while ((line = bis.readLine()) != null) {
+        while ((line = BoundedLineReader.readLine(bis, 5_000_000)) != null) {
             System.out.println(line);
             // Take into account the different case in the response header
             // name: Cache-Control vs Cache-control, between PE and SE/EE

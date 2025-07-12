@@ -38,6 +38,7 @@
  * holder.
  */
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.*;
 import java.net.*;
 import com.sun.ejte.ccl.reporter.*;
@@ -102,7 +103,7 @@ public class WebTest {
 
         String line = null;
         int j=0;
-        while ((line = bis.readLine()) != null) {
+        while ((line = BoundedLineReader.readLine(bis, 5_000_000)) != null) {
             System.out.println(j++ + ": " + line);
             if (line.toLowerCase().startsWith("location:")) {
             break;
@@ -127,12 +128,12 @@ public class WebTest {
             is = sock2.getInputStream();
             bis = new BufferedReader(new InputStreamReader(is));
 
-            while ((line = bis.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(bis, 5_000_000)) != null) {
                i = line.indexOf("iPlanetDirectoryPro=");
                if (i > 0) { 
                    param1 = line.substring(i);
                    System.out.println("First param is " + param1);
-                   if ((line = bis.readLine()) != null) {
+                   if ((line = BoundedLineReader.readLine(bis, 5_000_000)) != null) {
                        i = line.indexOf("iPlanetDirectoryPro=");
                        if (i > 0) {
                            param2 = line.substring(i);

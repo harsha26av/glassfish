@@ -40,6 +40,7 @@
 
 package com.acme;
 
+import io.github.pixee.security.BoundedLineReader;
 import org.glassfish.tests.ejb.sample.Simple;
 import embedded.util.ZipUtil;
 
@@ -168,7 +169,7 @@ public class Client {
             InputStream inputStream = connection.getInputStream();
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-            String firstLineOfText = reader.readLine();//1 line is enough
+            String firstLineOfText = BoundedLineReader.readLine(reader, 5_000_000);//1 line is enough
             System.out.println("Read: " + firstLineOfText);
 
             connection.disconnect();

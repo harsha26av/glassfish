@@ -40,6 +40,7 @@
 
 package com.sun.s1asdev.jdbc.onlygetconnectionservlet.client;
 
+import io.github.pixee.security.BoundedLineReader;
 import javax.naming.*;
 import java.rmi.*;
 import java.util.*;
@@ -101,7 +102,7 @@ public class Client {
                     System.out.println( conn.getResponseMessage() );
                     String op = null;
                     System.out.println(" Reading response"); 
-                    while( (op = in.readLine()) != null ) {
+                    while( (op = BoundedLineReader.readLine(in, 5_000_000)) != null ) {
                         //System.out.println(op);
                     }
                     } catch( Exception e ) {

@@ -40,6 +40,7 @@
 
 package client;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.lang.*;
 import java.io.*;
 import java.net.*;
@@ -91,7 +92,7 @@ private static void goGet(int testVersion, String host, int port,
             String line = null;
 
             int index;
-            while ((line = bis.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(bis, 5_000_000)) != null) {
                 index = line.indexOf(result);
                 System.out.println("[Server response]" + line);
 

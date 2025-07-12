@@ -38,6 +38,7 @@
  * holder.
  */
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -91,7 +92,7 @@ public class WebTest {
             InputStream is = sock.getInputStream();
             bis = new BufferedReader(new InputStreamReader(is));
             long start = System.currentTimeMillis();
-            while (bis.readLine() != null) {
+            while (BoundedLineReader.readLine(bis, 5_000_000) != null) {
             }
             long end = System.currentTimeMillis();
             System.out.println("WebTest.invoke: end - start = " + (end - start));

@@ -38,6 +38,7 @@
  * holder.
  */
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.*;
 import java.net.*;
 import com.sun.ejte.ccl.reporter.*;
@@ -106,7 +107,7 @@ public class WebTest {
 
                 // Test 3.  Make sure that spaces are trimmed.
                 testName = "wl jsp desc: compress-html-template";
-                String line = input.readLine();
+                String line = BoundedLineReader.readLine(input, 5_000_000);
                 
                 if (line.equals("pass!")) {
                     stat.addStatus(testName, stat.PASS);

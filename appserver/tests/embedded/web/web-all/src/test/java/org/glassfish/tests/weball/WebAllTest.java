@@ -40,6 +40,7 @@
 
 package org.glassfish.tests.weball;
 
+import io.github.pixee.security.BoundedLineReader;
 import org.glassfish.grizzly.config.dom.NetworkConfig;
 import org.glassfish.api.deployment.DeployCommandParameters;
 import org.glassfish.internal.embedded.*;
@@ -118,7 +119,7 @@ public class WebAllTest {
 
         StringBuilder sb = new StringBuilder();
         String inputLine;
-        while ((inputLine = in.readLine()) != null){
+        while ((inputLine = BoundedLineReader.readLine(in, 5_000_000)) != null){
             sb.append(inputLine);
         }
         in.close();

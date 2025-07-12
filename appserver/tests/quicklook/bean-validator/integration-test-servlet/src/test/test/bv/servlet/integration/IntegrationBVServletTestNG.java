@@ -40,6 +40,7 @@
 
 package test.bv.servlet.integration;
 
+import io.github.pixee.security.BoundedLineReader;
 import org.testng.annotations.*;
 import org.testng.Assert;
 
@@ -104,7 +105,7 @@ public class IntegrationBVServletTestNG {
             int i;
             Boolean regexesFound[] = new Boolean[len];
 
-            while ((line = input.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(input, 5_000_000)) != null) {
                 // for each line in the input, loop through each of the 
                 // elements of regexesToFind.  At least one must match.
                 boolean found = false;

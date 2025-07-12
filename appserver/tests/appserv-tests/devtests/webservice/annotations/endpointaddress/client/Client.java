@@ -40,6 +40,7 @@
 
 package client;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.net.*;
 import java.io.*;
 import com.example.hello.HelloService;
@@ -69,7 +70,7 @@ public class Client {
 
                 String inputLine;
                 int index=0; 
-                while ((inputLine = in.readLine()) != null) {
+                while ((inputLine = BoundedLineReader.readLine(in, 5_000_000)) != null) {
                    if ((index= inputLine.indexOf("href="))>0){
 
                       String url = inputLine.substring(index+1);  

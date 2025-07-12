@@ -40,6 +40,7 @@
 
 package com.sun.ejte.j2ee.connector.securitymapweb;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.Statement;
@@ -165,7 +166,7 @@ public class WebTest {
 
             String line = null;
 
-            while ((line = bis.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(bis, 5_000_000)) != null) {
                 System.out.println(line);
             }
         } catch (Exception e) {

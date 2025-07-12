@@ -40,6 +40,7 @@
 
 package org.glassfish.tests.applicationDispatcher;
 
+import io.github.pixee.security.BoundedLineReader;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -79,7 +80,7 @@ public class WebTest {
                     yc.getInputStream()));
             String line = null;
             int index, lineNum=0;
-            while ((line = in.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(in, 5_000_000)) != null) {
                 index = line.indexOf("::");
                 System.out.println(lineNum+": "+line);
                 if (index != -1) {

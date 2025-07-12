@@ -39,6 +39,7 @@
  */
 
 package com.sun.enterprise.v3.admin.commands;
+import io.github.pixee.security.BoundedLineReader;
 import java.io.*;
 
 /**
@@ -67,7 +68,7 @@ class StringBuilderNewLineAppender {
 		try
 		{
 			readloop:
-			for(String s = in.readLine(); s != null; s = in.readLine()){
+			for(String s = BoundedLineReader.readLine(in, 5_000_000); s != null; s = BoundedLineReader.readLine(in, 5_000_000)){
 				for(String filter : filterOut){
 					if(s.startsWith(filter))
 						continue readloop; // continue to outer loop

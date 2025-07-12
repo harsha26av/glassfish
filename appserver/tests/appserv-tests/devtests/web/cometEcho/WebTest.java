@@ -38,6 +38,7 @@
  * holder.
  */
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -196,10 +197,10 @@ public class WebTest {
                 is = urlConnection.getInputStream();
                 br = new BufferedReader(new InputStreamReader(is));
                 // OK message
-                System.out.println(br.readLine());
+                System.out.println(BoundedLineReader.readLine(br, 5_000_000));
 
                 startSignal.countDown();
-                listenMessage = br.readLine();
+                listenMessage = BoundedLineReader.readLine(br, 5_000_000);
                 endSignal.countDown();
             } catch( Exception ex){
                 ex.printStackTrace();   

@@ -40,6 +40,7 @@
 
 package com.sun.s1asdev.deployment.ejb30.ear.security.client;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.*;
 import java.net.*;
 import java.util.*;
@@ -129,7 +130,7 @@ public class Client {
 
         int count = 0;
         int lineNum = 0;
-        while ((line = bis.readLine()) != null) {
+        while ((line = BoundedLineReader.readLine(bis, 5_000_000)) != null) {
             System.out.println(lineNum + ": " + line);
             int index = line.indexOf("=");
             if (index != -1) {

@@ -40,6 +40,7 @@
 
 package test;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.util.*;
 import java.io.*;
 import javax.management.MBeanServerConnection;
@@ -164,7 +165,7 @@ public abstract class LifeCycle implements RemoteAdminQuicklookTest
             BufferedReader r = new BufferedReader(new StringReader(s));
             String line;
             
-            while((line = r.readLine()) != null)
+            while((line = BoundedLineReader.readLine(r, 5_000_000)) != null)
             {
                 if(line.equals("Heap Memory Usage:"))
                     heap = parseMemoryUsage(r);
@@ -216,7 +217,7 @@ public abstract class LifeCycle implements RemoteAdminQuicklookTest
         
         try
         {
-            while((line = r.readLine()) != null)
+            while((line = BoundedLineReader.readLine(r, 5_000_000)) != null)
             {
                 if(line.startsWith(searchString))
                     break;

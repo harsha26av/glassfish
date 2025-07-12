@@ -38,6 +38,7 @@
  * holder.
  */
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.*;
 import java.net.*;
 import com.sun.ejte.ccl.reporter.*;
@@ -87,7 +88,7 @@ public class WebTest {
 
                 bis = new BufferedReader(
                     new InputStreamReader(conn.getInputStream()));
-                String line = bis.readLine();
+                String line = BoundedLineReader.readLine(bis, 5_000_000);
                 if (!"BEGINEND".equals(line)) {
                     System.err.println("Wrong response body. "
                                        + "Expected: BEGINEND"

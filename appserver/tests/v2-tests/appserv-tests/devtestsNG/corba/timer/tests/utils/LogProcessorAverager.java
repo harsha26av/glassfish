@@ -43,6 +43,7 @@
 // Last Modified : 2005 Jun 09 (Thu) 14:09:51 by Harold Carr.
 //
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.text.NumberFormat;
@@ -109,7 +110,7 @@ public class LogProcessorAverager
     {
 	String line;
 	int id = 0;
-	while ((line = br.readLine()) != null) {
+	while ((line = BoundedLineReader.readLine(br, 5_000_000)) != null) {
 	    if (line.equals("#####")) {
 		return;
 	    }
@@ -131,7 +132,7 @@ public class LogProcessorAverager
 	throws Exception
     {
 	String line;
-	while ((line = br.readLine()) != null) {
+	while ((line = BoundedLineReader.readLine(br, 5_000_000)) != null) {
 	    String[] idAndTime = line.split(" ");
 	    int id = Integer.parseInt(idAndTime[0]);
 	    long time = Long.parseLong(idAndTime[1]);

@@ -38,6 +38,7 @@
  * holder.
  */
 
+import io.github.pixee.security.BoundedLineReader;
 import java.lang.*;
 import java.io.*;
 import java.net.*;
@@ -82,9 +83,9 @@ public class WebTest {
         } else {
             InputStream is = conn.getInputStream();
             BufferedReader input = new BufferedReader(new InputStreamReader(is));
-            String line = input.readLine();
+            String line = BoundedLineReader.readLine(input, 5_000_000);
 	    System.out.println ("Callflow Data : "+line);
-	    System.out.println (input.readLine());
+	    System.out.println (BoundedLineReader.readLine(input, 5_000_000));
         }    
     }
 }

@@ -38,6 +38,7 @@
  * holder.
  */
 
+import io.github.pixee.security.BoundedLineReader;
 import org.testng.annotations.Configuration;
 import org.testng.annotations.ExpectedExceptions;
 import org.testng.annotations.Test;
@@ -69,7 +70,7 @@ public class WebTestNG {
         BufferedReader bis = new BufferedReader(new InputStreamReader(is));
 
         String line = null;
-        while ((line = bis.readLine()) != null) {
+        while ((line = BoundedLineReader.readLine(bis, 5_000_000)) != null) {
             System.out.println("line = " + line);
             if (line.startsWith("Location:")) {
                 break;
@@ -90,7 +91,7 @@ public class WebTestNG {
 	assert responseCode == 200;
 
         bis = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-        while ((line = bis.readLine()) != null) {
+        while ((line = BoundedLineReader.readLine(bis, 5_000_000)) != null) {
             if (line.equals(EXPECTED)) {
                 break;
             }

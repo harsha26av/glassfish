@@ -40,6 +40,7 @@
 
 package devtests.security;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.*;
 import java.security.*;
 import java.net.*;
@@ -107,7 +108,7 @@ public class WebSSLClient {
                             connection.getInputStream()));
             
             String line = null;
-            while ((line = in.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(in, 5_000_000)) != null) {
                 if (EXPECTED_RESPONSE.equals(line)) {
                     stat.addStatus(TEST_NAME, stat.PASS);
                     break;

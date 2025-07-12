@@ -38,6 +38,7 @@
  * holder.
  */
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.*;
 import java.net.*;
 import com.sun.ejte.ccl.reporter.*;
@@ -94,7 +95,7 @@ public class WebTest {
 
         String bodyLine = null;
         int i=0;
-        while ((bodyLine = bis.readLine()) != null) {
+        while ((bodyLine = BoundedLineReader.readLine(bis, 5_000_000)) != null) {
             System.out.println(i++ + ": " + bodyLine);
             if (bodyLine.indexOf("BEGIN_JAPANESE") >= 0) {
                 break;

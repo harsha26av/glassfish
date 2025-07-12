@@ -38,6 +38,7 @@
  * holder.
  */
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.*;
 import java.util.*;
 import java.security.*;
@@ -115,7 +116,7 @@ public class WebTest {
         try {
             in = new BufferedReader(new InputStreamReader(
                             connection.getInputStream()));
-            String line = in.readLine();
+            String line = BoundedLineReader.readLine(in, 5_000_000);
             System.out.println("Response: " + line);
             if (line != null
                     && (line.indexOf(SSL_CIPHER_SUITE) >= 0)

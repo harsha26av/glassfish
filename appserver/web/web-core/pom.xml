@@ -145,5 +145,9 @@
             <artifactId>osgi.core</artifactId>
             <scope>provided</scope>
         </dependency>
-   </dependencies>
+  <dependency>
+   <groupId>io.github.pixee</groupId>
+   <artifactId>java-security-toolkit</artifactId>
+  </dependency>
+ </dependencies>
 </project>

@@ -39,6 +39,7 @@
  */
 
 package test.ejb.sfulnoi;
+import io.github.pixee.security.BoundedLineReader;
 import org.testng.annotations.*;
 import org.testng.Assert;
 
@@ -98,7 +99,7 @@ public class SfulnoiTestNG {
             InputStream is = conn.getInputStream();
             BufferedReader input = new BufferedReader(new InputStreamReader(is));
             String line = null;
-	    while ((line = input.readLine()) != null) {
+	    while ((line = BoundedLineReader.readLine(input, 5_000_000)) != null) {
             if (line.contains(EXPECTED_RESPONSE)) {
                 result = true;
                 break;

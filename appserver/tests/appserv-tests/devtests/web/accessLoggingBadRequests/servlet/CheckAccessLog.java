@@ -38,6 +38,7 @@
  * holder.
  */
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -57,7 +58,7 @@ public class CheckAccessLog extends HttpServlet {
                     try (FileInputStream fis = new FileInputStream(file);
                         BufferedReader br = new BufferedReader(new InputStreamReader(fis));
                         ) {
-                        String line = br.readLine();
+                        String line = BoundedLineReader.readLine(br, 5_000_000);
                         resp.getWriter().println("file content "+line);
                         resp.getWriter().println("file length "+file.exists()+" "+file.length());
                         if ((file.length() > 0) && (line.contains("400"))) {

@@ -42,6 +42,7 @@ package com.acme;
 
 import admin.AdminBaseDevTest;
 import com.sun.ejte.ccl.reporter.SimpleReporterAdapter;
+import io.github.pixee.security.BoundedLineReader;
 
 import java.io.*;
 import java.net.*;
@@ -159,7 +160,7 @@ public class Client extends AdminBaseDevTest {
             BufferedReader input = new BufferedReader(new InputStreamReader(is));
   
             String line = null;
-            while ((line = input.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(input, 5_000_000)) != null) {
                 System.out.println("Processing line: " + line);
                 if(line.indexOf(expectedResult)!=-1){
                     result=line;
