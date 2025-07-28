@@ -38,6 +38,7 @@
  * holder.
  */
 
+import static io.github.pixee.security.jakarta.PathValidator.validateDispatcherPath;
 import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -47,7 +48,7 @@ public class DispatchFrom extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
         RequestDispatcher rd = req.getRequestDispatcher(
-            "/dispatchTo?run=" + req.getParameter("run"));
+            validateDispatcherPath("/dispatchTo?run=" + req.getParameter("run")));
         rd.forward(req, res);
     }
 }
