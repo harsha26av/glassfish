@@ -45,6 +45,8 @@ import com.sun.enterprise.config.serverbeans.ConfigBeansUtilities;
 import com.sun.enterprise.config.serverbeans.ServerTags;
 import com.sun.enterprise.container.common.spi.util.JavaEEIOUtils;
 import com.sun.enterprise.deployment.*;
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import org.glassfish.web.deployment.annotation.handlers.ServletSecurityHandler;
 import com.sun.enterprise.deployment.runtime.web.SunWebApp;
 import com.sun.enterprise.deployment.web.*;
@@ -1717,7 +1719,7 @@ public class WebModule extends PwcWebModule implements Context {
                     }
 
                     try {
-                        URL url = new URL(path);
+                        URL url = Urls.create(path, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
                         loader.addRepository(path);
                     } catch (MalformedURLException mue1) {
                         // Not a URL, interpret as file

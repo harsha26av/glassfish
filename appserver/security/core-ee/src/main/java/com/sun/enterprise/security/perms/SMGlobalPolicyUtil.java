@@ -40,6 +40,8 @@
 
 package com.sun.enterprise.security.perms;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.net.URL;
 import java.security.CodeSource;
 import java.security.Permission;
@@ -311,7 +313,7 @@ public class SMGlobalPolicyUtil {
         if (!f.exists())
             return;
         
-        URL furl = new URL("file:" + policyFilename);
+        URL furl = Urls.create("file:" + policyFilename, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
             
         if (logger.isLoggable(Level.FINE)){
             logger.fine("Loading policy from " + furl);

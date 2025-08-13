@@ -47,6 +47,8 @@ import com.sun.enterprise.deployment.node.DeploymentDescriptorNode;
 import com.sun.enterprise.deployment.node.XMLElement;
 import com.sun.enterprise.deployment.util.DOLUtils;
 import com.sun.enterprise.deployment.xml.WebServicesTagNames;
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import org.w3c.dom.Node;
 
 import java.net.MalformedURLException;
@@ -90,7 +92,7 @@ public class WebServiceRuntimeNode extends DeploymentDescriptorNode {
                 return;
             }
             try {
-                URL url = new URL(value);
+                URL url = Urls.create(value, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
                 descriptor.setClientPublishUrl(url);
             } catch(MalformedURLException mue) {
                 DOLUtils.getDefaultLogger().log(Level.INFO,

@@ -47,6 +47,8 @@ import com.sun.enterprise.deployment.BundleDescriptor;
 import com.sun.enterprise.deployment.EjbBundleDescriptor;
 import com.sun.enterprise.deployment.EjbDescriptor;
 import com.sun.enterprise.deployment.JndiNameEnvironment;
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import org.glassfish.api.deployment.archive.ReadableArchive;
 import org.glassfish.deployment.common.ModuleDescriptor;
 import org.glassfish.internal.api.Globals;
@@ -128,14 +130,14 @@ public class ModuleContentLinker extends DefaultDOLVisitor implements ComponentV
 
     public static URL createJarUrl(File jarFile, String entry)
         throws MalformedURLException, IOException {
-        return new URL("jar:" + jarFile.toURI().toURL() + "!/" + entry);
+        return Urls.create("jar:" + jarFile.toURI().toURL() + "!/" + entry, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
     }
 
     public static URL getEntryAsUrl(File moduleLocation, String uri)
         throws MalformedURLException, IOException {
         URL url = null;
         try {
-            url = new URL(uri);
+            url = Urls.create(uri, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
         } catch(java.net.MalformedURLException e) {
             // ignore
             url = null;
@@ -170,7 +172,7 @@ public class ModuleContentLinker extends DefaultDOLVisitor implements ComponentV
                 } else {
                     // If the given WSDL is an http URL, create a URL directly from this
                     if(wsdlFileUri.startsWith("http")) {
-                        serviceRef.setWsdlFileUrl(new URL(wsdlFileUri));
+                        serviceRef.setWsdlFileUrl(Urls.create(wsdlFileUri, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS));
                     } else {
                         // Given WSDL location is a relative path - append this to the module dir
                         URL wsdlFileUrl = internalGetUrl(moduleDesc, wsdlFileUri);
@@ -213,7 +215,7 @@ public class ModuleContentLinker extends DefaultDOLVisitor implements ComponentV
                 String wsdlFileUri = webService.getWsdlFileUri();
                 URL wsdlFileURL=null;
                 try {
-                    URL url = new URL(wsdlFileUri);
+                    URL url = Urls.create(wsdlFileUri, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
                     if (url.getProtocol()!=null && !url.getProtocol().equalsIgnoreCase("file")) {
                         wsdlFileURL=url;
                     } 

@@ -43,6 +43,8 @@ package org.glassfish.tests.utils;
 import com.sun.enterprise.universal.process.ProcessManager;
 import com.sun.enterprise.universal.process.ProcessManagerException;
 import com.sun.enterprise.universal.process.ProcessManagerTimeoutException;
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
@@ -284,7 +286,7 @@ public class NucleusTestUtils {
         StringWriter ow = null;
         BufferedReader ir = null;
         try {
-            URL u = new URL(urlstr);
+            URL u = Urls.create(urlstr, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
             URLConnection urlc = u.openConnection();
             ir = new BufferedReader(new InputStreamReader(urlc.getInputStream(),
                     "ISO-8859-1"));

@@ -39,6 +39,8 @@
  */
 
 package test;
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import org.testng.annotations.*;
 import org.testng.Assert;
 
@@ -76,7 +78,7 @@ public class CmpRosterTestNG {
           String testurl = "http://" + host  + ":" + port + "/"+ 
 	    strContextRoot + "/" + TEST_NAME;
 
-	  URL url = new URL(testurl);
+	  URL url = Urls.create(testurl, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
 	  //echo("Connecting to: " + url.toString());
 	  HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 	  conn.connect();

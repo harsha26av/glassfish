@@ -40,6 +40,8 @@
 
 package org.glassfish.appclient.client.jws.boot;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -103,7 +105,7 @@ public class ClassPathManager16 extends ClassPathManager {
             String ssp = resourceURI.getSchemeSpecificPart();
             String jarOnlySSP = ssp.substring(0, ssp.indexOf('!'));
 
-            URL jarOnlyURL = new URL(jarOnlySSP).toURI().toURL();
+            URL jarOnlyURL = Urls.create(jarOnlySSP, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS).toURI().toURL();
 
             /*
              *Use introspection to invoke the method.  This avoids complications

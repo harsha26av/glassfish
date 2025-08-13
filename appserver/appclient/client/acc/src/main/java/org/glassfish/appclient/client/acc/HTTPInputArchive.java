@@ -40,6 +40,8 @@
 
 package org.glassfish.appclient.client.acc;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -108,7 +110,7 @@ public class HTTPInputArchive extends AbstractReadableArchive {
         if (! (name.charAt(0) == '/')) {
             name = "/" + name;
         }
-        return new URL("jar:" + archiveURI.toASCIIString() + "!" + name);
+        return Urls.create("jar:" + archiveURI.toASCIIString() + "!" + name, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
     }
 
     @Override

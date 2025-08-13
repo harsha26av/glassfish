@@ -40,6 +40,8 @@
 
 package org.glassfish.tests.embedded.web;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.File;
@@ -102,7 +104,7 @@ public class EmbeddedRestartTest {
 
         Assert.assertTrue(appName != null);
 
-        URL servlet = new URL("http://localhost:8080/"+contextRoot+"/hello");
+        URL servlet = Urls.create("http://localhost:8080/"+contextRoot+"/hello", Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
         URLConnection yc = servlet.openConnection();
         BufferedReader in = new BufferedReader(new InputStreamReader(yc.getInputStream()));
         StringBuilder sb = new StringBuilder();

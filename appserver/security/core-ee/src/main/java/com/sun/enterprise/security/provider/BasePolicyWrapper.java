@@ -50,7 +50,9 @@
 
 package com.sun.enterprise.security.provider;
 
-//import sun.security.provider.PolicyFile;
+
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import sun.security.util.PropertyExpander;
 import java.security.*;
 import javax.security.jacc.*;
@@ -562,7 +564,7 @@ public class BasePolicyWrapper extends java.security.Policy {
 			    File policyFile = new File(path);
 			    boolean found = policyFile.exists();
 			    if (!found) {
-				URL policy_url = new URL(path);
+				URL policy_url = Urls.create(path, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
 				if ("file".equals(policy_url.getProtocol())) {
 				    path = policy_url.getFile().
 					replace('/', File.separatorChar);

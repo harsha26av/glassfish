@@ -40,6 +40,8 @@
 
 package org.glassfish.web.deployment.util;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -101,6 +103,6 @@ public class VirtualServerInfo {
      * @return the web server root URL
      */
     public URL getWebServerRootURL() throws MalformedURLException {
-        return new URL(protocol, host, port, "");
+        return Urls.create(protocol, host, port, "", Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
     }
 }

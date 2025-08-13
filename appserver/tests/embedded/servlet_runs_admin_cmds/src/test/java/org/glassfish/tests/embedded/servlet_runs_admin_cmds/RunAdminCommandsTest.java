@@ -40,6 +40,8 @@
 
 package org.glassfish.tests.embedded.servlet_runs_admin_cmds;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import junit.framework.Assert;
 import org.glassfish.embeddable.CommandRunner;
 import org.glassfish.embeddable.Deployer;
@@ -87,7 +89,7 @@ public class RunAdminCommandsTest {
     }
 
     private void get(String urlStr, String result) throws Exception {
-        URL url = new URL(urlStr);
+        URL url = Urls.create(urlStr, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
         URLConnection yc = url.openConnection();
         System.out.println("\nURLConnection [" + yc + "] : ");
         BufferedReader in = new BufferedReader(new InputStreamReader(

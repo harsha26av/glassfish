@@ -45,6 +45,8 @@ import com.sun.enterprise.security.jmac.config.HttpServletHelper;
 import com.sun.enterprise.security.web.integration.WebPrincipal;
 import com.sun.enterprise.security.web.integration.WebSecurityManager;
 import com.sun.enterprise.security.web.integration.WebSecurityManagerFactory;
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import org.glassfish.security.common.NonceInfo;
 import com.sun.enterprise.security.CNonceCacheFactory;
 import org.glassfish.security.common.CNonceCache;
@@ -1298,7 +1300,7 @@ public class RealmAdapter extends RealmBase implements RealmInitializer, PostCon
         String serverHost = hostAndPort.get(0);
         redirectPort = Integer.parseInt((hostAndPort.get(1)));
         try {
-            url = new URL(protocol, serverHost, redirectPort, file.toString());
+            url = Urls.create(protocol, serverHost, redirectPort, file.toString(), Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
             hresponse.sendRedirect(url.toString());
             return (false);
         } catch (MalformedURLException e) {

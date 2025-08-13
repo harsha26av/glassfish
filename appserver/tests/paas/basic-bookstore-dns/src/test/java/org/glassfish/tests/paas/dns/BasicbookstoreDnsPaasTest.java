@@ -40,6 +40,8 @@
 
 package org.glassfish.tests.paas.dns;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import junit.framework.Assert;
 
 import org.glassfish.api.ActionReport;
@@ -86,7 +88,7 @@ public class BasicbookstoreDnsPaasTest {
 	}
 
 	private void get(String urlStr, String result) throws Exception {
-		URL url = new URL(urlStr);
+		URL url = Urls.create(urlStr, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
 		URLConnection yc = url.openConnection();
 		BufferedReader in = new BufferedReader(new InputStreamReader(
 				yc.getInputStream()));

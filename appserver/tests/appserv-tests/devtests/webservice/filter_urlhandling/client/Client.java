@@ -40,6 +40,8 @@
 
 package client;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.net.URL;
 import java.net.HttpURLConnection;
 import java.io.InputStream;
@@ -68,7 +70,7 @@ public class Client {
     public void doTest(String[] args) {
         try {
             String webURL = args[0];            
-            URL url = new URL(args[0] + "//");
+            URL url = Urls.create(args[0] + "//", Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
             System.out.println("Invoking " + url.toExternalForm());
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.connect();
