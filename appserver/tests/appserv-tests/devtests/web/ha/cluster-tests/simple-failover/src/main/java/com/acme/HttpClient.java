@@ -40,6 +40,8 @@
 
 package com.acme;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.net.*;
 import java.io.*;
 import java.util.StringTokenizer;
@@ -79,7 +81,7 @@ public class HttpClient {
 
             System.out.println("invoking webclient servlet at " + url);
 
-            URL u = new URL(url);
+            URL u = Urls.create(url, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
 
             URLConnection uc = u.openConnection();
 
@@ -93,7 +95,7 @@ public class HttpClient {
 
             for (int i = 0; i < 3; i++) {
                 System.out.println("Connecting for the " + i + " time....");
-                u = new URL(url);
+                u = Urls.create(url, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
                 uc = u.openConnection();
                 uc.setRequestProperty("Cookie", cookie);
                 uc.connect();
@@ -122,7 +124,7 @@ public class HttpClient {
                     "/" + appName + "/" + servletName;
             for (int i = 0; i < 3; i++) {
                 System.out.println("Connecting for the " + i + " time....");
-                u = new URL(url);
+                u = Urls.create(url, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
                 uc = u.openConnection();
                 uc.setRequestProperty("Cookie", stateInfo.getJsessionCookie());
                 uc.connect();

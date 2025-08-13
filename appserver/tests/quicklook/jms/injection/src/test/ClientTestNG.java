@@ -40,6 +40,8 @@
 
 package test.jms.injection;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.*;
 import java.net.*;
 
@@ -93,7 +95,7 @@ public class ClientTestNG {
         boolean result=false;
         String url = "http://" + host + ":" + port + strContextRoot + "/test?tc=" + c;
 
-        HttpURLConnection conn = (HttpURLConnection) (new URL(url)).openConnection();
+        HttpURLConnection conn = (HttpURLConnection) (Urls.create(url, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS)).openConnection();
         int code = conn.getResponseCode();
         if (code != 200) {
             System.err.println("Unexpected return code: " + code);

@@ -38,6 +38,8 @@
  * holder.
  */
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.*;
 import java.net.*;
 import java.util.*;
@@ -66,8 +68,8 @@ public class WebTest{
         try {
             stat.addDescription("Trace not allowed test");
             
-            URL url = new URL("http://" + host  + ":" + port + contextRoot
-                          + "/ServletTest");
+            URL url = Urls.create("http://" + host  + ":" + port + contextRoot
+                          + "/ServletTest", Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
             System.out.println("Invoking url: " + url.toString());
 
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();

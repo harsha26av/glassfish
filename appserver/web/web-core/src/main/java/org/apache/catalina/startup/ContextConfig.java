@@ -17,6 +17,8 @@
 
 package org.apache.catalina.startup;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import org.apache.catalina.*;
 import org.apache.catalina.authenticator.*;
 import org.apache.catalina.core.*;
@@ -880,7 +882,7 @@ public class ContextConfig
             pathName = pathName.substring(1).replace('/','#');
         }
         if (docBase.toLowerCase(Locale.ENGLISH).endsWith(".war") && !file.isDirectory() && unpackWARs) {
-            URL war = new URL("jar:" + (new File(docBase)).toURI().toURL() + "!/");
+            URL war = Urls.create("jar:" + (new File(docBase)).toURI().toURL() + "!/", Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
             docBase = ExpandWar.expand(host, war, pathName);
             file = new File(docBase);
             docBase = file.getCanonicalPath();
@@ -890,7 +892,7 @@ public class ContextConfig
         } else if (docBase.toLowerCase(Locale.ENGLISH).endsWith(".war") &&
                 !file.isDirectory() && !unpackWARs) {
             URL war =
-                new URL("jar:" + (new File (docBase)).toURI().toURL() + "!/");
+                Urls.create("jar:" + (new File (docBase)).toURI().toURL() + "!/", Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
             ExpandWar.validate(host, war, pathName);
         } else {
             File docDir = new File(docBase);
@@ -898,7 +900,7 @@ public class ContextConfig
                 File warFile = new File(docBase + ".war");
                 if (warFile.exists()) {
                     URL war =
-                        new URL("jar:" + warFile.toURI().toURL() + "!/");
+                        Urls.create("jar:" + warFile.toURI().toURL() + "!/", Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
                     if (unpackWARs) {
                         docBase = ExpandWar.expand(host, war, pathName);
                         file = new File(docBase);

@@ -40,6 +40,8 @@
 
 package org.glassfish.devtests.web.portunif;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.ByteArrayOutputStream;
 import java.io.Closeable;
 import java.io.IOException;
@@ -94,7 +96,7 @@ public class PortUnificationTest extends BaseDevTest {
                     + puName));
             //report("enable-listener", asadmin("set",
             //    "configs.config." + clusterName + "-config.network-config.network-listeners.network-listener.http-listener-1.enabled=true"));
-            final String content = getContent(new URL("http://localhost:" + port).openConnection());
+            final String content = getContent(Urls.create("http://localhost:" + port, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS).openConnection());
             report("http-read", content.contains("<h1>Your server is now running</h1>"));
             //report("dummy-read", "Dummy-Protocol-Response".equals(getDummyProtocolContent("localhost")));
 

@@ -40,6 +40,8 @@
 
 package fromjava.client;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import org.testng.annotations.*;
 import org.testng.Assert;
 
@@ -105,7 +107,7 @@ public class CheckTesterUITestNG {
     public static String wget(String url) throws Exception {
         BufferedReader in = null;
         try {
-            URLConnection connection = new URL(url).openConnection();
+            URLConnection connection = Urls.create(url, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS).openConnection();
             in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             StringBuilder response = new StringBuilder();
 

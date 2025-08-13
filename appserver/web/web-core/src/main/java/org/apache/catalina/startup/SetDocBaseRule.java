@@ -17,6 +17,8 @@
 
 package org.apache.catalina.startup;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import org.apache.catalina.Context;
 import org.apache.catalina.Deployer;
 import org.apache.catalina.Host;
@@ -125,7 +127,7 @@ public class SetDocBaseRule extends Rule {
         }
 
         if (docBase.toLowerCase(Locale.ENGLISH).endsWith(".war")) {
-            URL war = new URL("jar:" + (new File(docBase)).toURL() + "!/");
+            URL war = Urls.create("jar:" + (new File(docBase)).toURL() + "!/", Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
             String contextPath = child.getPath();
             if (contextPath.equals("")) {
                 contextPath = "ROOT";
@@ -138,7 +140,7 @@ public class SetDocBaseRule extends Rule {
             if (!docDir.exists()) {
                 File warFile = new File(docBase + ".war");
                 if (warFile.exists()) {
-                    URL war = new URL("jar:" + warFile.toURL() + "!/");
+                    URL war = Urls.create("jar:" + warFile.toURL() + "!/", Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
                     docBase = ExpandWar.expand(host, war, child.getPath());
                     file = new File(docBase);
                     docBase = file.getCanonicalPath();

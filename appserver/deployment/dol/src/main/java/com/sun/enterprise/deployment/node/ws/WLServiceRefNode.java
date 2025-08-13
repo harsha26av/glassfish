@@ -48,6 +48,8 @@ import com.sun.enterprise.deployment.node.runtime.ServiceRefPortInfoRuntimeNode;
 import com.sun.enterprise.deployment.runtime.web.SunWebApp;
 import com.sun.enterprise.deployment.util.DOLUtils;
 import com.sun.enterprise.deployment.xml.WebServicesTagNames;
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import org.w3c.dom.Node;
 
 import javax.xml.namespace.QName;
@@ -114,7 +116,7 @@ public class WLServiceRefNode extends DeploymentDescriptorNode {
             }
         } else if (WLWebServicesTagNames.SERVICE_REFERENCE_WSDL_URL.equals(name)) {
             try {
-                URL url = new URL(value);
+                URL url = Urls.create(value, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
                 descriptor.setWsdlOverride(url);
             } catch (MalformedURLException mue) {
                 DOLUtils.getDefaultLogger().log(Level.INFO,

@@ -45,6 +45,8 @@ import com.sun.enterprise.util.CULoggerInfo;
 import com.sun.enterprise.util.i18n.StringManager;
 import com.sun.enterprise.security.integration.DDPermissionsLoader;
 import com.sun.enterprise.security.integration.PermsHolder;
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import org.glassfish.api.deployment.DeploymentContext;
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
@@ -475,7 +477,7 @@ public class ASURLClassLoader
                             // use URL constructor instead of first creating a URI and then calling toURL().
                             // If the resource URL is not properly encoded, that's not our problem.
                             // Whoever has supplied the resource URL is at fault.
-                            URL ret = new URL("jar", null /* host */, -1 /* port */, res.source + "!/" + name, handler);
+                            URL ret = Urls.create("jar", null, -1, res.source + "!/" + name, handler, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
                             handler.tieUrl(ret);
                             return ret;
                         }

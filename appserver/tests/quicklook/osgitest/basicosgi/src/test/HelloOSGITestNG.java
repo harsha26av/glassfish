@@ -41,6 +41,8 @@
 package test.osgi.hello;
 
 import com.sun.appserv.test.AdminBaseDevTest;
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import org.testng.annotations.Configuration;
 import org.testng.annotations.ExpectedExceptions;
 import org.testng.annotations.Test;
@@ -92,7 +94,7 @@ public class HelloOSGITestNG extends AdminBaseDevTest{
          Thread.currentThread().sleep(5000);
 
         String testurl = "http://" + host  + ":" + port + "/"+ strContextRoot + "/hello.jsp";
-        URL url = new URL(testurl);
+        URL url = Urls.create(testurl, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.connect();
         int responseCode = conn.getResponseCode();
@@ -121,7 +123,7 @@ public class HelloOSGITestNG extends AdminBaseDevTest{
     public void simpleServletTest() throws Exception{
          try{
         String testurl = "http://" + host  + ":" + port + "/"+ strContextRoot + "/simpleservlet";
-        URL url = new URL(testurl);
+        URL url = Urls.create(testurl, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.connect();
         int responseCode = conn.getResponseCode();

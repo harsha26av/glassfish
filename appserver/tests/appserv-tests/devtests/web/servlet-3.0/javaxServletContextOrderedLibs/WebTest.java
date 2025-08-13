@@ -38,6 +38,8 @@
  * holder.
  */
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.*;
 import java.net.*;
 import com.sun.ejte.ccl.reporter.*;
@@ -99,7 +101,7 @@ public class WebTest {
         String url = "http://" + host + ":" + port + contextRoot +
             "/webFragment1Servlet";
         HttpURLConnection conn = (HttpURLConnection)
-            (new URL(url)).openConnection();
+            (Urls.create(url, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS)).openConnection();
         int code = conn.getResponseCode();
         if (code != 200) {
             throw new Exception("Unexpected return code: " + code);
@@ -107,7 +109,7 @@ public class WebTest {
 
         url = "http://" + host + ":" + port + contextRoot +
             "/webFragment2Servlet";
-        conn = (HttpURLConnection) (new URL(url)).openConnection();
+        conn = (HttpURLConnection) (Urls.create(url, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS)).openConnection();
         code = conn.getResponseCode();
         if (code != 200) {
             throw new Exception("Unexpected return code: " + code);

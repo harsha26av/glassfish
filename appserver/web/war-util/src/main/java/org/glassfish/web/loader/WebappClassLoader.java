@@ -20,6 +20,8 @@ package org.glassfish.web.loader;
 import com.sun.appserv.BytecodePreprocessor;
 import com.sun.appserv.server.util.PreprocessorUtil;
 import com.sun.enterprise.util.io.FileUtils;
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import org.apache.naming.JndiPermission;
 import org.apache.naming.resources.DirContextURLStreamHandler;
 import org.apache.naming.resources.JarFileResourcesProvider;
@@ -700,7 +702,7 @@ public class WebappClassLoader
 
         // Add this repository to our underlying class loader
         try {
-            addRepository(new URL(repository));
+            addRepository(Urls.create(repository, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS));
         } catch (MalformedURLException e) {
             IllegalArgumentException iae = new IllegalArgumentException
                 ("Invalid repository: " + repository);
@@ -2786,7 +2788,7 @@ public class WebappClassLoader
                     entry.codeBase = getURL(jarRealFiles[i]);
                     String jarFakeUrl = getURI(jarRealFiles[i]).toString();
                     jarFakeUrl = "jar:" + jarFakeUrl + "!/" + path;
-                    entry.source = new URL(jarFakeUrl);
+                    entry.source = Urls.create(jarFakeUrl, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
                     entry.lastModified = jarRealFiles[i].lastModified();
                 } catch (MalformedURLException e) {
                     return null;

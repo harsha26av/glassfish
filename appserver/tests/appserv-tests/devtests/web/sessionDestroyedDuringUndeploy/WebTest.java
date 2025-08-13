@@ -38,6 +38,8 @@
  * holder.
  */
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.*;
 import java.net.*;
 import com.sun.ejte.ccl.reporter.*;
@@ -100,7 +102,7 @@ public class WebTest {
 
         String jsessionId = accessIndexDotJsp();
         String redirect = accessLoginPage(jsessionId);
-        String jsessionIdSSO = followRedirect(new URL(redirect).getPath(),
+        String jsessionIdSSO = followRedirect(Urls.create(redirect, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS).getPath(),
                                               jsessionId);
 
         // Store the JSESSIONIDSSO in a file
@@ -140,8 +142,8 @@ public class WebTest {
      */
     private String accessIndexDotJsp() throws Exception {
 
-        URL url = new URL("http://" + host  + ":" + port + contextRoot
-                          + "/index.jsp");
+        URL url = Urls.create("http://" + host  + ":" + port + contextRoot
+                          + "/index.jsp", Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
         System.out.println("Connecting to: " + url.toString());
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.connect();

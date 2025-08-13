@@ -40,6 +40,8 @@
 
 package org.glassfish.devtests.web.allowencodedslash;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -83,7 +85,7 @@ public class AllowEncodedSlash extends BaseDevTest {
     private void fetch(final String adminPort, final int expectedCode, final int count) throws IOException {
         HttpURLConnection connection = null;
         try {
-            connection = (HttpURLConnection) new URL("http://localhost:" + adminPort + "/management/domain/resources/jdbc-resource/jdbc%2F__TimerPool.xml").openConnection();
+            connection = (HttpURLConnection) Urls.create("http://localhost:" + adminPort + "/management/domain/resources/jdbc-resource/jdbc%2F__TimerPool.xml", Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS).openConnection();
             connection.setRequestProperty("X-GlassFish-3", "true");
             System.out.println("Connection response code returned "+connection.getResponseCode()); 
             report("response-" + expectedCode + "-try-" + count, expectedCode == connection.getResponseCode());

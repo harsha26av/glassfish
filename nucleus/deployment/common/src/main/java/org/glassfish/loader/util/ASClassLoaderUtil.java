@@ -43,6 +43,8 @@ package org.glassfish.loader.util;
 import com.sun.enterprise.module.Module;
 import com.sun.enterprise.module.ModulesRegistry;
 import com.sun.enterprise.util.io.FileUtils;
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import org.glassfish.api.deployment.DeployCommandParameters;
 import org.glassfish.api.deployment.DeploymentContext;
 import org.glassfish.hk2.api.ServiceLocator;
@@ -375,7 +377,7 @@ public class ASClassLoaderUtil {
                 String path = st.nextToken();
                 try {
                     // try to see if the path is absolute
-                    URL url = new URL(path);
+                    URL url = Urls.create(path, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
                     URI uri = url.toURI();
                     if (uri.isAbsolute()) {
                         urls.add(uri.toURL());

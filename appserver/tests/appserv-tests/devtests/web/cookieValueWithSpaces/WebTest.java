@@ -38,6 +38,8 @@
  * holder.
  */
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.*;
 import java.net.*;
 import com.sun.ejte.ccl.reporter.*;
@@ -90,8 +92,8 @@ public class WebTest {
 
     private void invokeCreateCookie() throws Exception {
 
-        URL url = new URL("http://" + host  + ":" + port + contextRoot
-                          + "/createCookie");
+        URL url = Urls.create("http://" + host  + ":" + port + contextRoot
+                          + "/createCookie", Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
         System.out.println(url.toString());
 
         URLConnection conn = url.openConnection();

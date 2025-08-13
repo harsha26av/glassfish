@@ -40,6 +40,8 @@
 
 package com.acme;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import org.glassfish.tests.ejb.sample.Simple;
 import embedded.util.ZipUtil;
 
@@ -135,8 +137,8 @@ public class Client {
             c = EJBContainer.createEJBContainer(p);
         // ok now let's look up the EJB...
             System.out.println("Testing EJB via REST...");
-            System.out.println("EJB said: " + testResourceAtUrl(new URL(LOCALHOST + appName + "-web/test/simple")));
-            System.out.println("JPA call returned: " + testResourceAtUrl(new URL(LOCALHOST + appName + "-web/test/jpa")));
+            System.out.println("EJB said: " + testResourceAtUrl(Urls.create(LOCALHOST + appName + "-web/test/simple", Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS)));
+            System.out.println("JPA call returned: " + testResourceAtUrl(Urls.create(LOCALHOST + appName + "-web/test/jpa", Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS)));
 
         } catch (Exception e) {
             pass = false;
